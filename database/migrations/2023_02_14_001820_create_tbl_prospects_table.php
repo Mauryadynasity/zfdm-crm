@@ -35,11 +35,11 @@ class CreateTblProspectsTable extends Migration
             $table->string('protocol', 199)->nullable();
             $table->string('no_device', 199)->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->bigInteger('owner_id')->unsigned();
+            $table->bigInteger('admin_id');
 
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('owner_id')->references('id')->on('tbl_admin');
+            // $table->foreign('owner_id')->references('id')->on('tbl_admin');
 
         });
     }

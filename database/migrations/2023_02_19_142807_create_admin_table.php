@@ -14,7 +14,7 @@ class CreateAdminTable extends Migration
     public function up()
     {
         Schema::create('admin', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone', 99)->nullable();
@@ -25,7 +25,7 @@ class CreateAdminTable extends Migration
             $table->bigInteger('role_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('role_id')->references('id')->on('tbl_roles');
+            // $table->foreign('role_id')->references('id')->on('tbl_roles');
         });
     }
 
