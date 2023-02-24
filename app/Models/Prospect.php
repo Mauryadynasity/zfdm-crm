@@ -5,16 +5,16 @@ namespace App\Models;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+// use Spatie\MediaLibrary\HasMedia\HasMedia;
+// use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\File;
 use Auth;
 use DB;
 use Storage;
 
-class Prospect extends Model implements HasMedia
+class Prospect extends Model
 {
-    use HasMediaTrait,SoftDeletes;
+    use SoftDeletes;
 
     /** By Abhishek
      * The attributes that are mass assignable.

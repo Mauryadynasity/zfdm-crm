@@ -28,6 +28,9 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
+  <!-- dataTable jquery cdn -->
+  <link rel="stylesheet" type="text/css" href="{{asset('dataTable/css/jquery.dataTables.css')}}">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -103,6 +106,8 @@
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+<!-- jQuery dataTable cdn -->
+<script type="text/javascript" charset="utf8" src="{{asset('dataTable/js/jquery.dataTables.js')}}"></script>
 <!-- <script>
     $('.numbersOnly').keyup(function() {
             this.value = this.value.replace(/[^0-9\.]/g, '');

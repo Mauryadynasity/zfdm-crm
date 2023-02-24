@@ -25,8 +25,13 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <!-- <li class="header">MAIN NAVIGATION</li> -->
-        <li class="active treeview">
-        <li><a href="{{url('admin/dashboard')}}">
+        @if(Auth::guard('admin')->user()->role_id == 1)
+        <li class="{{Request::is('admin/user-list') ? 'active treeview' : ''}}">
+          <a href="{{ url('admin/user-list')}}"><i class="active fa fa-circle-o text-aqua"></i> <span>Add User</span></a>
+        </li>
+        @endif
+        <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}">
+        <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}"><a href="{{url('admin/user-dashboard')}}">
           <i class="fa fa fa-dashboard"></i>
           <span>Main Dashboard</span></a>
         </li>
@@ -186,10 +191,8 @@
         <li class="header">LABELS</li> -->
         <!-- <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
-        @if(Auth::guard('admin')->user()->role_id == 1)
-        <li><a href="{{ url('admin/user-list')}}"><i class="fa fa-circle-o text-aqua"></i> <span>Add User</span></a></li>
-        @endif
-        <li><a href="{{url('admin/change-password')}}"><i class="fa fa-circle-o text-aqua"></i> <span>Change Password</span></a></li>
+        <li class="{{Request::is('admin/change-password') ? 'active treeview' : ''}}"><a href="{{url('admin/change-password')}}"><i class="fa fa-circle-o text-aqua"></i> <span>Change Password</span></a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

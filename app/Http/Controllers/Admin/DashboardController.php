@@ -21,6 +21,10 @@ class DashboardController extends Controller {
 	public function dashboard(Request $request) {
 		// $data['prospacts'] = Prospect::all();
 		return view('admin.dashboard');
+	}
+	public function userDashboard(Request $request) {
+		$data['prospacts'] = Prospect::all();
+		return view('admin.user-dashboard',$data);
 	}	
 
 }

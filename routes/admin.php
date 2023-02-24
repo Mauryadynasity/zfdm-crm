@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin;
         Route::get('delete-user/{id}', [Admin\UserController::class,'destroy']);
         Route::resource('application', Admin\ApplicationController::class);
         Route::get('dashboard', [Admin\DashboardController::class,'dashboard']);
+        Route::get('user-dashboard', [Admin\DashboardController::class,'userDashboard']);
     });
     
 
