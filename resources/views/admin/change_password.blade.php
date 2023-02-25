@@ -3,12 +3,12 @@
 
 <section class="content-header">
     <h1>
-    Change Password
+    {{__('messages.change_pass')}}
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Change Password</li>
+    <li class="active">{{__('messages.change_pass')}}</li>
     </ol>
 </section>
 
@@ -46,7 +46,7 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label>Old Password</label>
+                <label>{{__('messages.old_password')}}</label>
                 <input type="text" name="old_pass" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                   @if($errors->has('old_pass'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('old_pass') }}</span>
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>New Password</label>
+                <label>{{__('messages.new_password')}}</label>
                 <input type="text" name="new_pass" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                   @if($errors->has('new_pass'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('new_pass') }}</span>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Confirm Password</label>
+                <label>{{__('messages.confirm_password')}}</label>
                 <input type="text" name="con_pass" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                 @if($errors->has('con_pass'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('con_pass') }}</span>
@@ -74,7 +74,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label></label>
-                <button type="submit" class="form-control btn btn-primary" style="margin-top: 4px;">Submit</button>
+                <button type="submit" class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
               </div>
             </div>
           </div>

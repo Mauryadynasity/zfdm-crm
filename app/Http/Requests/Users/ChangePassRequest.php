@@ -40,11 +40,11 @@ class ChangePassRequest extends FormRequest
     public function messages()
     {
         return [
-            'old_pass.required' => __('Old Password required'),
-            'new_pass.required' => 'New Password is required.',
-            'new_pass.regex' =>'Password must contain atleast 8 characters with one uppercase,one lowercase and one number',
-            'con_pass.required' => 'Confirm password is required.',
-            'con_pass.same' => 'The Password and Confirm Password does not match.',
+            // 'old_pass.required' => __('messages.old_pass_required'),
+            // 'new_pass.required' => 'New Password is required.',
+            // 'new_pass.regex' =>'Password must contain atleast 8 characters with one uppercase,one lowercase and one number',
+            // 'con_pass.required' => 'Confirm password is required.',
+            // 'con_pass.same' => 'The Password and Confirm Password does not match.',
         ];
     }
 

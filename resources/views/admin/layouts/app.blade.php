@@ -52,6 +52,16 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
+<div class="row">
+<div class="col-md-12 text-right">
+  <br/>
+  <select onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
+    <option value="en" @if(Session::get('applocale')=='en') selected @endif>English</option>
+    <option value="gm" @if(Session::get('applocale')=='gm') selected @endif>German</option>
+  </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <br/>
+</div>
+</div>
   @yield('content')
 
     <!-- Content Header (Page header) -->

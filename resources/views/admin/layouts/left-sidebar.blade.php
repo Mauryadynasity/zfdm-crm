@@ -27,13 +27,13 @@
         <!-- <li class="header">MAIN NAVIGATION</li> -->
         @if(Auth::guard('admin')->user()->role_id == 1)
         <li class="{{Request::is('admin/user-list') ? 'active treeview' : ''}}">
-          <a href="{{ url('admin/user-list')}}"><i class="active fa fa-circle-o text-aqua"></i> <span>Add User</span></a>
+          <a href="{{ url('admin/user-list')}}"><i class="active fa fa-circle-o text-aqua"></i> <span>{{__('messages.create_user')}}</span></a>
         </li>
         @endif
         <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}">
         <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}"><a href="{{url('admin/user-dashboard')}}">
           <i class="fa fa fa-dashboard"></i>
-          <span>Main Dashboard</span></a>
+          <span>{{__('messages.main_dashboard')}}</span></a>
         </li>
 
           <!-- <ul class="treeview-menu">
@@ -82,41 +82,40 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>Vertrieb</span>
+            <span>{{__('messages.distribution')}}</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Vertrieb</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> {{__('messages.distribution')}}</a></li>
           </ul>
         </li>
-        <!-- <li class="treeview">
+         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Forms</span>
+            <i class="fa fa-building-o" aria-hidden="true"></i><span>{{__('messages.back_office')}}</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> {{__('messages.back_office')}} 1</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> {{__('messages.back_office')}} 2</a></li>
           </ul>
         </li>
-        <li class="treeview">
+       <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Tables</span>
+            <i class="fa fa-table"></i> <span>{{__('messages.accounting')}}</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> {{__('messages.accounting')}} 1</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> {{__('messages.accounting')}} 2</a></li>
           </ul>
         </li>
-        <li>
+        <!--<li>
           <a href="pages/calendar.html">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
@@ -191,7 +190,7 @@
         <li class="header">LABELS</li> -->
         <!-- <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
-        <li class="{{Request::is('admin/change-password') ? 'active treeview' : ''}}"><a href="{{url('admin/change-password')}}"><i class="fa fa-circle-o text-aqua"></i> <span>Change Password</span></a>
+        <li class="{{Request::is('admin/change-password') ? 'active treeview' : ''}}"><a href="{{url('admin/change-password')}}"><i class="fa fa-circle-o text-aqua"></i> <span>{{__('messages.change_pass')}}</span></a>
         </li>
       </ul>
     </section>
