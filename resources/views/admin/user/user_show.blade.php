@@ -3,12 +3,12 @@
 
 <section class="content-header">
     <h1>
-    Create User
+    {{__('messages.create_user')}}
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">User</li>
+    <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
+    <li class="active">{{__('messages.create_user')}}</li>
     </ol>
 </section>
 
@@ -46,7 +46,7 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label>Name</label>
+                <label>{{__('messages.user_name')}}</label>
                 <input type="text" name="name" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
                   @if($errors->has('name'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('name') }}</span>
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Email</label>
+                <label>{{__('messages.email')}}</label>
                 <input type="text" name="email" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
                   @if($errors->has('email'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('email') }}</span>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Phone</label>
+                <label>{{__('messages.phone')}}</label>
                 <input type="text" name="phone" class="form-control numbersOnly" style="width: 100%;" tabindex="-1" aria-hidden="true">
                 @if($errors->has('phone'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('phone') }}</span>
@@ -73,7 +73,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Password</label>
+                <label>{{__('messages.password')}}</label>
                 <input type="text" name="password" class="form-control numbersOnly" style="width: 100%;" tabindex="-1" aria-hidden="true">
                 @if($errors->has('password'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('password') }}</span>
@@ -81,9 +81,9 @@
               </div>
             </div>
             <div class="col-md-3">
-                     <strong>Role: <span style="color:red">*</span></strong>
+                     <strong>{{__('messages.role')}}: <span style="color:red">*</span></strong>
                      <select name="role_id" id="Role" class="form-control">
-                        <option value="">--- Select Role ---</option>
+                        <option value="">--- {{__('messages.role')}} ---</option>
                         @foreach($roles as $role)
                         <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
@@ -95,7 +95,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label></label>
-                <button type="submit" class="form-control btn btn-primary" style="margin-top: 4px;">Submit</button>
+                <button type="submit" class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
               </div>
             </div>
           </div>
@@ -106,12 +106,12 @@
         <table class="table table-bordered border-success yajra-datatable" width="100%"></div>
           <thead>
             <tr>
-              <th>Sr No</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Role</th>
-              <th>Action</th>
+              <th>{{__('messages.sr_no')}}</th>
+              <th>{{__('messages.user_name')}}</th>
+              <th>{{__('messages.email')}}</th>
+              <th>{{__('messages.phone')}}</th>
+              <th>{{__('messages.role')}}</th>
+              <th>{{__('messages.action')}}</th>
             </tr>
           </thead>
           <tbody>
@@ -122,7 +122,7 @@
               <td>{{$user->email}}</td>
               <td>{{$user->phone}}</td>
               <td>{{$user->role->name}}</td>
-              <td><a href="{{url('admin/delete-user')}}/{{$user->id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a></td>
+              <td><a href="{{url('admin/delete-user')}}/{{$user->id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">{{__('messages.delete_button')}}</a></td>
               @endforeach
             </tr>
           </tbody>

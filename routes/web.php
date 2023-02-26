@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Session;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +16,10 @@
 Route::get('/', function () {
     return view('admin.login');
 });
-
+Route::get('/greeting/{locale}', function (string $locale) {
+    Session::put('applocale',$locale);
+    return back();
+});
 
 Route::get('dashboard', function () {
     return view('admin.dashboard');
