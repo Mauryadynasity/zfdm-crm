@@ -3,7 +3,7 @@
 return [
 
     'Super Admin' => 'Super Admin',
-    'Inbound' => 'Inbound',
+    'InBound' => 'Inbound',
     'OutBound' => 'OutBound',
     'create_user' => 'Create User',
     'home' => 'Home',
@@ -28,6 +28,9 @@ return [
     'profile' => 'Profile',
     'lgin_heading' => 'ZFDM',
     'old_pass_required' => 'Old Password is required',
+    'Sign_In' => 'Sign In',
+    'CRM_Login' => 'CRM Login',
+    'Dashboard' => 'Dashboard',
 
 
 ];

@@ -35,7 +35,7 @@ class UserController extends Controller {
 		$request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:tbl_users',
-            'phone' => 'required|numeric|min:12',
+            'phone' => 'required|numeric|digits:10',
             'role_id' => 'required',
             'password' => 'required',
         ],
@@ -76,7 +76,7 @@ class UserController extends Controller {
 
 	public function destroy($id){
 		Admin::where(['id'=>$id])->delete();
-		 return back()->with('message','Deleted Successfully.');
+		 return back()->with('fail','Deleted Successfully.');
 
 	}
 

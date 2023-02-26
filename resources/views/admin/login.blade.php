@@ -27,15 +27,31 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style>
+    html, body {
+    height: auto;
+}
+  </style>
 </head>
 <body class="hold-transition login-page">
+<div class="row">
+<div class="col-md-12 text-right">
+  <br/>
+  <select onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
+    <option value="gm" @if(Session::get('applocale')=='gm') selected @endif>German</option>
+    <option value="en" @if(Session::get('applocale')=='en') selected @endif>English</option>
+  </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <br/>
+</div>
+</div>
 <div class="login-box">
-  <div class="login-logo">
-    <a href="#"><b>ZFDM</b></a>
-  </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in here</p>
+  <div class="login-logo">
+    <img src="{{asset('images/logo.png')}}" alt="">
+  </div>
+    <h3 class="text-info text-center" style="margin-bottom: 15px;"><strong>{{__('messages.CRM_Login')}}</strong></h3>
+    <hr style="height: 1px;background-color: #c0c0c0;"/>
     @if(session()->has('message'))
             <div class="alert alert-success">
               {{ session()->get('message') }}
@@ -64,28 +80,28 @@
             @endif --}}
         </div>
         <div class="row">
-          <div class="col-xs-8">
+          <!-- <div class="col-xs-8">
             <div class="checkbox icheck">
               <label>
                 <input type="checkbox" value="1"> Remember Me
               </label>
             </div>
-          </div>
+          </div> -->
           <!-- /.col -->
-          <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">{{__('messages.Sign_In')}}</button>
           </div>
           <!-- /.col -->
         </div>
     </form>
 
-    <div class="social-auth-links text-center">
+    <!-- <div class="social-auth-links text-center">
       <p>- OR -</p>
       <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
         Facebook</a>
       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
         Google+</a>
-    </div>
+    </div> -->
     <!-- /.social-auth-links -->
 
     <!-- <a href="#">I forgot my password</a><br> -->

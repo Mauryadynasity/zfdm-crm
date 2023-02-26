@@ -26,6 +26,9 @@ return [
     'profile' => 'Profil',
     'logout_button' => 'austragen',
     'old_pass_required' => 'Altes Passwort',
+    'Sign_In' => 'Anmelden',
+    'CRM_Login' => 'CRM Anmeldung',
+    'Dashboard' => 'Armaturenbrett',
 
 
 

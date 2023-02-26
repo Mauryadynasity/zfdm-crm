@@ -7,6 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="{{asset('validation/css/screen.css')}}">
   <link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
@@ -56,8 +57,8 @@
 <div class="col-md-12 text-right">
   <br/>
   <select onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
-    <option value="en" @if(Session::get('applocale')=='en') selected @endif>English</option>
     <option value="gm" @if(Session::get('applocale')=='gm') selected @endif>German</option>
+    <option value="en" @if(Session::get('applocale')=='en') selected @endif>English</option>
   </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <br/>
 </div>
@@ -118,11 +119,14 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <!-- jQuery dataTable cdn -->
 <script type="text/javascript" charset="utf8" src="{{asset('dataTable/js/jquery.dataTables.js')}}"></script>
-<!-- <script>
-    $('.numbersOnly').keyup(function() {
-            this.value = this.value.replace(/[^0-9\.]/g, '');
-        });
-</script> -->
+<script type="text/javascript" charset="utf8" src="{{asset('validation/js/jquery.validate.min.js')}}"></script>
+<script>
+$('.numbersOnly').keypress(function (e) {    
+    var charCode = (e.which) ? e.which : event.keyCode    
+    if (String.fromCharCode(charCode).match(/[^0-9]/g))    
+        return false;                        
+});   
+</script>
 
 @yield('scripts')
 

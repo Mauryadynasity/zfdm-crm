@@ -27,7 +27,7 @@
         <!-- <li class="header">MAIN NAVIGATION</li> -->
         @if(Auth::guard('admin')->user()->role_id == 1)
         <li class="{{Request::is('admin/user-list') ? 'active treeview' : ''}}">
-          <a href="{{ url('admin/user-list')}}"><i class="active fa fa-circle-o text-aqua"></i> <span>{{__('messages.create_user')}}</span></a>
+          <a href="{{ url('admin/user-list')}}"><i class="active fa fa-user"></i> <span>{{__('messages.create_user')}}</span></a>
         </li>
         @endif
         <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}">
@@ -91,6 +91,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> {{__('messages.distribution')}}</a></li>
           </ul>
         </li>
+        @if(Auth::guard('admin')->user()->role_id == 1)
          <li class="treeview">
           <a href="#">
             <i class="fa fa-building-o" aria-hidden="true"></i><span>{{__('messages.back_office')}}</span>
@@ -115,6 +116,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> {{__('messages.accounting')}} 2</a></li>
           </ul>
         </li>
+        @endif
         <!--<li>
           <a href="pages/calendar.html">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
@@ -190,7 +192,7 @@
         <li class="header">LABELS</li> -->
         <!-- <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
-        <li class="{{Request::is('admin/change-password') ? 'active treeview' : ''}}"><a href="{{url('admin/change-password')}}"><i class="fa fa-circle-o text-aqua"></i> <span>{{__('messages.change_pass')}}</span></a>
+        <li class="{{Request::is('admin/change-password') ? 'active treeview' : ''}}"><a href="{{url('admin/change-password')}}"><i class="fa fa-key"></i> <span>{{__('messages.change_pass')}}</span></a>
         </li>
       </ul>
     </section>

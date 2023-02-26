@@ -40,14 +40,14 @@
                 @endif
               </div>
           </div>
-          <form name="myForm" action="{{url('admin/save-user')}}" method="post">
+          <form name="myForm" id="myForm" action="{{url('admin/save-user')}}" method="post">
           <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
 
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label>{{__('messages.user_name')}}</label>
-                <input type="text" name="name" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                <label>{{__('messages.user_name')}} <span style="color:red">*</span></label>
+                <input type="text" name="name" value="{{old('name')}}" class="form-control" style="width: 100%;" required>
                   @if($errors->has('name'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('name') }}</span>
                   @endif
@@ -56,7 +56,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>{{__('messages.email')}}</label>
-                <input type="text" name="email" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                <input type="email" name="email" value="{{old('email')}}" class="form-control" style="width: 100%;" required>
                   @if($errors->has('email'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('email') }}</span>
                   @endif
@@ -65,7 +65,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>{{__('messages.phone')}}</label>
-                <input type="text" name="phone" class="form-control numbersOnly" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                <input type="text" name="phone" value="{{old('phone')}}" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
                 @if($errors->has('phone'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('phone') }}</span>
                   @endif
@@ -74,18 +74,19 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>{{__('messages.password')}}</label>
-                <input type="text" name="password" class="form-control numbersOnly" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                <input type="text" name="password" value="{{old('password')}}" class="form-control numbersOnly" style="width: 100%;" required>
                 @if($errors->has('password'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('password') }}</span>
                   @endif
               </div>
             </div>
+            <div class="clearfix"></div>
             <div class="col-md-3">
                      <strong>{{__('messages.role')}}: <span style="color:red">*</span></strong>
-                     <select name="role_id" id="Role" class="form-control">
+                     <select name="role_id" id="Role" class="form-control" required>
                         <option value="">--- {{__('messages.role')}} ---</option>
                         @foreach($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
+                        <option value="{{$role->id}}" @if($role->id==old('role_id')) selected @endif>{{$role->name}}</option>
                         @endforeach
                      </select>
                      @if($errors->has('role_id'))
@@ -99,11 +100,12 @@
               </div>
             </div>
           </div>
+          <hr style="height:2px;background-color: #c0c0c0;" />
           <!-- /.row -->
         </div>
         <!-- /.box-body -->
 
-        <table class="table table-bordered border-success yajra-datatable" width="100%"></div>
+        <table class="table table-bordered border-success yajra-datatable" id="userList" width="100%"></div>
           <thead>
             <tr>
               <th>{{__('messages.sr_no')}}</th>
@@ -131,5 +133,12 @@
      
 
     </section>
+
+@section('scripts')
+<script>
+$('#userList').dataTable();
+$('#myForm').validate();
+</script>
+@endsection
 
     @endsection
