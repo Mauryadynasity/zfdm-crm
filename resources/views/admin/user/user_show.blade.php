@@ -74,7 +74,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>{{__('messages.password')}}</label>
-                <input type="text" name="password" value="{{old('password')}}" class="form-control numbersOnly" style="width: 100%;" required>
+                <input type="text" name="password" value="{{old('password')}}" class="form-control" style="width: 100%;" required>
                 @if($errors->has('password'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('password') }}</span>
                   @endif
