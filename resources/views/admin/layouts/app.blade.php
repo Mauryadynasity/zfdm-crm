@@ -117,6 +117,7 @@
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+<script src="{{asset('dist/js/sweetalert2@11.js')}}"></script>
 <!-- jQuery dataTable cdn -->
 <script type="text/javascript" charset="utf8" src="{{asset('dataTable/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" charset="utf8" src="{{asset('validation/js/jquery.validate.min.js')}}"></script>
