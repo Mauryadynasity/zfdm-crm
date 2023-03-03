@@ -3,8 +3,8 @@
 return [
 
     'Super Admin' => 'Super Admin',
-    'InBound' => 'Inbound',
-    'OutBound' => 'OutBound',
+    'Inbound' => 'InBound',
+    'Outbound' => 'OutBound',
     'create_user' => 'Create User',
     'home' => 'Home',
     'user_name' => 'Name',
@@ -31,6 +31,21 @@ return [
     'Sign_In' => 'Sign In',
     'CRM_Login' => 'CRM Login',
     'Dashboard' => 'Dashboard',
+    'Setting' => 'Setting',
+    'Company Name' => 'Company Name',
+    'Contact Person’s Name' => 'Contact Person’s Name',
+    'Company website' => 'Company website',
+    'Company Logo' => 'Company Logo',
+    'Company Phone Numbers' => 'Company Phone Numbers',
+    'Company Email' => 'Company Email',
+    'Address' => 'Address',
+    'Bank Details' => 'Bank Details',
+    'Bank Name' => 'Bank Name',
+    'Bank Account Number' => 'Bank Account Number',
+    'Bank IFSC' => 'Bank IFSC',
+    'Bank Branch address' => 'Bank Branch address',
+    'Tax No' => 'Tax No',
+    'Address' => 'Address',
 
 
 ];

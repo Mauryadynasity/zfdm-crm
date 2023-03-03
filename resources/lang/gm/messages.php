@@ -3,7 +3,7 @@
 return [
     'Super Admin' => 'höchster Vorgesetzter',
     'Inbound' => 'Eingehende',
-    'OutBound' => 'Ausgehend',
+    'Outbound' => 'Ausgehend',
     'create_user' => 'Benutzer erstellen',
     'home' => 'Heim',
     'user_name' => 'Name',
@@ -29,7 +29,20 @@ return [
     'Sign_In' => 'Anmelden',
     'CRM_Login' => 'CRM Anmeldung',
     'Dashboard' => 'Armaturenbrett',
-
+    'Setting' => 'Einstellung',
+    'Company Name' => '',
+    'Contact Person’s Name' => '',
+    'Company website' => '',
+    'Company Logo' => '',
+    'Company Phone Numbers' => '',
+    'Company Email' => '',
+    'Address' => '',
+    'Bank Details' => '',
+    'Bank Name' => '',
+    'Bank Account Number' => '',
+    'Bank IFSC' => '',
+    'Bank Branch address' => '',
+    'Tax No' => '',
 
 
 ];

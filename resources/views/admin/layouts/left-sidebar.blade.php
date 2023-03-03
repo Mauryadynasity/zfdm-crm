@@ -31,7 +31,8 @@
         </li>
         @endif
         <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}">
-        <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}"><a href="{{url('admin/user-dashboard')}}">
+        <li class="{{Request::is('admin/user-dashboard') ? 'active treeview' : ''}}">
+          <a href="{{url('admin/user-dashboard')}}">
           <i class="fa fa fa-dashboard"></i>
           <span>{{__('messages.main_dashboard')}}</span></a>
         </li>
@@ -194,6 +195,10 @@
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
         <li class="{{Request::is('admin/change-password') ? 'active treeview' : ''}}"><a href="{{url('admin/change-password')}}"><i class="fa fa-key"></i> <span>{{__('messages.change_pass')}}</span></a>
         </li>
+        @if(Auth::guard('admin')->user()->role_id == 1)
+        <li class="{{Request::is('admin/setting') ? 'active treeview' : ''}}"><a href="{{url('admin/setting')}}"><i class="fa fa-gear fa-spin" style="font-size:20px"></i> <span>{{__('messages.Setting')}}</span></a>
+        </li>
+        @endif
       </ul>
     </section>
     <!-- /.sidebar -->

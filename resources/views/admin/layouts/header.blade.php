@@ -1,7 +1,7 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <span class="logo-mini"><b>A</b>LT</span>
+    <a href="{{url('dashboard')}}" class="logo">
+      <span class="logo-mini"><b>ZFDM</b></span>
       <span class="logo-lg"><b>{{__('messages.'.Auth::guard('admin')->user()->name)}}</b></span>
     </a>
     <nav class="navbar navbar-static-top">
@@ -239,9 +239,9 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-         <!--  <li>
+          <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li> -->
+          </li>
         </ul>
       </div>
     </nav>

@@ -22,7 +22,7 @@ class UserController extends Controller {
 	public function index(Request $request) {
 		$data['users'] = Admin::all();
 		$data['roles'] = Role::all();
-		return view('admin.user.user_show',$data);
+		return view('admin.user.user-list',$data);
 	}
 
 	public function create(Request $request){
