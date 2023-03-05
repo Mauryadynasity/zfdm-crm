@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin;
 
         // -------Offer Route---------------//
         Route::post('save-offer', [Admin\OfferController::class,'saveOffer']);
+        Route::get('invoice', [Admin\OfferController::class,'invoice']);
     });
     
 

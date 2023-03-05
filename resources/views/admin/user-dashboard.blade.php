@@ -82,9 +82,9 @@
               </tr>
           </thead>
           <tbody>
-            @foreach($prospacts as $index => $prospact)
+            @foreach($prospacts as $prospact)
             <tr>
-              <td>{{$index+1}}</td>
+              <td class="prospact_id">{{$prospact->id}}</td>
               <td class="company_name">{{$prospact->company_name}}</td>
               <td class="title">{{$prospact->title}}</td>
               <td>{{$prospact->first_name}}</td>
@@ -122,8 +122,7 @@
               <form name="saveOffers" id="saveOffers" enctype="multipart/form-data">
               <div class="modal-body" style="padding:30px;">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
-                <input type="hidden" name="admin_id" value="{{Auth::guard('admin')->user()->id}}">
-                <input type="hidden" name="prospact_id" value="1">
+                <input type="hidden" name="prospact_id" id="prospact_id">
               <div class="row">
               <div class="col-md-6 alert alert-info">
                 <div class="form-group">
@@ -153,13 +152,13 @@
                   </thead>
                   <tbody>
                   <tr>
-                    <td><input type="text" class="form-control" name="number_of_employee" required></td>
-                    <td><input type="text" class="form-control" name="number_of_advised" required></td>
-                    <td><input type="text" class="form-control" name="piece_prise" required></td>
-                    <td><input type="text" class="form-control" name="prise" required></td>
+                    <td><input type="text" class="form-control" name="number_of_employee[]" required></td>
+                    <td><input type="text" class="form-control" name="number_of_advised[]" required></td>
+                    <td><input type="text" class="form-control" name="piece_prise[]" required></td>
+                    <td><input type="text" class="form-control" name="prise[]" required></td>
                     <td><textarea class="form-control" name="an_notation" required></textarea></td>
                     <td>
-                    <select class="form-control" name="additional_option_id" required>
+                    <select class="form-control" name="additional_option_id[]" required>
                     <option value="">---- Select ----</option>  
                     @foreach($AdditionalOptions as $AdditionalOption) 
                     <option value="{{$AdditionalOption->id}}">{{$AdditionalOption->name}}</option>  
@@ -234,6 +233,7 @@
             });
           $('#saveOffers').trigger("reset");
           $('#modal-default').modal('hide');
+          window.open("{{url('admin/invoice')}}");
           // $("#modal").modal('hide');
           }else{
             // alert(data.message);
@@ -246,9 +246,11 @@
         $('#myTable tbody tr').removeClass('selected');
         $(this).toggleClass('selected');
         var company_name = $(this).find('.company_name').text();
+        var prospact_id = $(this).find('.prospact_id').text();
         var title = $(this).find('.title').text();
         $('#company_name_text').val(company_name);
-        $('#user_name_text').val(title);
+        $('#prospact_id').val(prospact_id);
+        // $('#user_name_text').val(title);
     });
 
     </script>

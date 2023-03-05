@@ -11,11 +11,18 @@ use Auth;
 use DB;
 use Hash;
 use DataTables;
+use PDF;
 class OfferController extends Controller {
 
 	public function __construct() {
 
 		// $this->middleware('auth:admin');
+	}
+
+	function invoice(){
+		$data = ['title' => 'Welcome to ItSolutionStuff.com'];
+		$pdf = PDF::loadView('admin.invoice', $data);
+		return $pdf->download('itsolutionstuff.pdf');
 	}
 
 	public function saveOffer(Request $request) {
@@ -33,39 +40,21 @@ class OfferController extends Controller {
             return response()->json(['message' => $error, 'status' => false]);
 			// return response()->json($validator->messages(), 200);
 		}
-
+		
 			 Offer::create(
 				[
-					'admin_id' => $request->admin_id,
-					'additional_option_id' => $request->additional_option_id,
-					'prospact_id' => $request->prospact_id,
-					'number_of_employee' => $request->number_of_employee,
-					'number_of_advised' => $request->number_of_advised,
-					'piece_prise' => $request->piece_prise,
-					'prise' => $request->prise,
-					'an_notation' => $request->an_notation,
+				'admin_id' => Auth::guard('admin')->user()->id,
+				'additional_option_id' => $request->additional_option_id,
+				'prospact_id' => $request->prospact_id,
+				'number_of_employee' => $request->number_of_employee,
+				'number_of_advised' => $request->number_of_advised,
+				'piece_prise' => $request->piece_prise,
+				'prise' => $request->prise,
+				'an_notation' => $request->an_notation,
 				]
 			);
 
-$pdf = PDF::loadView('admin.invoice', $data);
-return $pdf-&gt;download('itsolutionstuff.pdf');
-
-    	// 	 $request->paper_size = 'a4';
-		//  $dataPdf = [];
-        // if($request->paper_size!=null){
-		// 	$data['download'] = 'pdf';
-        //     $htmlfile = view('admin.invoice', $dataPdf)->render();
-		// 	$pdf = app()->make('dompdf.wrapper');
-		// 	$pdf->loadHTML($htmlfile,'UTF-8')
-		// 	->setWarnings(false)
-		// 	->setPaper($request->paper_size, 'landscape');
-        //     return $pdf->download('Invoice.pdf');
-        // }
-
-
         	return response()->json(['message' => 'Offer has been created', 'status' => true]);
-		// return back()->with('message','Configuration Successfully.');
-		// return view('admin.setting');
 	}
 }
 
