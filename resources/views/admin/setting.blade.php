@@ -113,14 +113,12 @@
 
             <div class="col-md-3">
               <div class="form-group">
-            @if($setting->upload_file)
-                  <img id="blah" src="{{ url($setting->upload_file) }}" alt="" / style="width:25%;height:20%;">
-                <!-- <img class="form-control" src="{{asset('storage/app/public/'.$setting->upload_file)}}" alt="" srcset="">  -->
-
-                <!-- <img class="form-control" src="{{$setting->upload_file}}" alt="Girl in a jacket" width="500" height="600"> -->
+                {{-- @if($setting->upload_file)
+                  <img id="blah" src="{{$setting->upload_file}}" style="width:25%;height:20%;">
+                @endif --}}
+                <img id="blah" src="" style="width:25%;height:20%;">
               </div>
             </div>
-            @endif
           </div>
           <hr style="height:2px;background-color: #c0c0c0;" />
           <h3>Bank Details</h3>
@@ -189,6 +187,9 @@
 $('#userList').dataTable();
 $('#myForm').validate();
 $('#myForm').submit(function(e) {
+  if($(this).valid()==false){
+    return false;
+  }
     e.preventDefault();
     var formData = new FormData(this);
     $.ajax({

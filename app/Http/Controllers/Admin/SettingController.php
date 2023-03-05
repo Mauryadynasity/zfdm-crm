@@ -26,7 +26,7 @@ class SettingController extends Controller {
 		$validator = Validator::make($request->all(), [
             'company_name' => 'required',
             'person_name' => 'required',
-            'website_url' => 'required',
+            'website_url' => 'required|url',
             // 'upload_file' => 'required',
             'phone' => 'required|numeric|digits:10',
             'email' => 'required|email',
