@@ -28,8 +28,13 @@ use App\Http\Controllers\Admin;
         Route::get('delete-user/{id}', [Admin\UserController::class,'destroy']);
         Route::get('dashboard', [Admin\DashboardController::class,'dashboard']);
         Route::get('user-dashboard', [Admin\DashboardController::class,'userDashboard']);
+
+    // -------Setting Route---------------//
         Route::get('setting', [Admin\SettingController::class,'index']);
         Route::post('save-setting', [Admin\SettingController::class,'saveSetting']);
+
+        // -------Offer Route---------------//
+        Route::post('save-offer', [Admin\OfferController::class,'saveOffer']);
     });
     
 

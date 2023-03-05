@@ -1,6 +1,11 @@
 @extends('admin.layouts.app')
 @section('content')
 
+
+@section('styles')
+<style type="text/css">
+</style>
+@endsection
 <section class="content-header">
     <h1>
     User Dashboard
@@ -43,6 +48,11 @@
           <!-- /.row -->
         </div>
         <!-- /.box-body -->
+        <div class="box-body">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+              Create offer
+            </button>
+        </div>
 
         <table class="table table-bordered border-success yajra-datatable" width="100%" id="myTable">
           <thead>
@@ -75,8 +85,8 @@
             @foreach($prospacts as $index => $prospact)
             <tr>
               <td>{{$index+1}}</td>
-              <td>{{$prospact->company_name}}</td>
-              <td>{{$prospact->title}}</td>
+              <td class="company_name">{{$prospact->company_name}}</td>
+              <td class="title">{{$prospact->title}}</td>
               <td>{{$prospact->first_name}}</td>
               <td>{{$prospact->cust_name}}</td>
               <td>{{$prospact->cust_email}}</td>
@@ -101,13 +111,148 @@
           </tbody>
         </table>
       </div>
+      <div class="modal fade col-md-12" id="modal-default">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <h3 class="modal-title"><strong>Create offer</strong></h3>
+              </div>
+              <form name="saveOffers" id="saveOffers" enctype="multipart/form-data">
+              <div class="modal-body" style="padding:30px;">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
+                <input type="hidden" name="admin_id" value="{{Auth::guard('admin')->user()->id}}">
+                <input type="hidden" name="prospact_id" value="1">
+              <div class="row">
+              <div class="col-md-6 alert alert-info">
+                <div class="form-group">
+                  <h4>Company Name</h4>
+                  <input type="text" class="form-control" name="company_name" id="company_name_text" value="TVS" readonly disabled="disbled" required>
+                </div>
+              </div>
+              <div class="col-md-6 alert alert-info">
+                <div class="form-group"><h4>Name</h4>
+                  <input type="text" class="form-control" name="user_name" id="user_name_text" value="{{Auth::guard('admin')->user()->name}}" readonly disabled="disbled" required>
+                </div>
+              </div>
+              </div>
+
+                <table class="table table-hover table-responsive offerTable">
+                  <thead>
+                    <tr>
+                    <td>Number of employees</td>
+                    <td>Number advised</td>
+                    <td>Piece price($)</td>
+                    <td>price($)</td>
+                    <td>An notation</td>
+                    <td>Additional options</td>
+                    <td>Action</td>
+                  </tr>
+
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td><input type="text" class="form-control" name="number_of_employee" required></td>
+                    <td><input type="text" class="form-control" name="number_of_advised" required></td>
+                    <td><input type="text" class="form-control" name="piece_prise" required></td>
+                    <td><input type="text" class="form-control" name="prise" required></td>
+                    <td><textarea class="form-control" name="an_notation" required></textarea></td>
+                    <td>
+                    <select class="form-control" name="additional_option_id" required>
+                    <option value="">---- Select ----</option>  
+                    @foreach($AdditionalOptions as $AdditionalOption) 
+                    <option value="{{$AdditionalOption->id}}">{{$AdditionalOption->name}}</option>  
+                    @endforeach
+                    </select></td>
+                    <td style="width:100px;">
+                      <i onclick="addOffer($(this))" class="fa fa-plus add-more btn btn-success"></i>
+                      <i onclick="removeOffer($(this))" class="fa fa-minus add-more-remove btn btn-danger" style="display:none;"></i>
+                    </td>
+                  </tbody>
+                  </tr>
+                </table>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" onclick="saveOffersFunction()" class="btn btn-primary">Create Offer</button>
+              </div>
+            </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
     </section>
     @section('scripts')
     <script>
+
       $(document).ready( function () {
           $('#myTable').dataTable();
       } );
+
+    function addOffer($this){
+      var currentTrHtml = $this.closest('tr').html();
+      $('.offerTable').find('tbody').append("<tr>"+currentTrHtml+"</tr>");
+      $this.closest('tr').find('.add-more').hide();
+      $this.closest('tr').find('.add-more-remove').show();
+    }
+    function removeOffer($this){
+      if(confirm("Are you sure?") == false){
+        return false;
+      }
+      $this.closest('tr').remove();
+    }
+
+  $('#saveOffers').validate();
+  function saveOffersFunction(){
+  $('#saveOffers').submit();
+  }
+
+    $('#saveOffers').submit(function(e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'POST',
+        url: "{{ url('admin/save-offer') }}",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if(data.status){
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'success',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 3000
+            });
+          $('#saveOffers').trigger("reset");
+          $('#modal-default').modal('hide');
+          // $("#modal").modal('hide');
+          }else{
+            // alert(data.message);
+          }
+        },
+      });
+    });
+
+    $('#myTable tbody').on( 'click', 'tr', function () {
+        $('#myTable tbody tr').removeClass('selected');
+        $(this).toggleClass('selected');
+        var company_name = $(this).find('.company_name').text();
+        var title = $(this).find('.title').text();
+        $('#company_name_text').val(company_name);
+        $('#user_name_text').val(title);
+    });
+
     </script>
     @endsection
 
     @endsection
+

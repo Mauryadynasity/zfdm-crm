@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prospect;
+use App\Models\AdditionalOption;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -23,6 +24,7 @@ class DashboardController extends Controller {
 		return view('admin.dashboard');
 	}
 	public function userDashboard(Request $request) {
+		$data['AdditionalOptions'] = AdditionalOption::all();
 		$data['prospacts'] = Prospect::all();
 		return view('admin.user-dashboard',$data);
 	}	
