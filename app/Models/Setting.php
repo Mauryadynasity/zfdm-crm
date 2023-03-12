@@ -37,6 +37,7 @@ class Setting extends Model implements HasMedia
         'phone',
         'email',
         'company_address',
+        'ust_number',
         'bank_name',
         'account_number',
         'ifsc_code',

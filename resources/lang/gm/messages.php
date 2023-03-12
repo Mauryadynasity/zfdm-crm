@@ -30,6 +30,7 @@ return [
     'CRM_Login' => 'CRM Anmeldung',
     'Dashboard' => 'Armaturenbrett',
     'Setting' => 'Einstellung',
+    'CompanyDetails' => 'Firmendetails',
     'Company Name' => '',
     'Contact Person’s Name' => '',
     'Company website' => '',

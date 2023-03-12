@@ -24,6 +24,7 @@ class CreateTblSettingsTable extends Migration
             $table->string('landline_number', 99)->nullable();
             $table->string('email', 99)->nullable();
             $table->string('company_address', 99)->nullable();
+            $table->string('ust_number', 99)->nullable();
             $table->string('streat_name_1', 99)->nullable();
             $table->string('streat_name_2', 99)->nullable();
             $table->string('streat_name_3', 99)->nullable();

@@ -32,6 +32,7 @@ return [
     'CRM_Login' => 'CRM Login',
     'Dashboard' => 'Dashboard',
     'Setting' => 'Setting',
+    'CompanyDetails' => 'Company Details',
     'Company Name' => 'Company Name',
     'Contact Person’s Name' => 'Contact Person’s Name',
     'Company website' => 'Company website',
