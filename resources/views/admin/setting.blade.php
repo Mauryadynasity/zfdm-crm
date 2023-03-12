@@ -94,10 +94,82 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
+                <label>Company Mobile Number</label>
+                <input type="text" name="mobile_number" value="{{ $setting ? $setting->mobile_number : '' }}" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
+                @if($errors->has('mobile_number'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('mobile_number') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Company Landline Number</label>
+                <input type="text" name="landline_number" value="{{ $setting ? $setting->landline_number : '' }}" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
+                @if($errors->has('landline_number'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('landline_number') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
                 <label>Company Email<span style="color:red">*</span></label>
                 <input type="email" name="email" value="{{ $setting ? $setting->email : '' }}"  class="form-control" style="width: 100%;" required>
                 @if($errors->has('email'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('email') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Streat Name 1<span style="color:red">*</span></label>
+                <input type="text" name="streat_name_1" value="{{ $setting ? $setting->streat_name_1 : '' }}"  class="form-control" style="width: 100%;" required>
+                @if($errors->has('streat_name_1'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('streat_name_1') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Streat Name 2</label>
+                <input type="text" name="streat_name_2" value="{{ $setting ? $setting->streat_name_2 : '' }}"  class="form-control" style="width: 100%;" required>
+                @if($errors->has('streat_name_2'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('streat_name_2') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Streat Name 3</label>
+                <input type="text" name="streat_name_3" value="{{ $setting ? $setting->streat_name_3 : '' }}"  class="form-control" style="width: 100%;" required>
+                @if($errors->has('streat_name_3'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('streat_name_3') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Place Code<span style="color:red">*</span></label>
+                <input type="text" name="place_code" value="{{ $setting ? $setting->place_code : '' }}"  class="form-control numbersOnly" maxlength="6" style="width: 100%;" required>
+                @if($errors->has('place_code'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('place_code') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Place Name<span style="color:red">*</span></label>
+                <input type="text" name="place_name" value="{{ $setting ? $setting->place_name : '' }}"  class="form-control" style="width: 100%;" required>
+                @if($errors->has('place_name'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('place_name') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Country<span style="color:red">*</span></label>
+                <input type="text" name="country" value="{{ $setting ? $setting->country : '' }}"  class="form-control" style="width: 100%;" required>
+                @if($errors->has('country'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('country') }}</span>
                   @endif
               </div>
             </div>
@@ -111,16 +183,16 @@
               </div>
             </div>
 
+            {{-- @if($setting->upload_file)
             <div class="col-md-3">
               <div class="form-group">
-            @if($setting->upload_file)
                   <img id="blah" src="{{ url($setting->upload_file) }}" alt="" / style="width:25%;height:20%;">
                 <!-- <img class="form-control" src="{{asset('storage/app/public/'.$setting->upload_file)}}" alt="" srcset="">  -->
 
                 <!-- <img class="form-control" src="{{$setting->upload_file}}" alt="Girl in a jacket" width="500" height="600"> -->
               </div>
             </div>
-            @endif
+            @endif --}}
           </div>
           <hr style="height:2px;background-color: #c0c0c0;" />
           <h3>Bank Details</h3>
@@ -136,7 +208,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Bank Account Number<span style="color:red">*</span></label>
+                <label>International Bank Account Number<span style="color:red">*</span></label>
                 <input type="text" name="account_number" value="{{ $setting ? $setting->account_number : '' }}" maxlength="15" class="form-control numbersOnly" style="width: 100%;" required>
                 @if($errors->has('account_number'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('account_number') }}</span>
@@ -168,6 +240,15 @@
                 <input type="text" name="tax_number" value="{{ $setting ? $setting->tax_number : '' }}" class="form-control" style="width: 100%;" required>
                 @if($errors->has('tax_number'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('tax_number') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Tax Identification Number</label>
+                <input type="text" name="tax_identification_no" value="{{ $setting ? $setting->tax_identification_no : '' }}" class="form-control" style="width: 100%;" required>
+                @if($errors->has('tax_identification_no'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('tax_identification_no') }}</span>
                   @endif
               </div>
             </div>

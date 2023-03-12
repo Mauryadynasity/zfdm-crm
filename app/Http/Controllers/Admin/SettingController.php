@@ -36,6 +36,10 @@ class SettingController extends Controller {
             'account_number' => 'required',
             'branch_address' => 'required',
             'tax_number' => 'required',
+            'streat_name_1' => 'required',
+            'place_code' => 'required',
+            'place_name' => 'required',
+            'country' => 'required',
         ]);
 		if ($validator->fails()) {
             $error = $validator->errors()->first();
@@ -59,6 +63,15 @@ class SettingController extends Controller {
 					'ifsc_code' => $request->ifsc_code,
 					'branch_address' => $request->branch_address,
 					'tax_number' => $request->tax_number,
+					'mobile_number' => $request->mobile_number,
+					'landline_number' => $request->landline_number,
+					'streat_name_1' => $request->streat_name_1,
+					'streat_name_2' => $request->streat_name_2,
+					'streat_name_3' => $request->streat_name_3,
+					'place_code' => $request->place_code,
+					'place_name' => $request->place_name,
+					'country' => $request->country,
+					'tax_identification_no' => $request->tax_identification_no,
 				]
 			);
 		if($request->upload_file){
