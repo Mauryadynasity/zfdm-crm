@@ -87,6 +87,7 @@
               <div class="form-group">
                 <label>Company Phone Numbers<span style="color:red">*</span></label>
                 <input type="text" name="phone" value="{{ $setting ? strtoupper($setting->phone) : '' }}" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
+            <!-- <div class="text-danger error_application"></div> -->
                 @if($errors->has('phone'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('phone') }}</span>
                   @endif
@@ -307,7 +308,7 @@ $('#myForm').submit(function(e) {
             timer: 3000
           });
         }else{
-          alert(data.message);
+          // $('.error_application').text(data.message);
         }
       },
     });
