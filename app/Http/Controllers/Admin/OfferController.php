@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdditionalOption;
 use App\Models\Offer;
+use App\Models\Prospect;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -24,6 +25,7 @@ class OfferController extends Controller {
 		$pdf = PDF::loadView('admin.invoice', $data);
 		return $pdf->download('itsolutionstuff.pdf');
 	}
+
 
 	public function saveOffer(Request $request) {
 		// dd($request->all());
@@ -55,6 +57,12 @@ class OfferController extends Controller {
 			);
 
         	return response()->json(['message' => 'Offer has been created', 'status' => true]);
+	}
+
+	public function getOfferDetail(Request $request){
+		$prospacts = Prospect::where('id',$request->prospact_id)->first();
+		return $prospacts;
+        // return response()->json(array('success' => true, 'prospacts'=>$prospacts));
 	}
 }
 

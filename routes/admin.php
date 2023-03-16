@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin;
         Route::get('delete-user/{id}', [Admin\UserController::class,'destroy']);
         Route::get('dashboard', [Admin\DashboardController::class,'dashboard']);
         Route::get('user-dashboard', [Admin\DashboardController::class,'userDashboard']);
+        Route::get('add-new-offer', [Admin\DashboardController::class,'addNewOffer']);
 
     // -------Setting Route---------------//
         Route::get('setting', [Admin\SettingController::class,'index']);
@@ -35,6 +36,7 @@ use App\Http\Controllers\Admin;
 
         // -------Offer Route---------------//
         Route::post('save-offer', [Admin\OfferController::class,'saveOffer']);
+        Route::get('get-offer-details', [Admin\OfferController::class,'getOfferDetail']);
         Route::get('invoice', [Admin\OfferController::class,'invoice']);
     });
     

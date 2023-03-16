@@ -49,7 +49,10 @@
         </div>
         <!-- /.box-body -->
         <div class="box-body">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+            <!-- <button type="button" class="btn btn-default" onClick="addNewOffer($(this))" data-toggle="modal" data-target="#modal-default">
+              Create offer
+            </button> -->
+            <button type="button" class="btn btn-default" onClick="addNewOffer()">
               Create offer
             </button>
         </div>
@@ -111,78 +114,9 @@
           </tbody>
         </table>
       </div>
-      <div class="modal fade col-md-12" id="modal-default">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <h3 class="modal-title"><strong>Create offer</strong></h3>
-              </div>
-              <form name="saveOffers" id="saveOffers" enctype="multipart/form-data">
-              <div class="modal-body" style="padding:30px;">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
-                <input type="hidden" name="prospact_id" id="prospact_id">
-              <div class="row">
-              <div class="col-md-6 alert alert-info">
-                <div class="form-group">
-                  <h4>Company Name</h4>
-                  <input type="text" class="form-control" name="company_name" id="company_name_text" value="TVS" readonly disabled="disbled" required>
-                </div>
-              </div>
-              <div class="col-md-6 alert alert-info">
-                <div class="form-group"><h4>Name</h4>
-                  <input type="text" class="form-control" name="user_name" id="user_name_text" value="{{Auth::guard('admin')->user()->name}}" readonly disabled="disbled" required>
-                </div>
-              </div>
-              </div>
 
-                <table class="table table-hover table-responsive offerTable">
-                  <thead>
-                    <tr>
-                    <td>Number of employees</td>
-                    <td>Number advised</td>
-                    <td>Piece price($)</td>
-                    <td>price($)</td>
-                    <td>An notation</td>
-                    <td>Additional options</td>
-                    <td>Action</td>
-                  </tr>
+          @include('admin.offer.add-new-offer')
 
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td><input type="text" class="form-control" name="number_of_employee[]" required></td>
-                    <td><input type="text" class="form-control" name="number_of_advised[]" required></td>
-                    <td><input type="text" class="form-control" name="piece_prise[]" required></td>
-                    <td><input type="text" class="form-control" name="prise[]" required></td>
-                    <td><textarea class="form-control" name="an_notation" required></textarea></td>
-                    <td>
-                    <select class="form-control" name="additional_option_id[]" required>
-                    <option value="">---- Select ----</option>  
-                    @foreach($AdditionalOptions as $AdditionalOption) 
-                    <option value="{{$AdditionalOption->id}}">{{$AdditionalOption->name}}</option>  
-                    @endforeach
-                    </select></td>
-                    <td style="width:100px;">
-                      <i onclick="addOffer($(this))" class="fa fa-plus add-more btn btn-success"></i>
-                      <i onclick="removeOffer($(this))" class="fa fa-minus add-more-remove btn btn-danger" style="display:none;"></i>
-                    </td>
-                  </tbody>
-                  </tr>
-                </table>
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" onclick="saveOffersFunction()" class="btn btn-primary">Create Offer</button>
-              </div>
-            </form>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
     </section>
     @section('scripts')
     <script>
@@ -207,6 +141,31 @@
   $('#saveOffers').validate();
   function saveOffersFunction(){
   $('#saveOffers').submit();
+  }
+
+  function addNewOffer(){
+        var selectedTr = $('#myTable tbody tr.selected');
+        var prospact_id = selectedTr.find('.prospact_id').text();
+        $("#modal-default").modal('show');
+        $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'GET',
+        url: "{{ url('admin/get-offer-details') }}",
+        data: {
+            'prospact_id' : prospact_id,
+        },
+        success: function(data) {
+          if(data){
+            $(".cus-name").append(data.cust_name);
+            $(".cus-phone").append(data.cust_phone);
+            $(".cus-email").append(data.cust_email);
+          }else{
+            // alert(data.message);
+          }
+        },
+      });
   }
 
     $('#saveOffers').submit(function(e) {
@@ -245,12 +204,6 @@
     $('#myTable tbody').on( 'click', 'tr', function () {
         $('#myTable tbody tr').removeClass('selected');
         $(this).toggleClass('selected');
-        var company_name = $(this).find('.company_name').text();
-        var prospact_id = $(this).find('.prospact_id').text();
-        var title = $(this).find('.title').text();
-        $('#company_name_text').val(company_name);
-        $('#prospact_id').val(prospact_id);
-        // $('#user_name_text').val(title);
     });
 
     </script>
