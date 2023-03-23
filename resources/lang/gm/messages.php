@@ -22,6 +22,7 @@ return [
     'new_password' => 'Neues Kennwort',
     'confirm_password' => 'Bestätige das Passwort',
     'submit_button' => 'Einreichen',
+    'back_button' => 'Zurück',
     'delete_button' => 'löschen',
     'profile' => 'Profil',
     'logout_button' => 'austragen',

@@ -86,7 +86,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>Company Phone Numbers<span style="color:red">*</span></label>
-                <input type="text" name="phone" value="{{ $setting ? strtoupper($setting->phone) : '' }}" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
+                <input type="text" name="phone" value="{{ $setting ? strtoupper($setting->phone) : '' }}" minlength="10" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
             <div class="text-danger error_application"></div>
                 @if($errors->has('phone'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('phone') }}</span>
@@ -96,7 +96,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>Company Mobile Number</label>
-                <input type="text" name="mobile_number" value="{{ $setting ? strtoupper($setting->mobile_number) : '' }}" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
+                <input type="text" name="mobile_number" value="{{ $setting ? strtoupper($setting->mobile_number) : '' }}" minlength="10" maxlength="10" class="form-control numbersOnly" style="width: 100%;">
                 @if($errors->has('mobile_number'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('mobile_number') }}</span>
                   @endif
@@ -105,7 +105,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>Company Landline Number</label>
-                <input type="text" name="landline_number" value="{{ $setting ? strtoupper($setting->landline_number) : '' }}" maxlength="10" class="form-control numbersOnly" style="width: 100%;" required>
+                <input type="text" name="landline_number" value="{{ $setting ? strtoupper($setting->landline_number) : '' }}" minlength="10" maxlength="10" class="form-control numbersOnly" style="width: 100%;">
                 @if($errors->has('landline_number'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('landline_number') }}</span>
                   @endif
@@ -120,6 +120,7 @@
                   @endif
               </div>
             </div>
+            <div class="clearfix"></div>
             <div class="col-md-3">
               <div class="form-group">
                 <label>Ust Number<span style="color:red">*</span></label>
@@ -224,7 +225,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>International Bank Account Number<span style="color:red">*</span></label>
+                <label>IBAN<span style="color:red">*</span></label>
                 <input type="text" name="account_number" value="{{ $setting ? strtoupper($setting->account_number) : '' }}" maxlength="15" class="form-control numbersOnly" style="width: 100%;" required>
                 @if($errors->has('account_number'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('account_number') }}</span>
@@ -233,7 +234,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Bank IFSC<span style="color:red">*</span></label>
+                <label>BIC<span style="color:red">*</span></label>
                 <input type="text" name="ifsc_code" value="{{ $setting ? strtoupper($setting->ifsc_code) : '' }}"  class="form-control" style="width: 100%;" required>
                 @if($errors->has('ifsc_code'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('ifsc_code') }}</span>
@@ -242,8 +243,8 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Bank Branch address<span style="color:red">*</span></label>
-                <input type="text" name="branch_address" value="{{ $setting ? strtoupper($setting->branch_address) : '' }}" class="form-control" style="width: 100%;" required>
+                <label>Bank address</label>
+                <input type="text" name="branch_address" value="{{ $setting ? strtoupper($setting->branch_address) : '' }}" class="form-control" style="width: 100%;">
                 @if($errors->has('branch_address'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('branch_address') }}</span>
                   @endif

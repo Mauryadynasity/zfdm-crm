@@ -24,6 +24,7 @@ return [
     'new_password' => 'New Password',
     'confirm_password' => 'Confirm Password',
     'submit_button' => 'Submit',
+    'back_button' => 'Back',
     'logout_button' => 'Logout',
     'profile' => 'Profile',
     'lgin_heading' => 'ZFDM',
