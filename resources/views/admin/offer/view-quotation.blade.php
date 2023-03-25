@@ -28,10 +28,6 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> {{Auth::guard('admin')->user()->name}}
-            <small class="pull-right">{{$prospact->company_name}}</small><br>
-            <span class="pull-right">{{$prospact->cust_address}}</span><br>
-            <span class="postcode"></span> <br>
-            <span class="place_name"></span>  <br>
           </h2>
         </div>
         <!-- /.col -->
@@ -58,10 +54,11 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
+          To
           <address>
-            <!-- <strong></strong><span> {{$prospact->cust_name}}</span><br> -->
-            <!-- <strong>Company:</strong><span> {{$prospact->company_name}}</span><br> -->
-            <!-- <strong>Address:</strong><span> {{$prospact->cust_address}}</span><br> -->
+            <span> {{$prospact->company_name}}</span><br>
+            <span> {{$prospact->cust_name}}</span><br>
+            <strong>Address:</strong><span> {{$prospact->cust_address}}</span><br>
             <strong>Quotation Number:</strong><span> {{$prospact->quotation->quotation_number}}</span><br>
             <strong>Quotation Date:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><br>
           </address>
@@ -97,7 +94,7 @@
                 <td>{{$quotation->article_description}}</td>
                 <td>{{$quotation->prise_per_article}}</td>
                 <td>{{$quotation->number_of_article}}</td>
-                <td>{{$quotation->price}}</td>
+                <td>${{$quotation->price}}</td>
               </tr>
               @endforeach
             </tbody>
@@ -116,15 +113,15 @@
             <table class="table">
               <tr>
                 <th style="width:50%">Subtotal:</th>
-                <td>$250.30</td>
+                <td>${{$quotation->sub_total}}</td>
               </tr>
               <tr>
-                <th>Tax (9.3%)</th>
-                <td>$10.34</td>
+                <th>Tax ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <td>${{$quotation->ust_number}}</td>
               </tr>
               <tr>
-                <th>Total:</th>
-                <td>$265.24</td>
+                <th>Grand Total:</th>
+                <td>${{$quotation->grand_total}}</td>
               </tr>
             </table>
           </div>

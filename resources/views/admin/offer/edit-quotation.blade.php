@@ -44,10 +44,6 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> {{Auth::guard('admin')->user()->name}}
-            <small class="pull-right">{{$prospact->company_name}}</small><br>
-            <span class="pull-right">{{$prospact->cust_address}}</span><br>
-            <span class="postcode"></span> <br>
-            <span class="place_name"></span>  <br>
           </h2>
         </div>
         <!-- /.col -->
@@ -74,10 +70,11 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
+          To
           <address>
-            <!-- <strong></strong><span> {{$prospact->cust_name}}</span><br> -->
-            <!-- <strong>Company:</strong><span> {{$prospact->company_name}}</span><br> -->
-            <!-- <strong>Address:</strong><span> {{$prospact->cust_address}}</span><br> -->
+            <span> {{$prospact->cust_name}}</span><br>
+            <span> {{$prospact->company_name}}</span><br>
+            <span> {{$prospact->cust_address}}</span><br>
             <strong>Quotation Number:</strong><span> {{$prospact->quotation->quotation_number}}</span><input type="hidden" name="quotation_number" value="{{$prospact->quotation->quotation_number}}"><br>
             <strong>Quotation Date:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
           </address>
@@ -102,24 +99,60 @@
             <td>Price Per Article($)</td>
             <td>No. of Article</td>
             <td>Total Price($)</td>
-            <!-- <td>Additional options</td> -->
-            <!-- <td>Action</td> -->
             </tr>
             </thead>
             <tbody>
-              @foreach($prospact->quotations as $quotation)
-              <tr>
-                <td>{{$quotation->number_of_position}}<input type="hidden" class="form-control" name="number_of_position[]" value="{{$quotation->number_of_position}}" required></td>
-                <td><input type="text" class="form-control" name="article_description[]" value="{{$quotation->article_description}}" required></td>
-                <td><input type="text" class="form-control" name="prise_per_article[]" value="{{$quotation->prise_per_article}}" required></td>
-                <td><input type="text" class="form-control" name="number_of_article[]" value="{{$quotation->number_of_article}}" required></td>
-                <td>{{$quotation->price}}<input type="hidden" class="form-control" name="price[]" value="{{$quotation->price}}" required></td>
-              </tr>
-              @endforeach
+              <?php $position =1; ?>
+            @foreach($prospact->quotations as $quotation)
+            <tr>
+            <td>
+            <span class="position_text">{{$position}}</span>
+            </td>
+            <td>
+              <input type="text" class="form-control article_description" name="article_description[]" value="{{$quotation->article_description}}" required>
+            </td>
+            <td>
+              <input type="text" class="form-control prise_per_article numbersOnly" name="prise_per_article[]" value="{{$quotation->prise_per_article}}"  onchange="calculateTotalPrice($(this))" required>
+            </td>
+            <td>
+              <input type="text" class="form-control number_of_article numbersOnly" name="number_of_article[]" value="{{$quotation->number_of_article}}" onchange="calculateTotalPrice($(this))" required>
+            </td>
+            <td>
+              <span class="price_text">${{$quotation->price}}</span>
+              <input type="hidden" class="form-control price numbersOnly" name="price[]" value="{{$quotation->price}}" required>
+            </td>
+            <td></td>
+            </tr>
+            <?php $position++ ?>
+            @endforeach
             </tbody>
+            <tfoot>
+            <tr hidden class="trRow">
+            <td>
+              <input type="text" class="form-control article_description" name="article_description[]" required>
+            </td>
+            <td>
+              <input type="text" class="form-control prise_per_article numbersOnly" name="prise_per_article[]"  onchange="calculateTotalPrice($(this))" required>
+            </td>
+            <td>
+              <input type="text" class="form-control number_of_article numbersOnly" name="number_of_article[]"  onchange="calculateTotalPrice($(this))" required>
+            </td>
+            <td>
+              <span class="price_text"></span>
+              <input type="hidden" class="form-control price numbersOnly" name="price[]" required>
+            </td>
+            <td>
+              <button onclick="$(this).closest('tr').remove();" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+            </td>
+            </tr>
+              <tr>
+                <td colspan="6" class="text-right">
+                  <a onclick="addTr()" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
-        <!-- /.col -->
       </div>
       <!-- /.row -->
 
@@ -132,15 +165,24 @@
             <table class="table">
               <tr>
                 <th style="width:50%">Subtotal:</th>
-                <td>$250.30</td>
+                <td class="subtotal">${{$quotation->sub_total}}</td>
+                <td hidden>
+                  <input type="text" class="subtotal_val" name="sub_total" value="{{$quotation->sub_total}}">
+                </td>
               </tr>
               <tr>
-                <th>Tax (9.3%)</th>
-                <td>$10.34</td>
+                <th>Tax ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <td class="gstNumber">${{$quotation->ust_number}}</td>
+                <td hidden>
+                  <input type="text" class="gstNumber_val" name="ust_number" value="{{$quotation->ust_number}}">
+                </td>
               </tr>
               <tr>
-                <th>Total:</th>
-                <td>$265.24</td>
+                <th>Grand Total:</th>
+                <td class="grandTotal">${{$quotation->grand_total}}</td>
+                <td hidden>
+                  <input type="text" class="grandTotal_val" name="grand_total" value="{{$quotation->grand_total}}">
+                </td>
               </tr>
             </table>
           </div>
@@ -181,8 +223,45 @@ Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
 
         @section('scripts')
     <script>
-  $('#updateQuatation').validate();
+      $('#updateQuatation').validate();
+      function calculateTotalPrice($this){
+    var currentTr = $this.closest('tr');
+    var prise_per_article = currentTr.find('.prise_per_article').val();
+    var number_of_article  = currentTr.find('.number_of_article').val();
+    var total_price = parseInt(prise_per_article) * parseInt(number_of_article);
+    if(Number.isInteger(total_price)){
+      currentTr.find('.price').val(total_price);
+      currentTr.find('.price_text').html('$'+total_price);
+    }
+    calculateGrandTotalPrice(total_price);
+  }
+  function calculateGrandTotalPrice(total_price){
+    var grandTotal = 0;
+    $('.price').each(function(total_price) {
+      var price = parseInt($(this).val());
+      if(Number.isInteger(price)){
+        grandTotal += price;
+      }
+    });
+    if(Number.isInteger(grandTotal)){
+      var gstNumber = parseFloat((grandTotal*18)/100);
+      $('.subtotal').html('$'+grandTotal);
+      $('.gstNumber').html('$'+gstNumber);
+      $('.grandTotal').html('$'+(grandTotal+gstNumber));
+      $('.subtotal_val').val(grandTotal);
+      $('.gstNumber_val').val(gstNumber);
+      $('.grandTotal_val').val((grandTotal+gstNumber));
+    }
+  }
 
+  function addTr(){
+    var position_count = ($('.article_description').length);
+    var content = $('.trRow').html();
+    var positionDetails = '<td><span class="position_text">'+position_count+'</span></td>';
+    position_count = position_count + 1;
+    var content_text = '<tr>'+positionDetails+content+'</tr>';
+    $('.offerTable tbody').append(content_text);
+  }
     </script>
     @endsection
 

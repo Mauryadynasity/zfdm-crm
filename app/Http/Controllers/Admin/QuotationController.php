@@ -102,8 +102,10 @@ class QuotationController extends Controller {
 			// return response()->json($validator->messages(), 200);
 		}
 		$updateQuotation  = [];
-		foreach($request->number_of_position as $index=>$position){
-			$updateQuotation = array(
+		foreach($request->article_description as $index=>$row){
+			$position = $index+1;
+			if($request->article_description[$index]!=''){
+				$updateQuotation = array(
 			  	'admin_id' => Auth::guard('admin')->user()->id,
 				'prospact_id' => $request->prospact_id,
 				'number_of_position' => $position,
@@ -113,12 +115,13 @@ class QuotationController extends Controller {
 				'price' => $request->price[$index],
 				'quotation_number' => $request->quotation_number,
 				'quotation_date' => $request->quotation_date,
-				'sub_total' => 10,
-				'ust_number' => 121,
-				'grand_total' => 30,
+				'sub_total' => $request->sub_total,
+				'ust_number' => $request->ust_number,
+				'grand_total' => $request->grand_total,
 				'comments' => $request->comments,
 			);
-		Quotation::updateOrCreate(['number_of_position'=>$position],$updateQuotation);
+			Quotation::updateOrCreate(['number_of_position'=>$position],$updateQuotation);
+			}
 		}
 		return back()->with('message','Quotation Updated Successfully.');
 	}

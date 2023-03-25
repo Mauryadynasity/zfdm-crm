@@ -26,10 +26,6 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> {{Auth::guard('admin')->user()->name}}
-            <small class="pull-right company-name"></small><br>
-            <span class="pull-right customer-address"></span><br>
-            <span class="postcode"></span> <br>
-            <span class="place_name"></span>  <br>
           </h2>
         </div>
         <!-- /.col -->
@@ -50,9 +46,11 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
+          To
           <address>
-            <!-- <strong class="cus-name"></strong><br> -->
-            <!-- <strong>Company:</strong> <span class="company-name"></span><br> -->
+            <span class="company-name"></span><br>
+            <strong class="cus-name"></strong><br>
+            <span class="customer-address"></span><br>
             <strong>Quotation Number:</strong> <span class="quotation_number">00000</span><textarea hidden name="quotation_number" class="quotation_number">00000</textarea><br>
             <strong>Quotation Date:</strong> <span class="quotation_date"><?php echo date("d-m-Y"); ?><textarea name="quotation_date" hidden class="quotation_date"><?php echo date("Y-m-d"); ?></textarea></span><br>
           <!--   <strong>Phone:</strong> <span class="cus-phone"></span><br>
@@ -75,7 +73,6 @@
             <td>Price Per Article($)</td>
             <td>No. of Article</td>
             <td>Total Price($)</td>
-            <!-- <td>Additional options</td> -->
             <td>Action</td>
             </tr>
             </thead>
@@ -127,7 +124,6 @@
             </tfoot>
           </table>
         </div>
-        <!-- /.col -->
       </div>
       <!-- /.row -->
 
@@ -148,14 +144,14 @@
                 </td>
               </tr>
               <tr>
-                <th>Tax (18%)</th>
+                <th>Tax ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
                 <td class="gstNumber">$00.00</td>
                 <td hidden>
                   <input type="text" class="gstNumber_val" name="ust_number" required>
                 </td>
               </tr>
               <tr>
-                <th>Total:</th>
+                <th>Grand Total:</th>
                 <td class="grandTotal">$00.00</td>
                 <td hidden>
                   <input type="text" class="grandTotal_val" name="grand_total" required>
