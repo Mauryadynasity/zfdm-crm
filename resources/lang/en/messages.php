@@ -4,7 +4,7 @@ return [
 
     'Super Admin' => 'Super Admin',
     'Inbound' => 'InBound',
-    'Outbound' => 'OutBound',
+    'OutBound' => 'OutBound',
     'create_user' => 'Create User',
     'home' => 'Home',
     'user_name' => 'Name',

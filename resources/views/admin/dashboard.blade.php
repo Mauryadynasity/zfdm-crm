@@ -3,12 +3,12 @@
 
 <section class="content-header">
     <h1>
-    {{__('messages.Dashboard')}}
+    {{Auth::guard('admin')->user()->name}} {{__('messages.Dashboard')}}
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
-    <li class="active">{{__('messages.Dashboard')}}</li>
+    <li class="active">{{Auth::guard('admin')->user()->name}} {{__('messages.Dashboard')}}</li>
     </ol>
 </section>
 

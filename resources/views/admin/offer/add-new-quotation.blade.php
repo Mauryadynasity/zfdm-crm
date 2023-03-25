@@ -31,6 +31,7 @@
         <!-- /.col -->
       </div>
       <!-- info row -->
+      @if(Auth::guard('admin')->user()->role_id ==1)
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
           From
@@ -192,5 +193,6 @@ Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
           </div>
           <!-- /.modal-dialog -->
         </div>
+        @endif
 
 

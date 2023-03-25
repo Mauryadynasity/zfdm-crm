@@ -11,12 +11,12 @@
 @endsection
 <section class="content-header">
     <h1>
-    User Dashboard
+    {{Auth::guard('admin')->user()->name}} Dashboard
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">User Dashboard</li>
+    <li class="active">{{Auth::guard('admin')->user()->name}} Dashboard</li>
     </ol>
 </section>
 
@@ -52,6 +52,7 @@
           <!-- /.row -->
         </div>
         <!-- /.box-body -->
+        @if(Auth::guard('admin')->user()->role_id ==1)
         <div class="box-body">
           <a href="{{url('admin/add-prospact')}}" class="btn btn-primary">Add Prospact</a>
 
@@ -59,7 +60,7 @@
               Add Quotation
             </button>
         </div>
-
+        @endif
         <table class="table table-bordered border-success yajra-datatable" width="100%" id="myTable">
           <thead>
             <tr>
@@ -69,7 +70,9 @@
               <th>Customer Email</th>
               <th>Customer Phone</th>
               <th>Date</th>
+              @if(Auth::guard('admin')->user()->role_id ==1)
               <th>Action</th>
+              @endif
               </tr>
           </thead>
           <tbody>
@@ -81,10 +84,12 @@
               <td>{{$prospact->cust_email}}</td>
               <td>{{$prospact->cust_phone }}</td>
               <td>{{$prospact->date_of_contact}}</td>
+              @if(Auth::guard('admin')->user()->role_id ==1)
               <td>
                 <a href="{{url('admin/edit-prospact')}}/{{$prospact->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                 <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
               </td>
+              @endif
             </tr>
             @endforeach
           </tbody>

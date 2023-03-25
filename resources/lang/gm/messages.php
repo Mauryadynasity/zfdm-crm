@@ -3,7 +3,7 @@
 return [
     'Super Admin' => 'höchster Vorgesetzter',
     'Inbound' => 'Eingehende',
-    'Outbound' => 'Ausgehend',
+    'OutBound' => 'Ausgehend',
     'create_user' => 'Benutzer erstellen',
     'home' => 'Heim',
     'user_name' => 'Name',
