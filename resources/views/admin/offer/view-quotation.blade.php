@@ -3,7 +3,12 @@
 
 
 @section('styles')
-<style type="text/css">
+<style>
+@media print {
+   .noprint {
+      visibility: hidden;
+   }
+}
 </style>
 @endsection
      <section class="content-header">
@@ -106,7 +111,8 @@
 
       <div class="row">
         <div class="col-xs-6">
-          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">{{$prospact->quotation->comments}}</p>     
+          <!-- <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">{{$prospact->quotation->comments}}</p>      -->
+          <p class="" style="margin-top: 10px;">{{$prospact->quotation->comments}}</p>     
         </div>
         <div class="col-xs-6">
           <div class="table-responsive">

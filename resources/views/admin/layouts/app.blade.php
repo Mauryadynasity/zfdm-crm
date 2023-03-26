@@ -42,6 +42,15 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   @yield('styles')
+  <style>
+    <style>
+      @media print {
+        .noprint {
+            visibility: hidden;
+        }
+      }
+</style>
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -56,7 +65,7 @@
 <div class="row">
 <div class="col-md-12 text-right">
   <br/>
-  <select onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
+  <select class="noprint" onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
     <option value="gm" @if(Session::get('applocale')=='gm') selected @endif>German</option>
     <option value="en" @if(Session::get('applocale')=='en') selected @endif>English</option>
   </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
