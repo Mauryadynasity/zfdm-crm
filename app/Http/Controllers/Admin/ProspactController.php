@@ -36,7 +36,7 @@ class ProspactController extends Controller {
 					'cust_phone' => $request->cust_phone,
 					'date_of_contact' => $request->date_of_contact,
 					'cust_address' => $request->cust_address,
-					'admin_id' => Auth::guard('admin')->user()->id,
+					'cust_source' => Auth::guard('admin')->user()->id,
 				]
 			);
 		return redirect('admin/user-dashboard')->with('message','Prospact Added Successfully.');

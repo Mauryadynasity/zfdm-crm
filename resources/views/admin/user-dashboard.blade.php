@@ -11,27 +11,28 @@
 @endsection
 <section class="content-header">
     <h1>
-    {{Auth::guard('admin')->user()->name}} Dashboard
+    {{__('messages.'.Auth::guard('admin')->user()->name)}}
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">{{Auth::guard('admin')->user()->name}} Dashboard</li>
+    <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
+    <li class="active">{{__('messages.'.Auth::guard('admin')->user()->name)}}</li>
     </ol>
 </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="box box-default table-responsive">
-        <!-- <div class="box-header with-border">
-          <h3 class="box-title">Select2</h3>
-
-          <div class="box-tools pull-right">
+        <div class="box-header with-border">
+          <h3 class="box-title">Tab View</h3>
+          <!-- <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
-        </div> -->
+          </div> -->
+        </div>
         <!-- /.box-header -->
+
+
         <div class="box-body">
           <div class="form-row">
               <div class="col-md-12">
@@ -49,18 +50,87 @@
                 @endif
               </div>
           </div>
-          <!-- /.row -->
         </div>
+        <form name="myForm" id="myForm" method="post" action="{{url('admin/save-prospact')}}" enctype="multipart/form-data">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Customer name<span style="color:red">*</span></label>
+                <input type="text" name="cust_name" class="form-control" style="width: 100%;" required>
+                @if($errors->has('cust_name'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('cust_name') }}</span>
+                  @endif
+              </div>
+            </div>
+             <div class="col-md-3">
+              <div class="form-group">
+                <label>Company Name<span style="color:red">*</span></label>
+                <input type="text" name="company_name" class="form-control" style="width: 100%;" required>
+                  @if($errors->has('company_name'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('company_name') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Email Address<span style="color:red">*</span></label>
+                <input type="email" name="cust_email" class="form-control" style="width: 100%;" required>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('email'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('email') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Phone Number<span style="color:red">*</span></label>
+                <input type="text" name="cust_phone" class="form-control numbersOnly" style="width: 100%;" minlength="10" maxlength="12" required>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('phone'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('phone') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Date<span style="color:red">*</span></label>
+                <input type="date" name="date_of_contact" class="form-control" style="width: 100%;" required>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('date_of_contact'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('date_of_contact') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Customer Address</label>
+                <textarea type="text" name="cust_address" class="form-control" style="width: 100%;" maxlength="500"></textarea>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('cust_address'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('cust_address') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label></label>
+                <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label></label>
+                <a href="{{url('admin/user-dashboard')}}" class="form-control btn btn-default" style="margin-top: 4px;">{{__('messages.back_button')}}</a>
+              </div>
+            </div>
+          </div>
+          </form>
         <!-- /.box-body -->
-        @if(Auth::guard('admin')->user()->role_id ==1)
         <div class="box-body">
           <a href="{{url('admin/add-prospact')}}" class="btn btn-primary">Add Prospact</a>
-
-            <button type="button" class="btn btn-default mybutton" onClick="addNewOffer()">
-              Add Quotation
-            </button>
         </div>
-        @endif
         <table class="table table-bordered border-success yajra-datatable" width="100%" id="myTable">
           <thead>
             <tr>
@@ -70,9 +140,7 @@
               <th>Customer Email</th>
               <th>Customer Phone</th>
               <th>Date</th>
-              @if(Auth::guard('admin')->user()->role_id ==1)
               <th>Action</th>
-              @endif
               </tr>
           </thead>
           <tbody>
@@ -84,12 +152,13 @@
               <td>{{$prospact->cust_email}}</td>
               <td>{{$prospact->cust_phone }}</td>
               <td>{{$prospact->date_of_contact}}</td>
-              @if(Auth::guard('admin')->user()->role_id ==1)
               <td>
                 <a href="{{url('admin/edit-prospact')}}/{{$prospact->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                 <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <button type="button" class="btn btn-danger mybutton" title="Add Quotation" onClick="addNewOffer()">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </button>
               </td>
-              @endif
             </tr>
             @endforeach
           </tbody>

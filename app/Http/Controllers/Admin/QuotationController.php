@@ -19,11 +19,12 @@ class QuotationController extends Controller {
 		// $this->middleware('auth:admin');
 	}
 
-	// function invoice(){
-	// 	$data = ['title' => 'Welcome to ItSolutionStuff.com'];
-	// 	$pdf = PDF::loadView('admin.invoice', $data);
-	// 	return $pdf->download('itsolutionstuff.pdf');
-	// }
+	function invoice($prospact_id){
+		$data = Prospact::where('id',$prospact_id)->get();
+		$data = ['title' =>'sdfsdfsdafdssdsfdsfs'];
+		$pdf = PDF::loadView('admin.offer.invoice',$data);
+		return $pdf->download('itsolutionstuff.pdf');
+	}
 
 	public function quotationList(){
 		$quotations = Prospact::has('quotations')->get();
@@ -76,8 +77,18 @@ class QuotationController extends Controller {
         // return response()->json(array('success' => true, 'prospacts'=>$prospacts));
 	}
 
-	public function viewQuotation($quotationId){
+	public function viewQuotation(Request $request,$quotationId){
 		$prospact = Prospact::where('id',$quotationId)->first();
+		if($request->generate_pdf){
+            $htmlfile = view('admin.offer.invoice',compact('prospact'))->render();
+			// dd($htmlfile);
+            $pdf = app()->make('dompdf.wrapper');
+            $pdf->loadHTML($htmlfile,'UTF-8')
+			->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif'])
+			->setWarnings(false);
+			// ->setPaper($request->paper_size, 'landscape');
+            return $pdf->download('TR Report.pdf');
+		}
 		return view('admin.offer.view-quotation',compact('prospact'));
 	}
 	public function editQuotation($quotationId){

@@ -50,7 +50,7 @@ use App\Http\Controllers\Admin;
         Route::post('edit-quotation/{id}', [Admin\QuotationController::class,'updateQuotation']);
         Route::get('delete-quotation/{id}', [Admin\QuotationController::class,'destroy']);
 
-        // Route::get('invoice', [Admin\QuotationController::class,'invoice']);
+        Route::get('invoice/{id}', [Admin\QuotationController::class,'invoice']);
     });
     
 
