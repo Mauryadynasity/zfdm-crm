@@ -46,10 +46,13 @@
                 @endif
               </div>
           </div>
-        <div class="col-xs-12">
-          <h2 class="page-header">
-            <i class="fa fa-globe"></i> {{__('messages.'.Auth::guard('admin')->user()->name)}}
-          </h2>
+          <div class="col-xs-12">
+          <!-- <h2 class="page-header">
+          {{__('messages.'.Auth::guard('admin')->user()->name)}}
+          </h2> -->
+          <div class="">
+            <img src="{{asset('images/logo.png')}}" alt="">
+          </div></BR>
         </div>
         <!-- /.col -->
       </div>

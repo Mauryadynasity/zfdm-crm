@@ -36,10 +36,12 @@
       <!-- title row -->
       <div class="row">
         <div class="col-xs-12">
-          <h2 class="page-header">
-            <img src="" alt="">
+          <!-- <h2 class="page-header">
           {{__('messages.'.Auth::guard('admin')->user()->name)}}
-          </h2>
+          </h2> -->
+          <div class="">
+            <img src="{{asset('images/logo.png')}}" alt="">
+          </div></BR>
         </div>
         <!-- /.col -->
       </div>
