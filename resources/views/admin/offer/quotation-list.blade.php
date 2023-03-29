@@ -8,12 +8,12 @@
 @endsection
 <section class="content-header">
     <h1>
-    User Dashboard
+    Quotation List
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">User Dashboard</li>
+    <li class="active">Quotation List</li>
     </ol>
 </section>
 
@@ -49,13 +49,13 @@
           <!-- /.row -->
         </div>
         <!-- /.box-body -->
-        <div class="box-body">
+      <!--   <div class="box-body">
           <a href="{{url('admin/add-prospact')}}" class="btn btn-primary">Add Prospact</a>
 
-            <button type="button" class="btn btn-default mybutton" onClick="addNewOffer()">
+            <button type="button" class="btn btn-default" onClick="addNewOffer()">
               Add Quotation
             </button>
-        </div>
+        </div> -->
 
         <table class="table table-bordered border-success yajra-datatable" width="100%" id="myTable">
           <thead>
@@ -63,24 +63,21 @@
               <th>S.NO</th>
               <th>Company Name</th>
               <th>Customer Name</th>
-              <th>Customer Email</th>
-              <th>Customer Phone</th>
-              <th>Date</th>
+              <th>Customer Address</th>
               <th>Action</th>
               </tr>
           </thead>
           <tbody>
-            @foreach($prospacts as $prospact)
+            @foreach($quotations as $quotation)
             <tr>
-              <td class="prospact_id">{{$prospact->id}}</td>
-              <td class="company_name">{{$prospact->company_name}}</td>
-              <td>{{$prospact->cust_name}}</td>
-              <td>{{$prospact->cust_email}}</td>
-              <td>{{$prospact->cust_phone }}</td>
-              <td>{{$prospact->date_of_contact}}</td>
+              <td class="prospact_id">{{$quotation->id}}</td>
+              <td class="company_name">{{$quotation->company_name}}</td>
+              <td>{{$quotation->cust_name}}</td>
+              <td>{{$quotation->cust_address}}</td>
               <td>
-                <a href="{{url('admin/edit-prospact')}}/{{$prospact->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a href="{{url('admin/view-quotation')}}/{{$quotation->id}}" title="View" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <a href="{{url('admin/edit-quotation')}}/{{$quotation->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                <a href="{{url('admin/delete-quotation')}}/{{$quotation->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
               </td>
             </tr>
             @endforeach
@@ -95,7 +92,6 @@
     <script>
 
       $(document).ready( function () {
-        $(".mybutton").hide();
           $('#myTable').dataTable();
       } );
 
@@ -126,7 +122,7 @@
           'X-CSRF-Token': $('meta[name=_token]').attr('content')
         },
         type: 'GET',
-        url: "{{ url('admin/get-prospact-details') }}",
+        url: "{{ url('admin/get-offer-details') }}",
         data: {
             'prospact_id' : prospact_id,
         },
@@ -134,13 +130,8 @@
           if(data){
             $(".prospact_id").val(data.id);
             $(".cus-name").append(data.cust_name);
-            $(".company-name").append(data.company_name);
-            $(".customer-address").append(data.cust_address);
-            $(".postcode").append(data.postcode);
-            $(".place_name").append(data.place_name);
-            $(".quotation_number").append(data.id);
-            // $(".cus-phone").append(data.cust_phone);
-            // $(".cus-email").append(data.cust_email);
+            $(".cus-phone").append(data.cust_phone);
+            $(".cus-email").append(data.cust_email);
           }else{
             // alert(data.message);
           }
@@ -156,7 +147,7 @@
           'X-CSRF-Token': $('meta[name=_token]').attr('content')
         },
         type: 'POST',
-        url: "{{ url('admin/save-quotation') }}",
+        url: "{{ url('admin/save-offer') }}",
         data: formData,
         cache: false,
         contentType: false,
@@ -181,20 +172,10 @@
       });
     });
 
-    $('#myTable tbody').on( 'click', 'tr', function () {
-        $(".mybutton").show();
-        $('#myTable tbody tr').removeClass('selected');
-        $(this).toggleClass('selected');
-    });
-
-  $('.number_of_article').change(function(){
-    var prise_per_article = $('.prise_per_article').val();
-    var number_of_article = $('.number_of_article').val();
-    var total_price = prise_per_article * number_of_article;
-      $('.total_price_1').val(total_price);
-      // $('.total_price_2').val(total_price);
-      // $('.total_price_3').val(total_price);
-  });
+    // $('#myTable tbody').on( 'click', 'tr', function () {
+    //     $('#myTable tbody tr').removeClass('selected');
+    //     $(this).toggleClass('selected');
+    // });
 
     </script>
     @endsection

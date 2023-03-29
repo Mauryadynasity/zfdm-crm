@@ -30,12 +30,16 @@ class SettingController extends Controller {
             // 'upload_file' => 'required',
             'phone' => 'required|numeric|digits:10',
             'email' => 'required|email',
-            'company_address' => 'required',
+            'ust_number' => 'required',
             'bank_name' => 'required',
             'ifsc_code' => 'required',
             'account_number' => 'required',
             'branch_address' => 'required',
             'tax_number' => 'required',
+            'streat_name_1' => 'required',
+            'place_code' => 'required',
+            'place_name' => 'required',
+            'country' => 'required',
         ]);
 		if ($validator->fails()) {
             $error = $validator->errors()->first();
@@ -53,12 +57,21 @@ class SettingController extends Controller {
 					'website_url' => $request->website_url,
 					'phone' => $request->phone,
 					'email' => $request->email,
-					'company_address' => $request->company_address,
+					'ust_number' => $request->ust_number,
 					'bank_name' => $request->bank_name,
 					'account_number' => $request->account_number,
 					'ifsc_code' => $request->ifsc_code,
 					'branch_address' => $request->branch_address,
 					'tax_number' => $request->tax_number,
+					'mobile_number' => $request->mobile_number,
+					'landline_number' => $request->landline_number,
+					'streat_name_1' => $request->streat_name_1,
+					'streat_name_2' => $request->streat_name_2,
+					'streat_name_3' => $request->streat_name_3,
+					'place_code' => $request->place_code,
+					'place_name' => $request->place_name,
+					'country' => $request->country,
+					'tax_identification_no' => $request->tax_identification_no,
 				]
 			);
 		if($request->upload_file){

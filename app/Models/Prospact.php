@@ -12,7 +12,7 @@ use Auth;
 use DB;
 use Storage;
 
-class Setting extends Model implements HasMedia
+class Prospact extends Model implements HasMedia
 {
     use HasMediaTrait,SoftDeletes;
 
@@ -28,31 +28,14 @@ class Setting extends Model implements HasMedia
      *
      * @var array
      */
-     public $table="tbl_settings";
+     public $table="tbl_prospects";
      protected $fillable = [
+        'cust_name',
         'company_name',
-        'person_name',
-        'website_url',
-        'company_logo',
-        'phone',
-        'email',
-        'company_address',
-        'ust_number',
-        'bank_name',
-        'account_number',
-        'ifsc_code',
-        'branch_address',
-        'tax_number',
-        'admin_id',
-        'mobile_number',
-        'landline_number',
-        'streat_name_1',
-        'streat_name_2',
-        'streat_name_3',
-        'place_code',
-        'place_name',
-        'country',
-        'tax_identification_no',
+        'cust_email',
+        'cust_phone',
+        'date_of_contact',
+        'cust_address',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -73,6 +56,13 @@ class Setting extends Model implements HasMedia
         $this->addMediaCollection('upload_file')
             ->singleFile();
      }
+
+     public function quotation(){
+        return $this->hasOne(Quotation::class);
+    }
+     public function quotations(){
+        return $this->hasMany(Quotation::class);
+    }
 
 
 }

@@ -28,14 +28,29 @@ use App\Http\Controllers\Admin;
         Route::get('delete-user/{id}', [Admin\UserController::class,'destroy']);
         Route::get('dashboard', [Admin\DashboardController::class,'dashboard']);
         Route::get('user-dashboard', [Admin\DashboardController::class,'userDashboard']);
+        Route::get('add-new-quotation', [Admin\DashboardController::class,'addNewOffer']);
 
     // -------Setting Route---------------//
         Route::get('setting', [Admin\SettingController::class,'index']);
         Route::post('save-setting', [Admin\SettingController::class,'saveSetting']);
 
+    // -------Prospact Route---------------//
+        Route::get('add-prospact', [Admin\ProspactController::class,'addProspact']);
+        Route::post('save-prospact', [Admin\ProspactController::class,'saveProspact']);
+        Route::get('edit-prospact/{id}', [Admin\ProspactController::class,'editProspact']);
+        Route::post('update-prospact', [Admin\ProspactController::class,'updateProspact']);
+        Route::get('delete-prospact/{id}', [Admin\ProspactController::class,'destroy']);
+
         // -------Offer Route---------------//
-        Route::post('save-offer', [Admin\OfferController::class,'saveOffer']);
-        Route::get('invoice', [Admin\OfferController::class,'invoice']);
+        Route::get('get-prospact-details', [Admin\QuotationController::class,'getOfferDetail']);
+        Route::post('save-quotation', [Admin\QuotationController::class,'saveQuotation']);
+        Route::get('quotation-list', [Admin\QuotationController::class,'quotationList']);
+        Route::get('view-quotation/{id}', [Admin\QuotationController::class,'viewQuotation']);
+        Route::get('edit-quotation/{id}', [Admin\QuotationController::class,'editQuotation']);
+        Route::post('edit-quotation/{id}', [Admin\QuotationController::class,'updateQuotation']);
+        Route::get('delete-quotation/{id}', [Admin\QuotationController::class,'destroy']);
+
+        // Route::get('invoice', [Admin\QuotationController::class,'invoice']);
     });
     
 
