@@ -76,31 +76,55 @@
             <td>No. of Article</td>
             <td>Total Price($)</td>
             <!-- <td>Additional options</td> -->
-            <!-- <td>Action</td> -->
+            <td>Action</td>
             </tr>
             </thead>
             <tbody>
-              <?php for ($x = 1; $x <= 3; $x++) { ?>
             <tr>
             <td>
-              {{$x}}
-              <input type="hidden" class="form-control number_of_position" name="number_of_position[]" value="{{$x}}">
+              <span class="position_text">1</span>
             </td>
             <td>
               <input type="text" class="form-control article_description" name="article_description[]" required>
             </td>
             <td>
-              <input type="text" class="form-control prise_per_article numbersOnly" name="prise_per_article[]" required>
+              <input type="text" class="form-control prise_per_article numbersOnly" name="prise_per_article[]"  onchange="calculateTotalPrice($(this))" required>
             </td>
             <td>
-              <input type="text" class="form-control number_of_article numbersOnly" name="number_of_article[]" required>
+              <input type="text" class="form-control number_of_article numbersOnly" name="number_of_article[]"  onchange="calculateTotalPrice($(this))" required>
             </td>
             <td>
-              <input type="text" class="form-control price numbersOnly" name="price[]" required>
+              <span class="price_text"></span>
+              <input type="hidden" class="form-control price numbersOnly" name="price[]" required>
+            </td>
+            <td></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="trRow">
+            <td>
+              <input type="text" class="form-control article_description" name="article_description[]" required>
+            </td>
+            <td>
+              <input type="text" class="form-control prise_per_article numbersOnly" name="prise_per_article[]"  onchange="calculateTotalPrice($(this))" required>
+            </td>
+            <td>
+              <input type="text" class="form-control number_of_article numbersOnly" name="number_of_article[]"  onchange="calculateTotalPrice($(this))" required>
+            </td>
+            <td>
+              <span class="price_text"></span>
+              <input type="hidden" class="form-control price numbersOnly" name="price[]" required>
+            </td>
+            <td>
+              <button onclick="$(this).closest('tr').remove();" class="btn btn-danger"><i class="fa fa-trash"></i></button>
             </td>
             </tr>
-            <?php } ?>
-            </tbody>
+              <tr>
+                <td colspan="6" class="text-right">
+                  <button onclick="addTr()" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
         <!-- /.col -->
@@ -118,15 +142,24 @@
             <table class="table">
               <tr>
                 <th style="width:50%">Subtotal:</th>
-                <td>$250.30</td>
+                <td class="subtotal">$00.00</td>
+                <td hidden>
+                  <input type="text" class="subtotal_val" name="sub_total" required>
+                </td>
               </tr>
               <tr>
-                <th>Tax (9.3%)</th>
-                <td>$10.34</td>
+                <th>Tax (18%)</th>
+                <td class="gstNumber">$00.00</td>
+                <td hidden>
+                  <input type="text" class="gstNumber_val" name="ust_number" required>
+                </td>
               </tr>
               <tr>
                 <th>Total:</th>
-                <td>$265.24</td>
+                <td class="grandTotal">$00.00</td>
+                <td hidden>
+                  <input type="text" class="grandTotal_val" name="grand_total" required>
+                </td>
               </tr>
             </table>
           </div>
@@ -163,3 +196,5 @@ Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
           </div>
           <!-- /.modal-dialog -->
         </div>
+
+

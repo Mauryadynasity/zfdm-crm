@@ -7,9 +7,8 @@ use App\Models\Prospact;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
-use DB;
-use Hash;
 use DataTables;
+
 class ProspactController extends Controller {
 
 	public function __construct() {
@@ -29,7 +28,7 @@ class ProspactController extends Controller {
             'date_of_contact' => 'required',
         ]);
 
-			 Prospact::Create(
+			Prospact::Create(
 				[	
 					'cust_name' => $request->cust_name,
 					'company_name' => $request->company_name,
@@ -37,6 +36,7 @@ class ProspactController extends Controller {
 					'cust_phone' => $request->cust_phone,
 					'date_of_contact' => $request->date_of_contact,
 					'cust_address' => $request->cust_address,
+					'admin_id' => Auth::guard('admin')->user()->id,
 				]
 			);
 		return redirect('admin/user-dashboard')->with('message','Prospact Added Successfully.');

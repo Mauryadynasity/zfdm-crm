@@ -33,7 +33,6 @@ class QuotationController extends Controller {
 	public function saveQuotation(Request $request) {
 		// dd($request->quotation_number);
 		$validator = Validator::make($request->all(), [
-            'number_of_position' => 'required',
             'article_description' => 'required',
             'number_of_article' => 'required',
             'prise_per_article' => 'required',
@@ -48,22 +47,24 @@ class QuotationController extends Controller {
 			// return response()->json($validator->messages(), 200);
 		}
 		$saveQuotation  = [];
-		foreach($request->number_of_position as $index=>$position){
-			$saveQuotation[] = array(
-			  	'admin_id' => Auth::guard('admin')->user()->id,
-				'prospact_id' => $request->prospact_id,
-				'number_of_position' => $request->number_of_position[$index],
-				'article_description' => $request->article_description[$index],
-				'number_of_article' => $request->number_of_article[$index],
-				'prise_per_article' => $request->prise_per_article[$index],
-				'price' => $request->price[$index],
-				'quotation_number' => $request->quotation_number,
-				'quotation_date' => $request->quotation_date,
-				'sub_total' => 10,
-				'ust_number' => 121,
-				'grand_total' => 30,
-				'comments' => $request->comments,
-			);
+		foreach($request->article_description as $index=>$row){
+			if($request->article_description[$index]!=''){
+				$saveQuotation[] = array(
+					'admin_id' => Auth::guard('admin')->user()->id,
+				  'prospact_id' => $request->prospact_id,
+				  'number_of_position' => ($index+1),
+				  'article_description' => $request->article_description[$index],
+				  'number_of_article' => $request->number_of_article[$index],
+				  'prise_per_article' => $request->prise_per_article[$index],
+				  'price' => $request->price[$index],
+				  'quotation_number' => $request->quotation_number,
+				  'quotation_date' => $request->quotation_date,
+				  'sub_total' => $request->sub_total,
+				  'ust_number' => $request->ust_number,
+				  'grand_total' => $request->grand_total,
+				  'comments' => $request->comments,
+			  );
+			}
 		}
 		Quotation::insert($saveQuotation);
     	return response()->json(['message' => 'Quotation has been created', 'status' => true]);

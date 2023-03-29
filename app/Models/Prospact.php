@@ -36,6 +36,7 @@ class Prospact extends Model implements HasMedia
         'cust_phone',
         'date_of_contact',
         'cust_address',
+        'admin_id',
         'created_at',
         'updated_at',
         'deleted_at'

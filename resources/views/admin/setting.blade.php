@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
 <section class="content-header">
+    
     <h1>
     {{__('messages.CompanyDetails')}}
     <!-- <small>Control panel</small> -->

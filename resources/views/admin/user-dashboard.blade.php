@@ -4,6 +4,9 @@
 
 @section('styles')
 <style type="text/css">
+  .trRow{
+    display: none;
+  }
 </style>
 @endsection
 <section class="content-header">
@@ -187,15 +190,44 @@
         $(this).toggleClass('selected');
     });
 
-  $('.number_of_article').change(function(){
-    var prise_per_article = $('.prise_per_article').val();
-    var number_of_article = $('.number_of_article').val();
-    var total_price = prise_per_article * number_of_article;
-      $('.total_price_1').val(total_price);
-      // $('.total_price_2').val(total_price);
-      // $('.total_price_3').val(total_price);
-  });
+  function calculateTotalPrice($this){
+    var currentTr = $this.closest('tr');
+    var prise_per_article = currentTr.find('.prise_per_article').val();
+    var number_of_article  = currentTr.find('.number_of_article').val();
+    var total_price = parseInt(prise_per_article) * parseInt(number_of_article);
+    if(Number.isInteger(total_price)){
+      currentTr.find('.price').val(total_price);
+      currentTr.find('.price_text').html('$'+total_price);
+    }
+    calculateGrandTotalPrice(total_price);
+  }
+  function calculateGrandTotalPrice(total_price){
+    var grandTotal = 0;
+    $('.price').each(function(total_price) {
+      var price = parseInt($(this).val());
+      if(Number.isInteger(price)){
+        grandTotal += price;
+      }
+    });
+    if(Number.isInteger(grandTotal)){
+      var gstNumber = parseFloat((grandTotal*18)/100);
+      $('.subtotal').html('$'+grandTotal);
+      $('.gstNumber').html('$'+gstNumber);
+      $('.grandTotal').html('$'+(grandTotal+gstNumber));
+      $('.subtotal_val').val(grandTotal);
+      $('.gstNumber_val').val(gstNumber);
+      $('.grandTotal_val').val((grandTotal+gstNumber));
+    }
+  }
 
+  function addTr(){
+    var position_count = ($('.article_description').length);
+    var content = $('.trRow').html();
+    var positionDetails = '<td><span class="position_text">'+position_count+'</span></td>';
+    position_count = position_count + 1;
+    var content_text = '<tr>'+positionDetails+content+'</tr>';
+    $('.offerTable tbody').append(content_text);
+  }
     </script>
     @endsection
 
