@@ -8,12 +8,13 @@
 @endsection
 <section class="content-header">
     <h1>
-    Quotation List
+    {{__('messages.Quotation List')}}
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Quotation List</li>
+    <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
+    <li class="active"><a href="{{url('admin/user-dashboard')}}">{{__('messages.Prospects')}}</a></li>
+    <li class="active"><a href="{{url('admin/quotation-list')}}">{{__('messages.Quotations')}}</a></li>
     </ol>
 </section>
 
@@ -49,22 +50,18 @@
           <!-- /.row -->
         </div>
         <!-- /.box-body -->
-      <!--   <div class="box-body">
-          <a href="{{url('admin/add-prospact')}}" class="btn btn-primary">Add Prospact</a>
-
-            <button type="button" class="btn btn-default" onClick="addNewOffer()">
-              Add Quotation
-            </button>
-        </div> -->
+        <!-- <div class="box-body">
+          <a href="{{url('admin/user-dashboard')}}" class="btn btn-primary">Prospact List</a>
+          </div> -->
 
         <table class="table table-bordered border-success yajra-datatable" width="100%" id="myTable">
           <thead>
             <tr>
-              <th>S.NO</th>
-              <th>Company Name</th>
-              <th>Customer Name</th>
-              <th>Customer Address</th>
-              <th>Action</th>
+            <th>{{__('messages.sr_no')}}</th>
+              <th>{{__('messages.Company Name')}}</th>
+              <th>{{__('messages.Customer name')}}</th>
+              <th>{{__('messages.Customer Address')}}</th>
+              <th>{{__('messages.action')}}</th>
               </tr>
           </thead>
           <tbody>

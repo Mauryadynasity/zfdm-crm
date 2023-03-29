@@ -2,12 +2,13 @@
 @section('content')
 <section class="content-header">
     <h1>
-      Add Prospact
+    {{__('messages.Edit Prospect')}}
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
-    <li class="active">{{__('messages.Setting')}}</li>
+    <li class="active"><a href="{{url('admin/user-dashboard')}}">{{__('messages.Prospects')}}</a></li>
+    <li class="active"><a href="{{url('admin/quotation-list')}}">{{__('messages.Quotations')}}</a></li>
     </ol>
 </section>
 
@@ -46,7 +47,7 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label>Customer name<span style="color:red">*</span></label>
+                <label>{{__('messages.Customer name')}}<span style="color:red">*</span></label>
                 <input type="text" name="cust_name" class="form-control" value="{{ $prospact->cust_name }}" style="width: 100%;" required>
                 @if($errors->has('cust_name'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('cust_name') }}</span>
@@ -55,7 +56,7 @@
             </div>
              <div class="col-md-3">
               <div class="form-group">
-                <label>Company Name<span style="color:red">*</span></label>
+                <label>{{__('messages.Company Name')}}<span style="color:red">*</span></label>
                 <input type="text" name="company_name" class="form-control" value="{{ $prospact->company_name }}" style="width: 100%;" required>
                   @if($errors->has('company_name'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('company_name') }}</span>
@@ -64,7 +65,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Email Address<span style="color:red">*</span></label>
+                <label>{{__('messages.email')}}<span style="color:red">*</span></label>
                 <input type="email" name="cust_email" class="form-control" value="{{ $prospact->cust_email }}" style="width: 100%;" required>
             <div class="text-danger error_application"></div>
                 @if($errors->has('email'))
@@ -74,7 +75,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Phone Number<span style="color:red">*</span></label>
+                <label>{{__('messages.phone')}}<span style="color:red">*</span></label>
                 <input type="phone" name="cust_phone" class="form-control numbersOnly" value="{{ $prospact->cust_phone }}" style="width: 100%;" maxlength="10" required>
             <div class="text-danger error_application"></div>
                 @if($errors->has('phone'))
@@ -85,11 +86,21 @@
             <div class="clearfix"></div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Date<span style="color:red">*</span></label>
+                <label>{{__('messages.Date')}}<span style="color:red">*</span></label>
                 <input type="date" name="date_of_contact" class="form-control" value="{{ $prospact->date_of_contact }}" style="width: 100%;" required>
             <div class="text-danger error_application"></div>
                 @if($errors->has('date_of_contact'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('date_of_contact') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>{{__('messages.Customer Address')}}</label>
+                <textarea type="text" name="cust_address" class="form-control" value="{{ $prospact->cust_address }}" style="width: 100%;" maxlength="500">{{$prospact->cust_address}}</textarea>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('cust_address'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('cust_address') }}</span>
                   @endif
               </div>
             </div>

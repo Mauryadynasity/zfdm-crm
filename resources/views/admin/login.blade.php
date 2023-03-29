@@ -38,8 +38,8 @@
 <div class="col-md-12 text-right">
   <br/>
   <select onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
-    <option value="gm" @if(Session::get('applocale')=='gm') selected @endif>German</option>
     <option value="en" @if(Session::get('applocale')=='en') selected @endif>English</option>
+    <option value="gm" @if(Session::get('applocale')=='gm') selected @endif>German</option>
   </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <br/>
 </div>

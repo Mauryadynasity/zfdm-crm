@@ -51,7 +51,7 @@ class QuotationController extends Controller {
 		foreach($request->article_description as $index=>$row){
 			if($request->article_description[$index]!=''){
 				$saveQuotation[] = array(
-					'admin_id' => Auth::guard('admin')->user()->id,
+				  'admin_id' => Auth::guard('admin')->user()->id,
 				  'prospact_id' => $request->prospact_id,
 				  'number_of_position' => ($index+1),
 				  'article_description' => $request->article_description[$index],

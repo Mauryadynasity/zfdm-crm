@@ -36,9 +36,8 @@
           <i class="fa fa fa-dashboard"></i>
           <span>{{__('messages.main_dashboard')}}</span></a>
         </li>
-        @if(Auth::guard('admin')->user()->role_id == 1)
-        <li class="{{Request::is('admin/view-quotation') ? 'active treeview' : ''}}"><a href="{{url('admin/quotation-list')}}"><i class="fa fa-quote-left"></i> <span>Quotation List</span></a>
-        @endif
+        <!-- <li class="{{Request::is('admin/view-quotation') ? 'active treeview' : ''}}"><a href="{{url('admin/quotation-list')}}"><i class="fa fa-quote-left"></i> <span>Quotation List</span></a> -->
+        
         
 
           <!-- <ul class="treeview-menu">
