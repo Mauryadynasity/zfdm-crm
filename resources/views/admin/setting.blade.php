@@ -134,7 +134,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Bank Account Number<span style="color:red">*</span></label>
+                <label>IBAN<span style="color:red">*</span></label>
                 <input type="text" name="account_number" value="{{ $setting ? $setting->account_number : '' }}" maxlength="15" class="form-control numbersOnly" style="width: 100%;" required>
                 @if($errors->has('account_number'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('account_number') }}</span>
@@ -143,7 +143,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Bank IFSC<span style="color:red">*</span></label>
+                <label>BIC<span style="color:red">*</span></label>
                 <input type="text" name="ifsc_code" value="{{ $setting ? $setting->ifsc_code : '' }}"  class="form-control" style="width: 100%;" required>
                 @if($errors->has('ifsc_code'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('ifsc_code') }}</span>
@@ -152,8 +152,8 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Bank Branch address<span style="color:red">*</span></label>
-                <input type="text" name="branch_address" value="{{ $setting ? $setting->branch_address : '' }}" class="form-control" style="width: 100%;" required>
+                <label>Bank Branch address</label>
+                <input type="text" name="branch_address" value="{{ $setting ? $setting->branch_address : '' }}" class="form-control" style="width: 100%;">
                 @if($errors->has('branch_address'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('branch_address') }}</span>
                   @endif
@@ -162,8 +162,8 @@
             <div class="clearfix"></div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Tax No<span style="color:red">*</span></label>
-                <input type="text" name="tax_number" value="{{ $setting ? $setting->tax_number : '' }}" class="form-control" style="width: 100%;" required>
+                <label>Company Registration Code </label>
+                <input type="text" name="tax_number" value="{{ $setting ? $setting->tax_number : '' }}" class="form-control" style="width: 100%;">
                 @if($errors->has('tax_number'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('tax_number') }}</span>
                   @endif
