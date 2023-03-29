@@ -84,6 +84,9 @@ return [
     'Subtotal' => 'Subtotal',
     'Tax' => 'Tax',
     'Grand Total' => 'Grand Total',
+    'quotation_footer_one' => 'Managing Director - Sirsendu Roy',
+    'quotation_footer_two' => 'Bank details : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX',
+    'quotation_footer_three' => 'Ust.-IdentNr:Follows register number: HRB99116 local court:Hanau',
 
 
 ];

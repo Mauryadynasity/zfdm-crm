@@ -37,6 +37,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
+            <img src="" alt="">
           {{__('messages.'.Auth::guard('admin')->user()->name)}}
           </h2>
         </div>
@@ -151,9 +152,10 @@
           <a href="?generate_pdf=true" target="_blank" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> {{__('messages.Generate PDF')}}</a>
         </div>
       </div>
-      <p class="text-center">Geschäftsführer - Sirsendu Roy <br>
-Bankverbindung : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX <br>
-Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
+      <p class="text-center">{{__('messages.quotation_footer_one')}} <br>
+      {{__('messages.quotation_footer_two')}} <br>
+      {{__('messages.quotation_footer_three')}}
+    </p>
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>

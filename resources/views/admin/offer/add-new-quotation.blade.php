@@ -38,8 +38,8 @@
           <address>
             <strong>{{Auth::guard('admin')->user()->setting->company_name}}</strong><br>
             {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_1)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_2)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_3)}}, {{Auth::guard('admin')->user()->setting->place_code}}, {{ucfirst(Auth::guard('admin')->user()->setting->place_name)}}, {{ucfirst(Auth::guard('admin')->user()->setting->country)}}<br>
-            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
-            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->email}}
+            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
+            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->email}}
           </address>
         </div>
         <!-- /.col -->
@@ -172,9 +172,10 @@
       <button type="button" onclick="saveOffersFunction()" class="btn btn-primary pull-right">{{__('messages.submit_button')}}</button>
         </div>
       </div>
-      <p class="text-center">Geschäftsführer - Sirsendu Roy <br>
-Bankverbindung : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX <br>
-Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
+      <p class="text-center">{{__('messages.quotation_footer_one')}} <br>
+      {{__('messages.quotation_footer_two')}} <br>
+      {{__('messages.quotation_footer_three')}}
+    </p>
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>

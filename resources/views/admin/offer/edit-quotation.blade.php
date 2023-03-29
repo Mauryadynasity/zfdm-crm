@@ -208,9 +208,10 @@
           </button>
         </div>
       </div>
-      <p class="text-center">Geschäftsführer - Sirsendu Roy <br>
-Bankverbindung : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX <br>
-Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
+      <p class="text-center">{{__('messages.quotation_footer_one')}} <br>
+      {{__('messages.quotation_footer_two')}} <br>
+      {{__('messages.quotation_footer_three')}}
+    </p>
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>

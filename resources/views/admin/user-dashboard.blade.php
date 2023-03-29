@@ -175,6 +175,7 @@
     <script>
 
       $(document).ready( function () {
+        $('.mybutton').prop('disabled', true);
         $(".mybutton").show();
           $('#myTable').dataTable();
       } );
@@ -263,6 +264,7 @@
 
     $('#myTable tbody').on( 'click', 'tr', function () {
         $(".mybutton").show();
+        $('.mybutton').prop('disabled', false);
         $('#myTable tbody tr').removeClass('selected');
         $(this).toggleClass('selected');
     });
@@ -307,6 +309,7 @@
   }
   $('#myForm').validate();
     </script>
+    
     @endsection
 
     @endsection
