@@ -8,8 +8,13 @@
 @endsection
      <section class="content-header">
     <h1>
-    Edit Quotation
+    {{__('messages.Quotation List')}}
     </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
+    <li class="active"><a href="{{url('admin/user-dashboard')}}">{{__('messages.Prospects')}}</a></li>
+    <li class="active"><a href="{{url('admin/quotation-list')}}">{{__('messages.Quotations')}}</a></li>
+    </ol>
 </section>
 
       <form name="updateQuatation" id="updateQuatation" method="post" action="" enctype="multipart/form-data">
@@ -41,22 +46,25 @@
                 @endif
               </div>
           </div>
-        <div class="col-xs-12">
-          <h2 class="page-header">
-            <i class="fa fa-globe"></i> {{Auth::guard('admin')->user()->name}}
-          </h2>
+          <div class="col-xs-12">
+          <!-- <h2 class="page-header">
+          {{__('messages.'.Auth::guard('admin')->user()->name)}}
+          </h2> -->
+          <div class="">
+            <img src="{{asset('images/logo.png')}}" alt="">
+          </div></BR>
         </div>
         <!-- /.col -->
       </div>
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-          From
+        {{__('messages.From')}}
           <address>
             <strong>{{Auth::guard('admin')->user()->setting->company_name}}</strong><br>
             {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_1)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_2)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_3)}}, {{Auth::guard('admin')->user()->setting->place_code}}, {{ucfirst(Auth::guard('admin')->user()->setting->place_name)}}, {{ucfirst(Auth::guard('admin')->user()->setting->country)}}<br>
-            Phone: {{Auth::guard('admin')->user()->setting->phone}}<br>
-            Email: {{Auth::guard('admin')->user()->setting->email}}
+            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
+            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->email}}
           </address>
         </div>
         <!-- /.col -->
@@ -70,13 +78,13 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          To
+        {{__('messages.To')}}
           <address>
             <span> {{$prospact->cust_name}}</span><br>
             <span> {{$prospact->company_name}}</span><br>
             <span> {{$prospact->cust_address}}</span><br>
-            <strong>Quotation Number:</strong><span> {{$prospact->quotation->quotation_number}}</span><input type="hidden" name="quotation_number" value="{{$prospact->quotation->quotation_number}}"><br>
-            <strong>Quotation Date:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
+            <strong>{{__('messages.Quotation Number')}}:</strong><span> {{$prospact->quotation->quotation_number}}</span><input type="hidden" name="quotation_number" value="{{$prospact->quotation->quotation_number}}"><br>
+            <strong>{{__('messages.Quotation Date')}}:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
           </address>
           <!-- <b>Invoice #007612</b><br>
           <br>
@@ -94,11 +102,11 @@
           <table class="table table-striped table-hover table-responsive offerTable">
             <thead>
             <tr>
-            <td>Position</td>
-            <td>Article Description</td>
-            <td>Price Per Article($)</td>
-            <td>No. of Article</td>
-            <td>Total Price($)</td>
+            <td>{{__('messages.Position')}}</td>
+            <td>{{__('messages.Article Description')}}</td>
+            <td>{{__('messages.Price Per Article($)')}}</td>
+            <td>{{__('messages.No. of Article')}}</td>
+            <td>{{__('messages.Total Price($)')}}</td>
             </tr>
             </thead>
             <tbody>
@@ -164,21 +172,21 @@
           <div class="table-responsive">
             <table class="table">
               <tr>
-                <th style="width:50%">Subtotal:</th>
+                <th style="width:50%">{{__('messages.Subtotal')}}:</th>
                 <td class="subtotal">${{$quotation->sub_total}}</td>
                 <td hidden>
                   <input type="text" class="subtotal_val" name="sub_total" value="{{$quotation->sub_total}}">
                 </td>
               </tr>
               <tr>
-                <th>Tax ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <th>{{__('messages.Tax')}} ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
                 <td class="gstNumber">${{$quotation->ust_number}}</td>
                 <td hidden>
                   <input type="text" class="gstNumber_val" name="ust_number" value="{{$quotation->ust_number}}">
                 </td>
               </tr>
               <tr>
-                <th>Grand Total:</th>
+                <th>{{__('messages.Grand Total')}}:</th>
                 <td class="grandTotal">${{$quotation->grand_total}}</td>
                 <td hidden>
                   <input type="text" class="grandTotal_val" name="grand_total" value="{{$quotation->grand_total}}">
@@ -195,17 +203,18 @@
       <div class="row no-print">
         <div class="col-xs-12">
           <a href="{{url('admin/quotation-list')}}" class="btn btn-default" style="margin-right: 5px;">
-            <i class="fa fa"></i> Back
+            <i class="fa fa"></i> {{__('messages.back_button')}}
           </a>
           
           <button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;">
-            <i class="fa fa-save"></i> Save
+            <i class="fa fa-save"></i> {{__('messages.submit_button')}}
           </button>
         </div>
       </div>
-      <p class="text-center">Geschäftsführer - Sirsendu Roy <br>
-Bankverbindung : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX <br>
-Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
+      <p class="text-center">{{__('messages.quotation_footer_one')}} <br>
+      {{__('messages.quotation_footer_two')}} <br>
+      {{__('messages.quotation_footer_three')}}
+    </p>
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>
@@ -244,7 +253,7 @@ Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau</p>
       }
     });
     if(Number.isInteger(grandTotal)){
-      var gstNumber = parseFloat((grandTotal*18)/100);
+      var gstNumber = parseFloat((grandTotal*'{{Auth::guard('admin')->user()->setting->ust_number}}')/100);
       $('.subtotal').html('$'+grandTotal);
       $('.gstNumber').html('$'+gstNumber);
       $('.grandTotal').html('$'+(grandTotal+gstNumber));

@@ -34,13 +34,11 @@ class CreateTblProspectsTable extends Migration
             $table->string('date_of_contact', 199)->nullable();
             $table->string('protocol', 199)->nullable();
             $table->string('no_device', 199)->nullable();
+            $table->string('admin_id', 199)->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->bigInteger('admin_id');
 
             $table->timestamps();
             $table->softDeletes();
-            // $table->foreign('owner_id')->references('id')->on('tbl_admin');
-
         });
     }
 

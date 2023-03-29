@@ -65,10 +65,10 @@
 <div class="row">
 <div class="col-md-12 text-right">
   <br/>
-  <select class="noprint" onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
+  <!-- <select class="noprint" onchange='window.location.replace("{{url('greeting')}}/"+$(this).val())'>
     <option value="gm" @if(Session::get('applocale')=='gm') selected @endif>German</option>
     <option value="en" @if(Session::get('applocale')=='en') selected @endif>English</option>
-  </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
   <br/>
 </div>
 </div>

@@ -51,6 +51,9 @@ class Admin extends Authenticatable
     public function setting(){
         return $this->hasOne(\App\Models\Setting::class);
     }
+    public function prospact(){
+        return $this->hasOne(\App\Models\Prospact::class);
+    }
 
     public function setPasswordAttribute($password)
     {
