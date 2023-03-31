@@ -137,24 +137,23 @@
         <table class="table table-bordered border-success yajra-datatable" width="100%" id="myTable">
           <thead>
             <tr>
-              <th>{{__('messages.sr_no')}}</th>
-              <th>{{__('messages.Company Name')}}</th>
-              <th>{{__('messages.Customer name')}}</th>
-              <th>{{__('messages.email')}}</th>
-              <th>{{__('messages.phone')}}</th>
-              <th>{{__('messages.Date')}}</th>
+              <th>ID</th>
+              @foreach($permissions as $permission)
+              <th>{{$permission->column_name}}</th>
+              @endforeach
               <th>{{__('messages.action')}}</th>
               </tr>
           </thead>
           <tbody>
+            @php
+            $allowed_columns = $permissions->pluck('column')->toArray();
+            @endphp
             @foreach($prospacts as $prospact)
             <tr>
               <td class="prospact_id">{{$prospact->id}}</td>
-              <td class="company_name">{{$prospact->company_name}}</td>
-              <td>{{$prospact->cust_name}}</td>
-              <td>{{$prospact->cust_email}}</td>
-              <td>{{$prospact->cust_phone }}</td>
-              <td>{{$prospact->date_of_contact}}</td>
+              @foreach($allowed_columns as $allowed_column)
+              <th>{{$prospact->$allowed_column}}</th>
+              @endforeach
               <td>
                 <a href="{{url('admin/edit-prospact')}}/{{$prospact->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                 <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>

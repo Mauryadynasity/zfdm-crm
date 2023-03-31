@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Models\Prospact;
+use App\Models\Permission;
 use App\Models\AdditionalOption;
 use Illuminate\Http\Request;
 use Validator;
@@ -25,9 +26,10 @@ class DashboardController extends Controller {
 		return view('admin.dashboard');
 	}
 	public function userDashboard(Request $request) {
-		$data['settingDetails'] = Setting::first();
-		$data['prospacts'] = Prospact::where('cust_source',Auth::guard('admin')->user()->id)->get();
-		return view('admin.user-dashboard',$data);
+		$settingDetails = Setting::first();
+		$prospacts = Prospact::where('cust_source',Auth::guard('admin')->user()->id)->get();
+		$permissions = Permission::where('module_name','prospect')->where('status','yes')->get();
+		return view('admin.user-dashboard',compact('settingDetails','prospacts','permissions'));
 	}	
 
 	public function addNewOffer(Request $request) {

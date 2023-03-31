@@ -61,7 +61,7 @@
               <td>{{$permission->column}}</td   >
               <td>{{$permission->column_name}}</td>
               <td>
-              <input type="checkbox"  name="status[]" value="{{$permission->status}}" @if($permission->status == 'yes')checked @endif>
+              <input type="checkbox" class="permission_check" name="status[]" value="{{$permission->status}}" @if($permission->status == 'yes')checked @endif>
               </td>
               <td>
                 <!-- <a href="{{url('admin/edit-permission')}}/{{$permission->id}}" title="Save" class="btn btn-primary">Save</a> -->
@@ -74,7 +74,7 @@
             <div class="col-md-2">
               <div class="form-group">
                 <label></label>
-                <button type="submit" class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+                <button type="burton" class="form-control btn btn-primary" onclick="saveRecord()" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
               </div>
             </div>
           </div>
@@ -85,7 +85,13 @@
     </section>
     @section('scripts')
     <script>
-    $('#myForm').validate();
+    function saveRecord(){
+      $('.permission_check').each(function(){
+        if($(this).is(':checked')==false){
+          $(this).closest('tr').remove();
+        }
+      });
+    }
     </script>
     @endsection
 

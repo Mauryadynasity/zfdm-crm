@@ -22,7 +22,9 @@ class PermissionController extends Controller {
 		return view('admin.permission.prospect-permission',compact('permissions'));
 	}
 	public function savePermission(Request $request){
-        dd($request->all());
+		Permission::where('status','yes')->update(['status' => 'no']);
+			Permission::whereIn('id',$request->id)->update(['status' => 'yes']);
+			return back()->with('message','Permitted Successfully.');
 
 	}
 }
