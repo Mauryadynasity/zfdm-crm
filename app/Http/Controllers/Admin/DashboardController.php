@@ -25,15 +25,14 @@ class DashboardController extends Controller {
 		return view('admin.dashboard');
 	}
 	public function userDashboard(Request $request) {
-		$data['adminDetails'] = Setting::where('admin_id',Auth::guard('admin')->user()->id)->first();
-		$data['AdditionalOptions'] = AdditionalOption::all();
-		$data['prospacts'] = Prospact::all();
+		$data['settingDetails'] = Setting::first();
+		$data['prospacts'] = Prospact::where('cust_source',Auth::guard('admin')->user()->id)->get();
 		return view('admin.user-dashboard',$data);
 	}	
 
 	public function addNewOffer(Request $request) {
 		$data['AdditionalOptions'] = AdditionalOption::all();
-		$data['adminDetails'] = Setting::where('admin_id',Auth::guard('admin')->user()->id)->first();
+		$data['settingDetails'] = Setting::first();
 		$returnHTML = view('admin.offer.add-new-quotation')->with($data)->render();
         return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}	

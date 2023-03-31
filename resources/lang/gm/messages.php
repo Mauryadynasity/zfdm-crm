@@ -2,7 +2,7 @@
 
 return [
     'Super Admin' => 'höchster Vorgesetzter',
-    'Inbound' => 'Eingehende',
+    'InBound' => 'Eingehende',
     'OutBound' => 'Ausgehend',
     'create_user' => 'Benutzer erstellen',
     'home' => 'Heim',
@@ -85,5 +85,6 @@ return [
     'quotation_footer_one' => 'Geschäftsführer - Sirsendu Roy',
     'quotation_footer_two' => 'Bankverbindung : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX',
     'quotation_footer_three' => 'Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau',
+    'Prospect Permission' => 'Prospekterlaubnis',
 
 ];

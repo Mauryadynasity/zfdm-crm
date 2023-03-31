@@ -38,18 +38,18 @@
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
         {{__('messages.From')}}
-          <address>
-            <strong>{{Auth::guard('admin')->user()->setting->company_name}}</strong><br>
-            {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_1)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_2)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_3)}}, {{Auth::guard('admin')->user()->setting->place_code}}, {{ucfirst(Auth::guard('admin')->user()->setting->place_name)}}, {{ucfirst(Auth::guard('admin')->user()->setting->country)}}<br>
-            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
-            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->email}}
+        <address>
+            <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
+            {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}, {{ucfirst($settingDetails ?$settingDetails->streat_name_2:'')}}, {{ucfirst($settingDetails ? $settingDetails->streat_name_3:'')}}, {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
+            {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
+            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
           </address>
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
+        <div class="col-sm-4 invoice-col text-right">
         {{__('messages.To')}}
           <address>
             <span class="company-name"></span><br>
@@ -132,7 +132,8 @@
 
       <div class="row">
       <div class="col-xs-6 table-responsive">
-          <textarea class="form-control" id="comments" name="comments" placeholder="{{__('messages.Enter your comments here in 5 Character')}}" maxlength="500" required></textarea>     
+          <textarea class="form-control" id="comments" name="comments" placeholder="{{__('messages.Enter your comments here in 5 Character')}}" maxlength="500" required></textarea>
+        <span class="text-danger" id="comments_validate"></span>
         </div>
         <div class="col-xs-6">
           <!-- <p class="lead">Amount Due {{date("Y-m-d")}}</p> -->
@@ -147,7 +148,7 @@
                 </td>
               </tr>
               <tr>
-                <th>{{__('messages.Tax')}} ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <th>{{__('messages.Tax')}} ({{$settingDetails ? $settingDetails->ust_number:''}}%)</th>
                 <td class="gstNumber">$00.00</td>
                 <td hidden>
                   <input type="text" class="gstNumber_val" name="ust_number" required>

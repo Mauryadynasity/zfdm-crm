@@ -49,11 +49,11 @@
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
         {{__('messages.From')}}
-          <address>
-            <strong>{{Auth::guard('admin')->user()->setting->company_name}}</strong><br>
-            {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_1)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_2)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_3)}}, {{Auth::guard('admin')->user()->setting->place_code}}, {{ucfirst(Auth::guard('admin')->user()->setting->place_name)}}, {{ucfirst(Auth::guard('admin')->user()->setting->country)}}<br>
-            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
-            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->email}}
+        <address>
+            <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
+            {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}, {{ucfirst($settingDetails ?$settingDetails->streat_name_2:'')}}, {{ucfirst($settingDetails ? $settingDetails->streat_name_3:'')}}, {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
+            {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
+            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
           </address>
         </div>
         <!-- /.col -->
@@ -66,7 +66,7 @@
           </address> -->
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
+        <div class="col-sm-4 invoice-col text-right">
         {{__('messages.To')}}
           <address>
             <span> {{$prospact->company_name}}</span><br>
@@ -91,11 +91,11 @@
           <table class="table table-striped table-hover table-responsive offerTable">
             <thead>
             <tr>
-            <td>{{__('messages.Position')}}</td>
-            <td>{{__('messages.Article Description')}}</td>
-            <td>{{__('messages.Price Per Article($)')}}</td>
-            <td>{{__('messages.No. of Article')}}</td>
-            <td>{{__('messages.Total Price($)')}}</td>
+            <td><strong>{{__('messages.Position')}}</strong></td>
+            <td><strong>{{__('messages.Article Description')}}</strong></td>
+            <td><strong>{{__('messages.Price Per Article($)')}}</strong></td>
+            <td><strong>{{__('messages.No. of Article')}}</strong></td>
+            <td><strong>{{__('messages.Total Price($)')}}</strong></td>
             <!-- <td>Additional options</td> -->
             <!-- <td>Action</td> -->
             </tr>
@@ -130,7 +130,7 @@
                 <td>${{$quotation->sub_total}}</td>
               </tr>
               <tr>
-                <th>{{__('messages.Tax')}} ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <th>{{__('messages.Tax')}} ({{$settingDetails ? $settingDetails->ust_number:''}}%)</th>
                 <td>${{$quotation->ust_number}}</td>
               </tr>
               <tr>

@@ -3,7 +3,7 @@
 return [
 
     'Super Admin' => 'Super Admin',
-    'Inbound' => 'InBound',
+    'InBound' => 'InBound',
     'OutBound' => 'OutBound',
     'create_user' => 'Create User',
     'home' => 'Home',
@@ -87,6 +87,7 @@ return [
     'quotation_footer_one' => 'Managing Director - Sirsendu Roy',
     'quotation_footer_two' => 'Bank details : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX',
     'quotation_footer_three' => 'Ust.-IdentNr:Follows register number: HRB99116 local court:Hanau',
+    'Prospect Permission' => 'Prospect Permission',
 
 
 ];

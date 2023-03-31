@@ -60,11 +60,11 @@
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
         {{__('messages.From')}}
-          <address>
-            <strong>{{Auth::guard('admin')->user()->setting->company_name}}</strong><br>
-            {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_1)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_2)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_3)}}, {{Auth::guard('admin')->user()->setting->place_code}}, {{ucfirst(Auth::guard('admin')->user()->setting->place_name)}}, {{ucfirst(Auth::guard('admin')->user()->setting->country)}}<br>
-            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
-            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->email}}
+        <address>
+            <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
+            {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}, {{ucfirst($settingDetails ?$settingDetails->streat_name_2:'')}}, {{ucfirst($settingDetails ? $settingDetails->streat_name_3:'')}}, {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
+            {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
+            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
           </address>
         </div>
         <!-- /.col -->
@@ -77,7 +77,7 @@
           </address> -->
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
+        <div class="col-sm-4 invoice-col text-right">
         {{__('messages.To')}}
           <address>
             <span> {{$prospact->cust_name}}</span><br>
@@ -102,11 +102,11 @@
           <table class="table table-striped table-hover table-responsive offerTable">
             <thead>
             <tr>
-            <td>{{__('messages.Position')}}</td>
-            <td>{{__('messages.Article Description')}}</td>
-            <td>{{__('messages.Price Per Article($)')}}</td>
-            <td>{{__('messages.No. of Article')}}</td>
-            <td>{{__('messages.Total Price($)')}}</td>
+            <td><strong>{{__('messages.Position')}}</strong></td>
+            <td><strong>{{__('messages.Article Description')}}</strong></td>
+            <td><strong>{{__('messages.Price Per Article($)')}}</strong></td>
+            <td><strong>{{__('messages.No. of Article')}}</strong></td>
+            <td><strong>{{__('messages.Total Price($)')}}</strong></td>
             </tr>
             </thead>
             <tbody>
@@ -167,6 +167,7 @@
       <div class="row">
         <div class="col-xs-6 table-responsive">
           <textarea class="form-control" name="comments" maxlength="500" required>{{$prospact->quotation->comments}}</textarea>     
+          <span class="text-danger" id="comments_validate"></span>
         </div>
         <div class="col-xs-6">
           <div class="table-responsive">
@@ -179,7 +180,7 @@
                 </td>
               </tr>
               <tr>
-                <th>{{__('messages.Tax')}} ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <th>{{__('messages.Tax')}} ({{$settingDetails ? $settingDetails->ust_number:''}}%)</th>
                 <td class="gstNumber">${{$quotation->ust_number}}</td>
                 <td hidden>
                   <input type="text" class="gstNumber_val" name="ust_number" value="{{$quotation->ust_number}}">
@@ -232,7 +233,31 @@
 
         @section('scripts')
     <script>
-      $('#updateQuatation').validate();
+      // $('#updateQuatation').validate();
+    $.validator.addMethod("cValidate", function(value, element, min) {
+    var message = false;
+    if(value==0){
+      message = true;
+    }
+    if(value.length>4){
+      message = true;
+    }
+    return message;
+}, "Please provide atleast 5 characters or 0.");
+
+$('#updateQuatation').validate({
+  rules: {
+    comments: {
+      required: true,
+      cValidate: true
+    },
+  },
+  errorPlacement: function (error, element) {
+    var name = $(element).attr("name");
+    error.appendTo($("#" + name + "_validate"));
+},
+});
+
       function calculateTotalPrice($this){
     var currentTr = $this.closest('tr');
     var prise_per_article = currentTr.find('.prise_per_article').val();
@@ -253,7 +278,7 @@
       }
     });
     if(Number.isInteger(grandTotal)){
-      var gstNumber = parseFloat((grandTotal*'{{Auth::guard('admin')->user()->setting->ust_number}}')/100);
+      var gstNumber = parseFloat((grandTotal*'{{$settingDetails->ust_number}}')/100);
       $('.subtotal').html('$'+grandTotal);
       $('.gstNumber').html('$'+gstNumber);
       $('.grandTotal').html('$'+(grandTotal+gstNumber));

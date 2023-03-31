@@ -193,7 +193,31 @@
       $this.closest('tr').remove();
     }
 
-  $('#saveOffers').validate();
+  // $('#saveOffers').validate();
+$.validator.addMethod("cValidate", function(value, element, min) {
+    var message = false;
+    if(value==0){
+      message = true;
+    }
+    if(value.length>4){
+      message = true;
+    }
+    return message;
+}, "Please provide atleast 5 characters or 0.");
+
+$('#saveOffers').validate({
+  rules: {
+    comments: {
+      required: true,
+      cValidate: true
+    },
+  },
+  errorPlacement: function (error, element) {
+    var name = $(element).attr("name");
+    error.appendTo($("#" + name + "_validate"));
+},
+});
+
   function saveOffersFunction(){
   $('#saveOffers').submit();
   }
@@ -289,7 +313,7 @@
       }
     });
     if(Number.isInteger(grandTotal)){
-      var gstNumber = parseFloat((grandTotal*'{{Auth::guard('admin')->user()->setting->ust_number}}')/100);
+      var gstNumber = parseFloat((grandTotal*'{{$settingDetails->ust_number}}')/100);
       $('.subtotal').html('$'+grandTotal);
       $('.gstNumber').html('$'+gstNumber);
       $('.grandTotal').html('$'+(grandTotal+gstNumber));
