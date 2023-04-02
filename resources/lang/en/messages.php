@@ -66,7 +66,7 @@ return [
     'Customer name' => 'Customer name',
     'Company Name' => 'Company Name',
     'Date' => 'Date',
-    'Customer Address' => 'Customer Address',
+    'Street Name' => 'Street Name',
     'Add Quotation' => 'Add Quotation',
     'Edit Quotation' => 'Edit Quotation',
     'View Quotation' => 'View Quotation',
@@ -88,6 +88,9 @@ return [
     'quotation_footer_two' => 'Bank details : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX',
     'quotation_footer_three' => 'Ust.-IdentNr:Follows register number: HRB99116 local court:Hanau',
     'Prospect Permission' => 'Prospect Permission',
+    'website_url' => 'Website Url',
+    'Place Code' => 'Place Code',
+    'Place Name' => 'Place name',
 
 
 ];

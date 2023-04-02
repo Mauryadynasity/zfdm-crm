@@ -64,7 +64,7 @@ return [
     'Customer name' => 'Name des Kunden',
     'Company Name' => 'Name des Unternehmens',
     'Date' => 'Datum',
-    'Customer Address' => 'Adresse des Kunden',
+    'Street Name' => 'Straße Name',
     'Add Quotation' => 'Angebot hinzufügen',
     'Edit Quotation' => 'Angebot bearbeiten',
     'View Quotation' => 'Angebot ansehen',
@@ -86,5 +86,7 @@ return [
     'quotation_footer_two' => 'Bankverbindung : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX',
     'quotation_footer_three' => 'Ust.-IdentNr:Folgt Registernummer: HRB99116 Amtsgericht:Hanau',
     'Prospect Permission' => 'Prospekterlaubnis',
-
+    'website_url' => 'Website Url',
+    'Place Code' => 'Place Code',
+    'Place Name' => 'Place name',
 ];

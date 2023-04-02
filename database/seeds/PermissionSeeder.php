@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ProspectSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class ProspectSeeder extends Seeder
      */
     public function run()
     {
-        $sql = file_get_contents(database_path() . '/seeds/sql/prospect_permission.sql');
+        $sql = file_get_contents(database_path() . '/seeds/sql/tbl_permssions.sql');
         DB::statement($sql);
     }
 }

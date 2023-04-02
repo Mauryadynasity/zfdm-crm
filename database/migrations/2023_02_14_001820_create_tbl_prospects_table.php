@@ -20,13 +20,14 @@ class CreateTblProspectsTable extends Migration
             $table->string('first_name', 99)->nullable();
             $table->string('cust_name', 99)->nullable();
             $table->string('cust_email', 99)->nullable();
-            $table->string('cust_address', 99)->nullable();
-            $table->string('postcode', 99)->nullable();
+            $table->string('street_name', 99)->nullable();
+            $table->string('post_code', 99)->nullable();
             $table->string('place_name', 99)->nullable();
             $table->string('cust_phone', 99)->nullable();
             $table->string('wants_offer', 99)->nullable();
             $table->string('no_employee', 199)->nullable();
             $table->string('cust_msg', 199)->nullable();
+            $table->string('news', 199)->nullable();
             $table->string('device_type', 199)->nullable();
             $table->string('packet', 199)->nullable();
             $table->string('cust_source', 199)->nullable();
@@ -35,7 +36,8 @@ class CreateTblProspectsTable extends Migration
             $table->string('protocol', 199)->nullable();
             $table->string('no_device', 199)->nullable();
             $table->string('admin_id', 199)->nullable();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('status', 199)->nullable();
+            // $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
 
             $table->timestamps();
             $table->softDeletes();

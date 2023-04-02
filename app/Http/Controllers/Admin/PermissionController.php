@@ -24,7 +24,7 @@ class PermissionController extends Controller {
 	public function savePermission(Request $request){
 		Permission::where('status','yes')->update(['status' => 'no']);
 			Permission::whereIn('id',$request->id)->update(['status' => 'yes']);
-			return back()->with('message','Permitted Successfully.');
+			return back()->with('message','Permitted Applied Successfully.');
 
 	}
 }

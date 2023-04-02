@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Models\Prospact;
 use App\Models\Permission;
+use App\Models\StatusMaster;
 use App\Models\AdditionalOption;
 use Illuminate\Http\Request;
 use Validator;
@@ -27,9 +28,10 @@ class DashboardController extends Controller {
 	}
 	public function userDashboard(Request $request) {
 		$settingDetails = Setting::first();
+		$StatusMaster = StatusMaster::all();
 		$prospacts = Prospact::where('cust_source',Auth::guard('admin')->user()->id)->get();
 		$permissions = Permission::where('module_name','prospect')->where('status','yes')->get();
-		return view('admin.user-dashboard',compact('settingDetails','prospacts','permissions'));
+		return view('admin.user-dashboard',compact('settingDetails','prospacts','permissions','StatusMaster'));
 	}	
 
 	public function addNewOffer(Request $request) {

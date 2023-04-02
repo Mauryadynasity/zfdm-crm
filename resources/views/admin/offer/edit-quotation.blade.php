@@ -59,7 +59,6 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-        {{__('messages.From')}}
         <address>
             <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
             {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}, {{ucfirst($settingDetails ?$settingDetails->streat_name_2:'')}}, {{ucfirst($settingDetails ? $settingDetails->streat_name_3:'')}}, {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
@@ -78,13 +77,15 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col text-right">
-        {{__('messages.To')}}
           <address>
             <span> {{$prospact->cust_name}}</span><br>
             <span> {{$prospact->company_name}}</span><br>
-            <span> {{$prospact->cust_address}}</span><br>
+            <span> {{$prospact->street_name}}</span><br>
+            <span> {{$prospact->post_code}}</span><br>
+            <span> {{$prospact->place_name}}</span><br>
             <strong>{{__('messages.Quotation Number')}}:</strong><span> {{$prospact->quotation->quotation_number}}</span><input type="hidden" name="quotation_number" value="{{$prospact->quotation->quotation_number}}"><br>
-            <strong>{{__('messages.Quotation Date')}}:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
+            <!-- <strong>{{__('messages.Quotation Date')}}:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br> -->
+            <strong>{{__('messages.Quotation Date')}}:</strong><input type="date" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
           </address>
           <!-- <b>Invoice #007612</b><br>
           <br>
