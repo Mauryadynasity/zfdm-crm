@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Users\ChangePassRequest;
 use App\Models\User;
 use App\Admin;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller {
@@ -29,6 +30,15 @@ class LoginController extends Controller {
 			}	
         $credentials = $request->only('email', 'password');
 		if (Auth::guard('admin')->attempt($credentials)) {
+			if(Auth::guard('admin')->user()->id ==2 || Auth::guard('admin')->user()->id ==3){
+				$setting = Setting::first();
+				if($setting){
+					return redirect('admin/dashboard');
+				}else{
+					Auth::guard('admin')->logout();
+					return redirect()->back()->with('fail', 'Setting is not completed, Please contact to admin !');
+				}	
+			}
 			return redirect('admin/dashboard');
 		}else {
 			return redirect()->back()->with('fail', 'Please provide valid email and password !');

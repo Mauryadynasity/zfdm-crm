@@ -3,7 +3,6 @@
 
 <section class="content-header">
     <h1>
-    {{__('messages.create_user')}}
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
@@ -15,14 +14,14 @@
     <!-- Main content -->
     <section class="content">
       <div class="box box-default">
-        <!-- <div class="box-header with-border">
-          <h3 class="box-title">Select2</h3>
+      <div class="box-header with-border box-header-style">
+          <h3 class="box-title">{{__('messages.create_user')}}</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
-        </div> -->
+        </div>
         <!-- /.box-header -->
         <div class="box-body">
           <div class="form-row">

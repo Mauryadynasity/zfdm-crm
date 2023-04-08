@@ -200,6 +200,7 @@
         </li>
         @if(Auth::guard('admin')->user()->role_id == 1)
         <li class="{{Request::is('admin/setting') ? 'active treeview' : ''}}"><a href="{{url('admin/setting')}}"><i class="fa fa-gear fa-spin" style="font-size:20px"></i> <span>{{__('messages.Setting')}}</span></a>
+        <li class="{{Request::is('admin/prospect-permission') ? 'active treeview' : ''}}"><a href="{{url('admin/prospect-permission')}}"><i class="fa fa-lock" aria-hidden="true"  style="font-size:20px"></i><span>{{__('messages.Permissions')}}</span></a>
         </li>
         </li>
         @endif

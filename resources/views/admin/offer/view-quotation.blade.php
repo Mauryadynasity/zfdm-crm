@@ -13,7 +13,6 @@
 @endsection
      <section class="content-header">
     <h1>
-    {{__('messages.View Quotation')}}
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
@@ -25,7 +24,16 @@
 <form name="saveOffers" id="saveOffers">
       <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
       <input type="hidden" name="prospact_id" class="prospact_id">
-     
+      <div class="content-wrapper-old" style="margin-left:0px">
+    <div class="box box-default">
+      <div class="box-header with-border box-header-style">
+          <h3 class="box-title">{{__('messages.View Quotation')}}</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
     <div class="content-wrapper-old" style="margin-left:0px">
     <!-- Content Header (Page header) -->
 
@@ -35,6 +43,7 @@
     <section class="invoice">
       <!-- title row -->
       <div class="row">
+
         <div class="col-xs-12">
           <!-- <h2 class="page-header">
           {{__('messages.'.Auth::guard('admin')->user()->name)}}
@@ -48,12 +57,11 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-        {{__('messages.From')}}
-          <address>
-            <strong>{{Auth::guard('admin')->user()->setting->company_name}}</strong><br>
-            {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_1)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_2)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_3)}}, {{Auth::guard('admin')->user()->setting->place_code}}, {{ucfirst(Auth::guard('admin')->user()->setting->place_name)}}, {{ucfirst(Auth::guard('admin')->user()->setting->country)}}<br>
-            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
-            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->email}}
+        <address>
+            <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
+            {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}, {{ucfirst($settingDetails ?$settingDetails->streat_name_2:'')}}, {{ucfirst($settingDetails ? $settingDetails->streat_name_3:'')}}, {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
+            {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
+            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
           </address>
         </div>
         <!-- /.col -->
@@ -66,12 +74,13 @@
           </address> -->
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-        {{__('messages.To')}}
+        <div class="col-sm-4 invoice-col text-right">
           <address>
+          <span> {{$prospact->cust_name}}</span><br>
             <span> {{$prospact->company_name}}</span><br>
-            <span> {{$prospact->cust_name}}</span><br>
-            <strong>Address:</strong><span> {{$prospact->cust_address}}</span><br>
+            <span> {{$prospact->street_name}}</span><br>
+            <span> {{$prospact->post_code}}</span><br>
+            <span> {{$prospact->place_name}}</span><br>
             <strong>{{__('messages.Quotation Number')}}:</strong><span> {{$prospact->quotation->quotation_number}}</span><br>
             <strong>{{__('messages.Quotation Date')}}:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><br>
           </address>
@@ -91,11 +100,11 @@
           <table class="table table-striped table-hover table-responsive offerTable">
             <thead>
             <tr>
-            <td>{{__('messages.Position')}}</td>
-            <td>{{__('messages.Article Description')}}</td>
-            <td>{{__('messages.Price Per Article($)')}}</td>
-            <td>{{__('messages.No. of Article')}}</td>
-            <td>{{__('messages.Total Price($)')}}</td>
+            <td><strong>{{__('messages.Position')}}</strong></td>
+            <td><strong>{{__('messages.Article Description')}}</strong></td>
+            <td><strong>{{__('messages.Price Per Article($)')}}</strong></td>
+            <td><strong>{{__('messages.No. of Article')}}</strong></td>
+            <td><strong>{{__('messages.Total Price($)')}}</strong></td>
             <!-- <td>Additional options</td> -->
             <!-- <td>Action</td> -->
             </tr>
@@ -130,7 +139,7 @@
                 <td>${{$quotation->sub_total}}</td>
               </tr>
               <tr>
-                <th>{{__('messages.Tax')}} ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <th>{{__('messages.Tax')}} ({{$settingDetails ? $settingDetails->ust_number:''}}%)</th>
                 <td>${{$quotation->ust_number}}</td>
               </tr>
               <tr>
@@ -147,7 +156,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-        <a href="{{url('admin/quotation-list')}}" class="btn btn-default" style="margin-right: 5px;">
+        <a href="{{url('admin/user-dashboard  ')}}" class="btn btn-default" style="margin-right: 5px;">
             <i class="fa fa"></i> {{__('messages.back_button')}}
           </a>
           <a onclick="window.print()" target="_blank" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> {{__('messages.Print')}}</a>

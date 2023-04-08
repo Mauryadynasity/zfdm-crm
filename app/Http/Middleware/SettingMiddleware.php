@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 use App\Models\Setting;
 
 class SettingMiddleware
@@ -17,9 +18,12 @@ class SettingMiddleware
     public function handle($request, Closure $next)
     {
         $setting = Setting::first();
-		if (!$setting) {
-			return redirect('admin/setting')->with('fail','Please save the settings first.');
-		}
+        if(Auth::guard('admin')->user()->role_id == 1){
+            if (!$setting) {
+                return redirect('admin/setting')->with('fail','Please save the settings detail first.');
+            }
+        }
+        
         return $next($request);
     }
 }

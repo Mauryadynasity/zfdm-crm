@@ -30,13 +30,24 @@ class Prospact extends Model implements HasMedia
      */
      public $table="tbl_prospects";
      protected $fillable = [
-        'cust_name',
         'company_name',
+        'cust_name',
         'cust_email',
         'cust_phone',
-        'date_of_contact',
-        'cust_address',
+        'street_name',
+        'post_code',
+        'place_name',
+        'wants_offer',
+        'no_employee',
+        'cust_msg',
+        'news',
+        'device_type',
+        'packet',
         'cust_source',
+        'callback',
+        'date_of_contact',
+        'protocol',
+        'no_device',
         'admin_id',
         'created_at',
         'updated_at',
@@ -59,8 +70,11 @@ class Prospact extends Model implements HasMedia
             ->singleFile();
      }
 
-     public function quotation(){
+    public function quotation(){
         return $this->hasOne(Quotation::class);
+    }
+    public function statusMaster(){
+        return $this->hasOne(statusMaster::class);
     }
      public function quotations(){
         return $this->hasMany(Quotation::class);

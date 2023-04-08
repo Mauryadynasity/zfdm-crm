@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Quotation;
 use App\Models\Prospact;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -28,7 +29,8 @@ class QuotationController extends Controller {
 
 	public function quotationList(){
 		$quotations = Prospact::has('quotations')->get();
-		return view('admin.offer.quotation-list',compact('quotations'));
+		$settingDetails = Setting::first();
+		return view('admin.offer.quotation-list',compact('quotations','settingDetails'));
 	}
 
 	public function saveQuotation(Request $request) {
@@ -90,6 +92,7 @@ class QuotationController extends Controller {
 
 	public function viewQuotation(Request $request,$quotationId){
 		$prospact = Prospact::where('id',$quotationId)->first();
+		$settingDetails = Setting::first();
 		if($request->generate_pdf){
             $htmlfile = view('admin.offer.invoice',compact('prospact'))->render();
 			// dd($htmlfile);
@@ -100,11 +103,12 @@ class QuotationController extends Controller {
 			// ->setPaper($request->paper_size, 'landscape');
             return $pdf->download('TR Report.pdf');
 		}
-		return view('admin.offer.view-quotation',compact('prospact'));
+		return view('admin.offer.view-quotation',compact('prospact','settingDetails'));
 	}
 	public function editQuotation($quotationId){
 		$prospact = Prospact::where('id',$quotationId)->first();
-		return view('admin.offer.edit-quotation',compact('prospact'));
+		$settingDetails = Setting::first();
+		return view('admin.offer.edit-quotation',compact('prospact','settingDetails'));
 	}
 
 	public function updateQuotation(Request $request) {

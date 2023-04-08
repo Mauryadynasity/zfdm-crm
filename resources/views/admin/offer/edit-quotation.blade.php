@@ -8,7 +8,7 @@
 @endsection
      <section class="content-header">
     <h1>
-    {{__('messages.Quotation List')}}
+    <!-- {{__('messages.Quotation List')}} -->
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
@@ -22,7 +22,15 @@
       <input type="hidden" name="prospact_id" value="{{$prospact->id}}">
      
     <div class="content-wrapper-old" style="margin-left:0px">
-    <!-- Content Header (Page header) -->
+    <div class="box box-default">
+      <div class="box-header with-border box-header-style">
+          <h3 class="box-title">{{__('messages.Edit Quotation')}}</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
 
     <div class="pad margin no-print"> 
     </div>
@@ -59,12 +67,11 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-        {{__('messages.From')}}
-          <address>
-            <strong>{{Auth::guard('admin')->user()->setting->company_name}}</strong><br>
-            {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_1)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_2)}}, {{ucfirst(Auth::guard('admin')->user()->setting->streat_name_3)}}, {{Auth::guard('admin')->user()->setting->place_code}}, {{ucfirst(Auth::guard('admin')->user()->setting->place_name)}}, {{ucfirst(Auth::guard('admin')->user()->setting->country)}}<br>
-            {{__('messages.phone')}}: {{Auth::guard('admin')->user()->setting->phone}}<br>
-            {{__('messages.email')}}: {{Auth::guard('admin')->user()->setting->email}}
+        <address>
+            <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
+            {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}, {{ucfirst($settingDetails ?$settingDetails->streat_name_2:'')}}, {{ucfirst($settingDetails ? $settingDetails->streat_name_3:'')}}, {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
+            {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
+            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
           </address>
         </div>
         <!-- /.col -->
@@ -77,14 +84,16 @@
           </address> -->
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-        {{__('messages.To')}}
+        <div class="col-sm-4 invoice-col text-right">
           <address>
             <span> {{$prospact->cust_name}}</span><br>
             <span> {{$prospact->company_name}}</span><br>
-            <span> {{$prospact->cust_address}}</span><br>
+            <span> {{$prospact->street_name}}</span><br>
+            <span> {{$prospact->post_code}}</span><br>
+            <span> {{$prospact->place_name}}</span><br>
             <strong>{{__('messages.Quotation Number')}}:</strong><span> {{$prospact->quotation->quotation_number}}</span><input type="hidden" name="quotation_number" value="{{$prospact->quotation->quotation_number}}"><br>
-            <strong>{{__('messages.Quotation Date')}}:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
+            <!-- <strong>{{__('messages.Quotation Date')}}:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br> -->
+            <strong>{{__('messages.Quotation Date')}}:</strong><input type="date" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
           </address>
           <!-- <b>Invoice #007612</b><br>
           <br>
@@ -102,11 +111,11 @@
           <table class="table table-striped table-hover table-responsive offerTable">
             <thead>
             <tr>
-            <td>{{__('messages.Position')}}</td>
-            <td>{{__('messages.Article Description')}}</td>
-            <td>{{__('messages.Price Per Article($)')}}</td>
-            <td>{{__('messages.No. of Article')}}</td>
-            <td>{{__('messages.Total Price($)')}}</td>
+            <td><strong>{{__('messages.Position')}}</strong></td>
+            <td><strong>{{__('messages.Article Description')}}</strong></td>
+            <td><strong>{{__('messages.Price Per Article($)')}}</strong></td>
+            <td><strong>{{__('messages.No. of Article')}}</strong></td>
+            <td><strong>{{__('messages.Total Price($)')}}</strong></td>
             </tr>
             </thead>
             <tbody>
@@ -167,6 +176,7 @@
       <div class="row">
         <div class="col-xs-6 table-responsive">
           <textarea class="form-control" name="comments" maxlength="500" required>{{$prospact->quotation->comments}}</textarea>     
+          <span class="text-danger" id="comments_validate"></span>
         </div>
         <div class="col-xs-6">
           <div class="table-responsive">
@@ -179,7 +189,7 @@
                 </td>
               </tr>
               <tr>
-                <th>{{__('messages.Tax')}} ({{Auth::guard('admin')->user()->setting->ust_number}}%)</th>
+                <th>{{__('messages.Tax')}} ({{$settingDetails ? $settingDetails->ust_number:''}}%)</th>
                 <td class="gstNumber">${{$quotation->ust_number}}</td>
                 <td hidden>
                   <input type="text" class="gstNumber_val" name="ust_number" value="{{$quotation->ust_number}}">
@@ -202,7 +212,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <a href="{{url('admin/quotation-list')}}" class="btn btn-default" style="margin-right: 5px;">
+          <a href="{{url('admin/user-dashboard')}}" class="btn btn-default" style="margin-right: 5px;">
             <i class="fa fa"></i> {{__('messages.back_button')}}
           </a>
           
@@ -232,7 +242,31 @@
 
         @section('scripts')
     <script>
-      $('#updateQuatation').validate();
+      // $('#updateQuatation').validate();
+    $.validator.addMethod("cValidate", function(value, element, min) {
+    var message = false;
+    if(value==0){
+      message = true;
+    }
+    if(value.length>4){
+      message = true;
+    }
+    return message;
+}, "Please provide atleast 5 characters or 0.");
+
+$('#updateQuatation').validate({
+  rules: {
+    comments: {
+      required: true,
+      cValidate: true
+    },
+  },
+  errorPlacement: function (error, element) {
+    var name = $(element).attr("name");
+    error.appendTo($("#" + name + "_validate"));
+},
+});
+
       function calculateTotalPrice($this){
     var currentTr = $this.closest('tr');
     var prise_per_article = currentTr.find('.prise_per_article').val();
@@ -253,7 +287,7 @@
       }
     });
     if(Number.isInteger(grandTotal)){
-      var gstNumber = parseFloat((grandTotal*'{{Auth::guard('admin')->user()->setting->ust_number}}')/100);
+      var gstNumber = parseFloat((grandTotal*'{{$settingDetails->ust_number}}')/100);
       $('.subtotal').html('$'+grandTotal);
       $('.gstNumber').html('$'+gstNumber);
       $('.grandTotal').html('$'+(grandTotal+gstNumber));

@@ -49,6 +49,10 @@
             visibility: hidden;
         }
       }
+      .box-header-style{
+        color: #fff;
+        background: blue;
+      }
 </style>
   </style>
 </head>
