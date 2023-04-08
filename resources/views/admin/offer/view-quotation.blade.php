@@ -13,7 +13,6 @@
 @endsection
      <section class="content-header">
     <h1>
-    {{__('messages.View Quotation')}}
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
@@ -25,7 +24,16 @@
 <form name="saveOffers" id="saveOffers">
       <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
       <input type="hidden" name="prospact_id" class="prospact_id">
-     
+      <div class="content-wrapper-old" style="margin-left:0px">
+    <div class="box box-default">
+      <div class="box-header with-border box-header-style">
+          <h3 class="box-title">{{__('messages.View Quotation')}}</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
     <div class="content-wrapper-old" style="margin-left:0px">
     <!-- Content Header (Page header) -->
 
@@ -35,6 +43,7 @@
     <section class="invoice">
       <!-- title row -->
       <div class="row">
+
         <div class="col-xs-12">
           <!-- <h2 class="page-header">
           {{__('messages.'.Auth::guard('admin')->user()->name)}}
@@ -147,7 +156,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-        <a href="{{url('admin/quotation-list')}}" class="btn btn-default" style="margin-right: 5px;">
+        <a href="{{url('admin/user-dashboard  ')}}" class="btn btn-default" style="margin-right: 5px;">
             <i class="fa fa"></i> {{__('messages.back_button')}}
           </a>
           <a onclick="window.print()" target="_blank" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-print"></i> {{__('messages.Print')}}</a>

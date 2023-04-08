@@ -70,8 +70,11 @@ class Prospact extends Model implements HasMedia
             ->singleFile();
      }
 
-     public function quotation(){
+    public function quotation(){
         return $this->hasOne(Quotation::class);
+    }
+    public function statusMaster(){
+        return $this->hasOne(statusMaster::class);
     }
      public function quotations(){
         return $this->hasMany(Quotation::class);

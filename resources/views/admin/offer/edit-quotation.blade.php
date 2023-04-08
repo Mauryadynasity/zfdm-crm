@@ -8,7 +8,7 @@
 @endsection
      <section class="content-header">
     <h1>
-    {{__('messages.Quotation List')}}
+    <!-- {{__('messages.Quotation List')}} -->
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
@@ -22,7 +22,15 @@
       <input type="hidden" name="prospact_id" value="{{$prospact->id}}">
      
     <div class="content-wrapper-old" style="margin-left:0px">
-    <!-- Content Header (Page header) -->
+    <div class="box box-default">
+      <div class="box-header with-border box-header-style">
+          <h3 class="box-title">{{__('messages.Edit Quotation')}}</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
 
     <div class="pad margin no-print"> 
     </div>
@@ -204,7 +212,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <a href="{{url('admin/quotation-list')}}" class="btn btn-default" style="margin-right: 5px;">
+          <a href="{{url('admin/user-dashboard')}}" class="btn btn-default" style="margin-right: 5px;">
             <i class="fa fa"></i> {{__('messages.back_button')}}
           </a>
           

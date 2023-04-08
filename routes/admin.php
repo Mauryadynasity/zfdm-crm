@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin;
         Route::get('edit-prospact/{id}', [Admin\ProspactController::class,'editProspact']);
         Route::post('update-prospact', [Admin\ProspactController::class,'updateProspact']);
         Route::get('delete-prospact/{id}', [Admin\ProspactController::class,'destroy']);
+        Route::get('internet-prospect', [Admin\ProspactController::class,'internetProspectForm']);
 
         // -------Quotation Route---------------//
         Route::get('get-prospact-details', [Admin\QuotationController::class,'getOfferDetail']);

@@ -10,20 +10,59 @@ $allowed_columns = $permissions->pluck('column')->toArray();
   .trRow{
     display: none;
   }
+  body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  color: white;
+  background-color: blue;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
 </style>
 @endsection
-<section class="content-header">
+<!-- <section class="content-header">
     <h1>
-    <!-- {{__('messages.Prospects')}}
+    {{__('messages.Prospects')}}
     {{__('messages.'.Auth::guard('admin')->user()->name)}}
-    <small>Control panel</small> -->
+    <small>Control panel</small>
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
     <li class="active"><a href="{{url('admin/user-dashboard')}}">{{__('messages.Prospects')}}</a></li>
     <li class="active"><a href="{{url('admin/quotation-list')}}">{{__('messages.Quotations')}}</a></li>
     </ol>
-</section>
+</section> -->
 <!-- Main content -->
 <section class="content">
       <div class="box box-default">
@@ -36,7 +75,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
           </div>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body add-prospect-data " style="display: none;">
           <div class="form-row">
               <div class="col-md-12">
                 @if(session()->has('message'))
@@ -151,8 +190,12 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             <div class="col-md-2">
               <div class="form-group">
                 <label>wants offer</label>
-                <input type="text" name="wants_offer" class="form-control" style="width: 100%;" maxlength="500" required>
-                @if($errors->has('wants_offer'))
+                <select name="wants_offer" class="form-control" required>
+                  <option value="">----- Select -----</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+                  @if($errors->has('wants_offer'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('wants_offer') }}</span>
                   @endif
               </div>
@@ -185,8 +228,12 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             <div class="col-md-3">
               <div class="form-group">
                 <label>Device Type</label>
-                <input type="text" name="device_type" class="form-control" style="width: 100%;" maxlength="500" required>
-                @if($errors->has('device_type'))
+                <select name="device_type" class="form-control" required>
+                  <option value="">----- Select -----</option>
+                  <option value="RFID">RFID</option>
+                  <option value="BIO">BIO</option>
+                </select>
+                  @if($errors->has('device_type'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('device_type') }}</span>
                   @endif
               </div>
@@ -227,7 +274,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             @if(in_array('news',$allowed_columns))
             <div class="col-md-6">
               <div class="form-group">
-                <label>News</label>
+                <label>Customer message</label>
                 <textarea type="text" name="news" class="form-control" style="width: 100%;" maxlength="500" required></textarea>
                 @if($errors->has('news'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('news') }}</span>
@@ -256,7 +303,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             <div class="col-md-2">
               <div class="form-group">
                 <label></label>
-                <a href="{{url('admin/user-dashboard')}}" class="form-control btn btn-default" style="margin-top: 4px;">{{__('messages.back_button')}}</a>
+                <a href="{{url('admin/user-dashboard')}}" class="form-control btn btn-default" style="margin-top: 4px;">{{__('messages.Reset')}}</a>
               </div>
             </div>
           </div>
@@ -264,18 +311,65 @@ $allowed_columns = $permissions->pluck('column')->toArray();
           <div class="clearfix"></div>
           <!-- /.row -->
         </div>
-        <!-- /.box-body -->
-        <!-- /.box-body -->
-        <!-- <div class="box-body">
-          <a href="{{url('admin/add-prospact')}}" class="btn btn-primary">Add Prospact</a>
-          <a href="{{url('admin/quotation-list')}}" class="btn btn-primary">Quotation List</a>
-        </div> -->
-        <table class="table table-bordered border-success yajra-datatable" width="100%" id="myTable">
-          <thead>
+
+        <div class="">
+        <hr class="show-on-tab" style="display: none;">
+        <br/>
+          <button class="btn btn-primary" onclick="openCity(event, 'Prospect')">Prospect</button>
+          <button class="btn btn-primary" onclick="openCity(event, 'Quotations')">Quotations</button>
+          <br/>
+          <br/>
+        </div>
+
+        <!-- <form method="get" id="filter_data">
+        <div class="box-body">
+        <div class="col-md-4">
+					<span style="color: black;">Filter:</span>
+					<select data-live-search="true" name="status_filter" id="status_filter" style="border-color: #c0c0c0;" class="form-control js-example-basic-single " onChange="return $('#filter_data').submit();">
+					    <option value="">--Choose Status--</option>
+							@foreach($StatusMaster as $status)
+                  <option value="{{$status->id}}">{{$status->status}}</option>
+                  @endforeach
+          </select>
+          </div>
+        </div>
+        </form> -->
+        <!-- <form>
+        <div class="box-body">
+        <div class="col-md-3">
+					<span style="color: black;">From Date:</span>
+					<input type="date" name="from_date" id="from_date" style="border-color: #c0c0c0;" class="form-control">
+          </div>
+        <div class="col-md-3">
+					<span style="color: black;">To Date:</span>
+          <input type="date" name="to_date" id="to_date" style="border-color: #c0c0c0;" class="form-control">
+          </div>
+          <div class="col-md-2">
+              <div class="form-group">
+                <label></label>
+                <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+              </div>
+            </div>
+        </div>
+      </form> -->
+      <div class="prospect-container tabcontent" id="Prospect" style="display: block;">
+      <br/>
+      <br/>
+      <select name="" onchange="setProspectColumn($(this))">
+        @foreach($permissions as $permission)
+        @if($permission->status=='no')
+        @php $allowed_column = $permission->column; @endphp
+        <option value="{{$allowed_column}}">{{$allowed_column}}</option>
+        @endif
+        @endforeach
+      </select>
+      <button class="btn btn-info" onclick="$('.add-prospect-data,.show-on-tab').toggle();">Add new Prospect</button>
+      <table class="table table-bordered border-success table-responsive yajra-datatable " style="display: block;" id="prospect-table" width="100%">
+        <thead>
             <tr>
               <th>ID</th>
               @foreach($permissions as $permission)
-              <th>{{$permission->column_name}}</th>
+              <th class="{{$permission->column}}_class" @if($permission->status=='no') style="display:none" @endif>{{$permission->column_name}}</th>
               @endforeach
               <th>{{__('messages.action')}}</th>
               </tr>
@@ -284,13 +378,14 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             @foreach($prospacts as $prospact)
             <tr>
               <td class="prospact_id">{{$prospact->id}}</td>
-              @foreach($allowed_columns as $allowed_column)
-              <th>{{$prospact->$allowed_column}}</th>
+              @foreach($permissions as $permission)
+              @php $allowed_column = $permission->column; @endphp
+              <th class="{{$allowed_column}}_class" @if($permission->status=='no') style="display:none" @endif>{{$prospact->$allowed_column}}</th>
               @endforeach
               <td>
                 <a href="{{url('admin/edit-prospact')}}/{{$prospact->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                 <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                <button type="button" class="btn btn-danger mybutton" title="Add Quotation" onClick="addNewOffer()">
+                <button type="button" class="btn btn-danger mybutton" title="Add Quotation" onClick="addNewOffer($(this))">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </button>
               </td>
@@ -298,18 +393,55 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             @endforeach
           </tbody>
         </table>
-      </div>
 
-          @include('admin.offer.add-new-quotation')
+      </div>
+      <div class="tabcontent" id="Quotations">
+                <!-- Quotation list -->
+          <table class="table table-bordered border-success yajra-datatable " id="quotations-table" width="100%">
+          <thead>
+            <tr>
+            <th>{{__('messages.sr_no')}}</th>
+              <th>{{__('messages.Company Name')}}</th>
+              <th>{{__('messages.Customer name')}}</th>
+              <th>{{__('messages.Quotation Number')}}</th>
+              <th>{{__('messages.Quotation Date')}}</th>
+              <th>{{__('messages.action')}}</th>
+              </tr>
+          </thead>
+          <tbody>
+            @foreach($quotations as $quotation)
+            <tr>
+              <td class="prospact_id">{{$quotation->id}}</td>
+              <td class="company_name">{{$quotation->company_name}}</td>
+              <td>{{$quotation->cust_name}}</td>
+              <td>{{$quotation->quotation->quotation_number}}</td>
+              <td>{{$quotation->quotation->quotation_date}}</td>
+              <td>
+                <a href="{{url('admin/view-quotation')}}/{{$quotation->id}}" title="View" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                <a href="{{url('admin/edit-quotation')}}/{{$quotation->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                <a href="{{url('admin/delete-quotation')}}/{{$quotation->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+      </div>
+      
+      @include('admin.offer.add-new-quotation')
+
+    </div>
+
 
     </section>
     @section('scripts')
     <script>
 
       $(document).ready( function () {
-        $('.mybutton').prop('disabled', true);
-        $(".mybutton").show();
-          $('#myTable').dataTable();
+        // $('.mybutton').prop('disabled', false);
+        // $(".mybutton").show();
+          $('#prospect-table').dataTable();
+          $('#quotations-table').dataTable();
       } );
 
     function addOffer($this){
@@ -354,11 +486,11 @@ $('#saveOffers').validate({
   $('#saveOffers').submit();
   }
 
-  function addNewOffer(){
-        var selectedTr = $('#myTable tbody tr.selected');
-        var prospact_id = selectedTr.find('.prospact_id').text();
-        $("#modal-default").modal('show');
-        $.ajax({
+  function addNewOffer($this){
+      var selectedTr = $this.closest('tr');
+      var prospact_id = selectedTr.find('.prospact_id').text();
+      $("#modal-default").modal('show');
+      $.ajax({
         headers: {
           'X-CSRF-Token': $('meta[name=_token]').attr('content')
         },
@@ -370,14 +502,14 @@ $('#saveOffers').validate({
         success: function(data) {
           if(data){
             $(".prospact_id").val(data.id);
-            $(".cus-name").append(data.cust_name);
-            $(".company-name").append(data.company_name);
-            $(".street_name").append(data.street_name);
-            $(".post_code").append(data.post_code);
-            $(".place_name").append(data.place_name);
-            $(".quotation_number").append(data.id);
-            // $(".cus-phone").append(data.cust_phone);
-            // $(".cus-email").append(data.cust_email);
+            $(".cus-name").html(data.cust_name);
+            $(".company-name").html(data.company_name);
+            $(".street_name").html(data.street_name);
+            $(".post_code").html(data.post_code);
+            $(".place_name").html(data.place_name);
+            $(".quotation_number").html(data.id);
+            // $(".cus-phone").html(data.cust_phone);
+            // $(".cus-email").html(data.cust_email);
           }else{
             // alert(data.message);
           }
@@ -418,12 +550,20 @@ $('#saveOffers').validate({
       });
     });
 
-    $('#myTable tbody').on( 'click', 'tr', function () {
-        $(".mybutton").show();
-        $('.mybutton').prop('disabled', false);
-        $('#myTable tbody tr').removeClass('selected');
-        $(this).toggleClass('selected');
-    });
+
+  //   function showQuotationModal(current_val){
+  //     var current_tr = current_val.closest('tr');
+  //     var company_name = current_tr.find('.company_name_class').text();
+  //     $('.company-name').text(company_name);
+  //     // $(".mybutton").show();
+  // }
+
+    // $('#myTable tbody').on( 'click', 'tr', function () {
+    //     $(".mybutton").show();
+    //     $('.mybutton').prop('disabled', false);
+    //     $('#myTable tbody tr').removeClass('selected');
+    //     $(this).toggleClass('selected');
+    // });
 
   function calculateTotalPrice($this){
     var currentTr = $this.closest('tr');
@@ -464,6 +604,27 @@ $('#saveOffers').validate({
     $('.offerTable tbody').append(content_text);
   }
   $('#myForm').validate();
+
+  function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function setProspectColumn($this){
+  var column_name = $this.val();
+  $('.'+column_name+'_class').toggle();
+
+}
+
     </script>
     
     @endsection

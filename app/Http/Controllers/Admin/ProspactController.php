@@ -20,6 +20,11 @@ class ProspactController extends Controller {
 	public function addProspact(Request $request) {
 		return view('admin.prospact.add-prospact');
 	}
+	public function internetProspectForm(Request $request) {
+		$StatusMaster = StatusMaster::all();
+		$permissions = Permission::where('module_name','prospect')->where('status','yes')->get();
+		return view('admin.prospact.internet-prospect',compact('permissions','StatusMaster'));
+	}
 	public function saveProspact(Request $request) {
 		// dd($request->all());
         // $request->validate([

@@ -36,5 +36,9 @@ class StatusMaster extends Model implements HasMedia
         'deleted_at'
     ];
 
+    public function statusmaster(){
+        return $this->hasOne(Prospact::class,'status');
+    }
+
 
 }
