@@ -74,24 +74,230 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body add-prospect-data " style="display: none;">
-          <div class="form-row">
-              <div class="col-md-12">
-                @if(session()->has('message'))
-                  <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ session()->get('message') }}
-                  </div>
-                @endif
-                @if(session()->has('fail'))
-                  <div class="alert alert-danger">
-                {{ session()->get('fail') }}
-                  </div>
-                @endif
+      
+      <!-- Edit prospect form start -->
+      <div class="box-body edit-prospect-data " style="display: none;">
+          <form name="editForm" id="editForm" method="post" action="{{url('admin/update-prospact')}}" enctype="multipart/form-data">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
+            <input type="hidden" class="prospact_id" name="prospact_id">
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.Customer name')}}<span style="color:red">*</span></label>
+                <input type="text" name="cust_name" class="form-control cust_name" style="width: 100%;" required>
+                @if($errors->has('cust_name'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('cust_name') }}</span>
+                  @endif
               </div>
-          </div>
-          <form name="myForm" id="myForm" method="post" action="{{url('admin/save-prospact')}}" enctype="multipart/form-data">
+            </div>
+            
+            
+             <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.Company Name')}}<span style="color:red">*</span></label>
+                <input type="text" name="company_name" class="form-control company_name" style="width: 100%;" required>
+                  @if($errors->has('company_name'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('company_name') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.email')}}<span style="color:red">*</span></label>
+                <input type="email" name="cust_email" class="form-control cust_email" style="width: 100%;" required>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('email'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('email') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            <div class="clearfix"></div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.phone')}}<span style="color:red">*</span></label>
+                <input type="phone" name="cust_phone" class="form-control cust_phone numbersOnly" style="width: 100%;" maxlength="10" required>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('phone'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('phone') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.Date')}}<span style="color:red">*</span></label>
+                <input type="text" name="date_of_contact" class="form-control date_of_contact" style="width: 100%;" required>
+            <div class="text-danger error_application"></div>
+                @if($errors->has('date_of_contact'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('date_of_contact') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.Street Name')}}</label>
+                <input type="text" name="street_name" class="form-control street_name" style="width: 100%;" maxlength="500">
+                @if($errors->has('street_name'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('street_name') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="clearfix"></div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.Place Code')}}</label>
+                <input type="text" name="post_code" class="form-control post_code numbersOnly" style="width: 100%;" minlength="6" maxlength="6">
+                @if($errors->has('post_code'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('post_code') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>{{__('messages.Place Name')}}</label>
+                <input type="text" name="place_name" class="form-control place_name" style="width: 100%;" maxlength="500">
+                @if($errors->has('place_name'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('place_name') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>wants offer</label>
+                <select name="wants_offer" class="form-control wants_offer" required>
+                  <option value="">----- Select -----</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select> 
+                  @if($errors->has('wants_offer'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('wants_offer') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Number of Employees</label>
+                <input type="text" name="no_employee" class="form-control no_employee" style="width: 100%;" maxlength="500">
+                @if($errors->has('no_employee'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('no_employee') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="clearfix"></div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Number of Devices</label>
+                <input type="text" name="no_device" class="form-control no_device" style="width: 100%;" maxlength="500">
+                @if($errors->has('no_device'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('no_device') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-3">
+              <div class="form-group">
+              <label>Device Type</label>
+                <select name="device_type" class="form-control device_type" required>
+                  <option value="">----- Select -----</option>
+                  <option value="RFID">RFID</option>
+                  <option value="BIO">BIO</option>
+                </select>
+              @if($errors->has('device_type'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('device_type') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Choose Callback</label>
+                <select name="callback" class="form-control callback">
+                  <option value="">----- Select -----</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+                  @if($errors->has('callback'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('callback') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Status</label>
+                <select name="status" class="form-control status">
+                <option value="">----- Select -----</option>
+                  @foreach($StatusMaster as $status)
+                  <option value="{{$status->status}}">{{$status->status}}</option>
+                  @endforeach
+                </select>
+                @if($errors->has('status'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="clearfix"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>News</label>
+                <textarea type="text" name="news" class="form-control news" style="width: 100%;" maxlength="500"></textarea>
+                @if($errors->has('news'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('news') }}</span>
+                  @endif
+              </div>
+            </div>
+            
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Protocal</label>
+                <textarea type="text" name="protocol" class="form-control protocol" style="width: 100%;" maxlength="500"></textarea>
+                @if($errors->has('protocol'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('protocol') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label></label>
+                <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label></label>
+                <!-- <a href="{{url('admin/user-dashboard')}}" class="form-control btn btn-default" style="margin-top: 4px;">{{__('messages.back_button')}}</a> -->
+              </div>
+            </div>
+          </form>
+      </div>
+      <!-- End prospect form -->
+
+      <!-- Add prospect form Start -->
+        <div class="box-body add-prospect-data " style="display: none;">
+          <form name="myForm" class="" id="myForm" method="post" action="{{url('admin/save-prospact')}}" enctype="multipart/form-data">
           <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
             <!-- <input type="hidden" name="admin_id" value="{{Auth::guard('admin')->user()->id}}"> -->
 
@@ -143,9 +349,10 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             @endif
             @if(in_array('date_of_contact',$allowed_columns))
             <div class="col-md-4">
+              <?php $date = date("Y-m-d"); ?>
               <div class="form-group">
                 <label>{{__('messages.Date')}}<span style="color:red">*</span></label>
-                <input type="date" name="date_of_contact" class="form-control" style="width: 100%;" required>
+                <input type="text" name="date_of_contact" value="{{$date}}" class="form-control" style="width: 100%;" required>
                 @if($errors->has('date_of_contact'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('date_of_contact') }}</span>
                   @endif
@@ -261,7 +468,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
                 <select name="status" class="form-control" required>
                 <option value="">----- Select -----</option>
                   @foreach($StatusMaster as $status)
-                  <option value="{{$status->id}}">{{$status->status}}</option>
+                  <option value="{{$status->status}}">{{$status->status}}</option>
                   @endforeach
                 </select>
                 @if($errors->has('status'))
@@ -290,6 +497,8 @@ $allowed_columns = $permissions->pluck('column')->toArray();
                 @if($errors->has('protocol'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('protocol') }}</span>
                   @endif
+                  <input type="hidden" name="cust_source" value="user" class="cust_source_class">
+
               </div>
             </div>
             @endif
@@ -297,7 +506,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
             <div class="col-md-2">
               <div class="form-group">
                 <label></label>
-                <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+                <button type="submit" class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
               </div>
             </div>
             <div class="col-md-2">
@@ -311,9 +520,11 @@ $allowed_columns = $permissions->pluck('column')->toArray();
           <div class="clearfix"></div>
           <!-- /.row -->
         </div>
+      <!-- End add prospect form -->
 
         <div class="">
         <hr class="show-on-tab" style="display: none;">
+        <hr class="edit-show-on-tab" style="display: none;">
         <br/>
           <button class="btn btn-primary" onclick="openCity(event, 'Prospect')">Prospect</button>
           <button class="btn btn-primary" onclick="openCity(event, 'Quotations')">Quotations</button>
@@ -363,7 +574,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
         @endif
         @endforeach
       </select>
-      <button class="btn btn-info" onclick="$('.add-prospect-data,.show-on-tab').toggle();">Add new Prospect</button>
+      <button class="btn btn-info" onclick="$('.add-prospect-data,.show-on-tab').toggle();$('.edit-prospect-data').hide()">Add new Prospect</button>
       <table class="table table-bordered border-success table-responsive yajra-datatable " style="display: block;" id="prospect-table" width="100%">
         <thead>
             <tr>
@@ -383,7 +594,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
               <th class="{{$allowed_column}}_class" @if($permission->status=='no') style="display:none" @endif>{{$prospact->$allowed_column}}</th>
               @endforeach
               <td>
-                <a href="{{url('admin/edit-prospact')}}/{{$prospact->id}}" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                <button title="Edit" class="btn btn-primary" onclick="editProspectForm($(this));"><i class="fa fa-edit"></i></button>
                 <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 <button type="button" class="btn btn-danger mybutton" title="Add Quotation" onClick="addNewOffer($(this))">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
@@ -438,8 +649,10 @@ $allowed_columns = $permissions->pluck('column')->toArray();
     <script>
 
       $(document).ready( function () {
-        // $('.mybutton').prop('disabled', false);
-        // $(".mybutton").show();
+          $('.date_of_contact').datetimepicker({
+            format: 'MM-DD-YYYY',
+            locale: 'en'
+          });
           $('#prospect-table').dataTable();
           $('#quotations-table').dataTable();
       } );
@@ -603,7 +816,6 @@ $('#saveOffers').validate({
     var content_text = '<tr>'+positionDetails+content+'</tr>';
     $('.offerTable tbody').append(content_text);
   }
-  $('#myForm').validate();
 
   function openCity(evt, cityName) {
   var i, tabcontent, tablinks;
@@ -625,6 +837,174 @@ function setProspectColumn($this){
 
 }
 
+ function editProspectForm($this){
+   $('.edit-prospect-data').show();
+   $('.add-prospect-data').hide();
+  var current_tr = $this.closest('tr');
+  var prospact_id = current_tr.find('.prospact_id').text();
+  $('.prospact_id').val(prospact_id);
+  var cust_name = current_tr.find('.cust_name_class').text();
+  $('.cust_name').val(cust_name);
+  var company_name = current_tr.find('.company_name_class').text();
+  $('.company_name').val(company_name);
+  var cust_email = current_tr.find('.cust_email_class').text();
+  $('.cust_email').val(cust_email);
+  var cust_phone = current_tr.find('.cust_phone_class').text();
+  $('.cust_phone').val(cust_phone);
+  var date_of_contact = current_tr.find('.date_of_contact_class').text();
+  $('.date_of_contact').val(date_of_contact);
+  var street_name = current_tr.find('.street_name_class').text();
+  $('.street_name').val(street_name);
+  var post_code = current_tr.find('.post_code_class').text();
+  $('.post_code').val(post_code);
+  var place_name = current_tr.find('.place_name_class').text();
+  $('.place_name').val(place_name);
+  var wants_offer = current_tr.find('.wants_offer_class').text();
+  $('.wants_offer').val(wants_offer);
+  var no_employee = current_tr.find('.no_employee_class').text();
+  $('.no_employee').val(no_employee);
+  var no_device = current_tr.find('.no_device_class').text();
+  $('.no_device').val(no_device);
+  var device_type = current_tr.find('.device_type_class').text();
+  $('.device_type').val(device_type);
+  var callback = current_tr.find('.callback_class').text();
+  $('.callback').val(callback);
+  var status = current_tr.find('.status_class').text();
+  $('.status').val(status);
+  var news = current_tr.find('.news_class').text();
+  $('.news').val(news);
+  var protocol = current_tr.find('.protocol_class').text();
+  $('.protocol').val(protocol);
+ }
+
+
+// Phone or Email Unique Validation
+$('#myForm').validate({
+    rules : {
+      cust_email : { 
+        required : true,
+        remote: {
+          url: "{{ url('admin/is-email-unique') }}", // the URL of the PHP script that validates the email
+          type: 'GET'
+        }
+       },
+       cust_phone : {
+        required : true,
+        remote: {
+          url: "{{ url('admin/is-phone-unique') }}", // the URL of the PHP script that validates the email
+          type: 'GET'
+        }
+       }
+    },
+    messages:{
+      cust_email: {
+        remote: 'This Email Id is already exists.'
+      },
+      cust_phone: {
+        remote: 'Phone number is already exists.'
+      }
+    }
+});
+
+// $('#editForm').validate({
+//     rules : {
+//       cust_email : { 
+//         required : true,
+//         remote: {
+//           url: "{{ url('admin/is-email-unique-edit') }}", // the URL of the PHP script that validates the email
+//           type: 'GET'
+//         }
+//        },
+//        cust_phone : {
+//         required : true,
+//         remote: {
+//           url: "{{ url('admin/is-phone-unique-edit') }}", // the URL of the PHP script that validates the email
+//           type: 'GET'
+//         }
+//        }
+//     },
+//     messages:{
+//       cust_email: {
+//         remote: 'This Email Id is already exists.'
+//       },
+//       cust_phone: {
+//         remote: 'Phone number is already exists.'
+//       }
+//     }
+// });
+
+
+ $('#myForm').submit(function(e) {
+      e.preventDefault();
+      if($(this).valid()==false) {
+            return false;
+      }
+
+      var formData = new FormData(this);
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'POST',
+        url: "{{ url('admin/save-prospact') }}",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if(data.status == true){
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'success',
+              title: data.message,
+              html: '<a class="btn btn-primary" href="{{url("admin/user-dashboard")}}">Ok</a> ',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          $('#editForm').trigger("reset");
+          $('#editForm').trigger("reset");
+          $('.edit-prospect-data').hide();
+          $('.add-prospect-data').hide();
+          }
+        },
+      });
+    });
+
+ $('#editForm').submit(function(e) {
+    e.preventDefault();
+      if($(this).valid()==false) {
+            return false;
+      }
+      var formData = new FormData(this);
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'POST',
+        url: "{{ url('admin/update-prospact') }}",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if(data.status){
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'success',
+              title: data.message,
+              html: '<a class="btn btn-primary" href="{{url("admin/user-dashboard")}}">Ok</a> ',
+              showConfirmButton: false,
+              // timer: 3000
+            });
+          $('#editForm').trigger("reset");
+          $('.edit-prospect-data').hide();
+          $('.add-prospect-data').hide();
+          }else{
+            // alert(data.message);
+          }
+        },
+      });
+    });
     </script>
     
     @endsection

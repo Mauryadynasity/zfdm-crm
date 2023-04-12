@@ -28,20 +28,7 @@ class DashboardController extends Controller {
 	}
 	public function userDashboard(Request $request) {
 		// dd($request->all());
-		if($request->status_filter){
-			$prospacts = Prospact::where('status',$request->status_filter)->get();
-		}else{
-			$prospacts = Prospact::where('cust_source',Auth::guard('admin')->user()->id)->get();
-		}
-		// if(!empty($request->from_date && $request->to_date)){
-		// 	$from_date = $request->from_date;
-		// 	$to_date = $request->to_date;
-		// 	$prospacts = DB::table('tbl_prospects')
-		// 		->whereBetween('created_at', [$from_date, $to_date])
-		// 		->get();
-		// }else{
-		// 	$prospacts = Prospact::where('cust_source',Auth::guard('admin')->user()->id)->get();
-		// }
+		$prospacts = Prospact::orderBy('id','DESC')->get();
 		$settingDetails = Setting::first();
 		$StatusMaster = StatusMaster::all();
 		$quotations = Prospact::has('quotations')->get();

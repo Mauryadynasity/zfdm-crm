@@ -14,11 +14,11 @@
     {{__('messages.'.Auth::guard('admin')->user()->name)}}
     <small>Control panel</small> -->
     </h1>
-    <ol class="breadcrumb">
+    <!-- <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> {{__('messages.home')}}</a></li>
     <li class="active"><a href="{{url('admin/user-dashboard')}}">{{__('messages.Prospects')}}</a></li>
     <li class="active"><a href="{{url('admin/quotation-list')}}">{{__('messages.Quotations')}}</a></li>
-    </ol>
+    </ol> -->
 </section>
 <!-- Main content -->
 <section class="content">
@@ -231,6 +231,8 @@
                 @if($errors->has('protocol'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('protocol') }}</span>
                   @endif
+                  <input type="hidden" name="cust_source" value="internet" class="cust_source_class">
+
               </div>
             </div>
             

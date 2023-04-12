@@ -49,6 +49,7 @@ class Prospact extends Model implements HasMedia
         'protocol',
         'no_device',
         'admin_id',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at'
