@@ -647,7 +647,6 @@ $allowed_columns = $permissions->pluck('column')->toArray();
     </section>
     @section('scripts')
     <script>
-
       $(document).ready( function () {
           $('.date_of_contact').datetimepicker({
             format: 'MM-DD-YYYY',
@@ -757,7 +756,15 @@ $('#saveOffers').validate({
           // window.open("{{url('admin/view-quotation')}}");
           // $("#modal").modal('hide');
           }else{
-            // alert(data.message);
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'error',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 3000
+            });
+            $('#saveOffers').trigger("reset");
+            $('#modal-default').modal('hide');
           }
         },
       });

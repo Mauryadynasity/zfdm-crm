@@ -42,6 +42,7 @@ class QuotationController extends Controller {
             'price' => 'required',
             'quotation_number' => 'required',
             'comments' => 'required',
+            'prospact_id' => 'required',
             // 'additional_option_id' => 'required',
         ]);
 		if ($validator->fails()) {
@@ -49,6 +50,12 @@ class QuotationController extends Controller {
             return response()->json(['message' => $error, 'status' => false]);
 			// return response()->json($validator->messages(), 200);
 		}
+
+		$check = Quotation::where('prospact_id',$request->prospact_id)->first();
+		if($check){
+			return response()->json(['message' => 'Quotation has been created already', 'status' => false]);
+		}
+
 		$saveQuotation  = [];
 		foreach($request->article_description as $index=>$row){
 			if($request->article_description[$index]!=''){
@@ -75,6 +82,10 @@ class QuotationController extends Controller {
 
 	public function getOfferDetail(Request $request){
 		$prospacts = Prospact::where('id',$request->prospact_id)->first();
+		$check = Quotation::where('prospact_id',$request->prospact_id)->first();
+		if($check){
+			return response()->json(['message' => 'Quotation has been created already', 'status' => false]);
+		}
 		return $prospacts;
         // return response()->json(array('success' => true, 'prospacts'=>$prospacts));
 	}

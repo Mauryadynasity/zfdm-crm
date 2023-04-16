@@ -1,9 +1,15 @@
 @extends('admin.layouts.app')
 @section('content')
+
+@section('styles')
+<link rel="stylesheet" href="{{asset('bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}">
+@endsection
+
+
 <section class="content-header">
     
     <h1>
-    {{__('messages.CompanyDetails')}}
+    Settings
     <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
@@ -12,38 +18,46 @@
     </ol>
 </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="box box-default">
-        <!-- <div class="box-header with-border">
-          <h3 class="box-title">Select2</h3>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+    <!-- Main content -->
+
+    <div class="form-row">
+      <div class="col-md-12">
+        @if(session()->has('message'))
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ session()->get('message') }}
           </div>
-        </div> -->
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="form-row">
-              <div class="col-md-12">
-                @if(session()->has('message'))
-                  <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ session()->get('message') }}
-                  </div>
-                @endif
-                @if(session()->has('fail'))
-                  <div class="alert alert-danger">
-                {{ session()->get('fail') }}
-                  </div>
-                @endif
-              </div>
+        @endif
+        @if(session()->has('fail'))
+          <div class="alert alert-danger">
+        {{ session()->get('fail') }}
           </div>
-          <form name="myForm" id="myForm" enctype="multipart/form-data">
+        @endif
+      </div>
+  </div>
+
+  <section class="content">
+
+    <!-- Tab for Setting -->
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Company Setting</a></li>
+        <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Status Setting</a></li>
+        <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Quotation Settings</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1">
+
+        <form name="myForm" id="myForm" enctype="multipart/form-data">
           <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
             <input type="hidden" name="admin_id" value="{{Auth::guard('admin')->user()->id}}">
 
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">Company Details</div>
+          <div class="panel-body">
+          
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
@@ -145,8 +159,15 @@
             @endif --}}
           </div>
 
-          <hr style="height:2px;background-color: #c0c0c0;" />
-          <h3>Company Address</h3>
+
+          </div>
+        </div>
+
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">Company Address</div>
+          <div class="panel-body">
+            
           <div class="row">
            <div class="col-md-3">
               <div class="form-group">
@@ -212,8 +233,14 @@
               </div>
             </div> -->
             </div>
-          <hr style="height:2px;background-color: #c0c0c0;" />
-          <h3>Bank Details</h3>
+
+          </div>
+        </div>
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">Bank Details</div>
+          <div class="panel-body">
+          
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
@@ -270,21 +297,132 @@
                   @endif
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label></label>
-                <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
-              </div>
-            </div>
           </div>
-          <!-- /.row -->
+
+
+          </div>
         </div>
-        <!-- /.box-body -->
+
+
+        <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label></label>
+            <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+          </div>
+        </div>
+        </div>
+
+        </form>
+        </div>
+    
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab_2">
+          
+        <div class="panel panel-primary">
+          <div class="panel-heading">Status Color Setting</div>
+          <div class="panel-body">
+          
+         <table class="table table-hover" id="statusColorSetting">
+              <thead>
+                <tr>
+                  <th>SN#</th>
+                  <th>Status</th>
+                  <th>Pick Color</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Active
+                    <input type="text" hidden class="statusColor" value="active">
+                  </td>
+                  <td>
+                  <div class="input-group my-colorpicker2 colorpicker-element" style="max-width: 200px;">
+                    <input type="text" class="form-control">
+                    <div class="input-group-addon">
+                      <i style="background-color: rgb(77, 40, 40);"></i>
+                    </div>
+                  </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Pending
+                    <input type="text" hidden class="statusColor" value="active">
+                  </td>
+                  <td>
+                  <div class="input-group my-colorpicker2 colorpicker-element" style="max-width: 200px;">
+                    <input type="text" class="form-control">
+                    <div class="input-group-addon">
+                      <i style="background-color: rgb(77, 40, 40);"></i>
+                    </div>
+                  </div>
+                  </td>
+                </tr>
+              </tbody>
+         </table>
+
+
+          </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label></label>
+            <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+          </div>
+        </div>
+        </div>
+
       </div>
+
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab_3">
+          
+        <div class="panel panel-primary">
+          <div class="panel-heading">Quotation Setting</div>
+          <div class="panel-body">
+          
+              <div class="form-group">
+                <label for="">Quotation Starting Number</label>
+                <input type="text" class="form-control" style="max-width: 200px;">
+              </div>
+              <div class="form-group">
+                <label for="">Quotation Current Number</label>
+                <input type="text" class="form-control" style="max-width: 200px;">
+              </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label></label>
+            <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+          </div>
+        </div>
+        </div>
+
+      </div>
+
+        </div>
+      </div>
+      <!-- /.tab-content -->
+    </div>
+    <!-- Tab for Setting -->
+
+
+     
     </section>
 
 @section('scripts')
+<script src="{{asset('bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')}}"></script>
 <script>
+$('.my-colorpicker2').colorpicker();
+
 $('#userList').dataTable();
 $('#myForm').validate();
 $('#myForm').submit(function(e) {
