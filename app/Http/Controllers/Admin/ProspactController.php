@@ -35,7 +35,7 @@ class ProspactController extends Controller {
         //     'date_of_contact' => 'required',
         // ]);
 
-			Prospact::Create(
+				 Prospact::Create(
 				[	
 					'cust_name' => $request->cust_name,
 					'company_name' => $request->company_name,
@@ -53,11 +53,14 @@ class ProspactController extends Controller {
 					'status' => $request->status,
 					'news' => $request->news,
 					'protocol' => $request->protocol,
-					'cust_source' => Auth::guard('admin')->user()->id,
-					'admin_id' => Auth::guard('admin')->user()->id,
+					'cust_source' => $request->cust_source,
 				]
 			);
-		return redirect('admin/user-dashboard')->with('message','Prospact Added Successfully.');
+				if($request->cust_source == 'user'){
+					return response()->json(['message' => 'Prospect Added Successfully!', 'status' => true]);
+				}else{
+					return redirect('admin/user-dashboard')->with('message','Prospact Added Successfully.');
+				}
 	}
 
 	public function editProspact($id) {
@@ -69,13 +72,13 @@ class ProspactController extends Controller {
 
 	public function updateProspact(Request $request) {
 		// dd($request->all());
-        $request->validate([
-            'cust_name' => 'required',
-            'company_name' => 'required',
-            'cust_email' => 'required|email',
-            'cust_phone' => 'required|numeric|digits:10',
-            'date_of_contact' => 'required',
-        ]);
+        // $request->validate([
+        //     'cust_name' => 'required',
+        //     'company_name' => 'required',
+        //     'cust_email' => 'required|email',
+        //     'cust_phone' => 'required|numeric|digits:10',
+        //     'date_of_contact' => 'required',
+        // ]);
 
 			 Prospact::where('id',$request->prospact_id)->update(
 				[	
@@ -97,7 +100,8 @@ class ProspactController extends Controller {
 					'protocol' => $request->protocol,
 				]
 			);
-		return redirect('admin/user-dashboard')->with('message','Prospact Updated Successfully.');
+			return response()->json(['message' => 'Prospect Updated Successfully!', 'status' => true]);
+			// return redirect('admin/user-dashboard')->with('message','Prospact Updated Successfully.');
 	}
 
 	public function destroy($id){
@@ -105,6 +109,44 @@ class ProspactController extends Controller {
 		 return back()->with('fail','Deleted Successfully.');
 
 	}
+
+	public function isEmailUnique(Request $request){
+		$prospect = Prospact::where('cust_email',$request->cust_email)->first();
+		if($prospect){
+			return 'false';
+		}else{
+			return 'true';
+		}
+	}
+	public function isPhoneUnique(Request $request){
+		$prospect = Prospact::where('cust_phone',$request->cust_phone)->first();
+		if($prospect){
+			return 'false';
+		}else{
+			return 'true';
+		}
+	}
+	public function isEmailUniqueEdit(Request $request){
+		$prospect = Prospact::where('cust_email',$request->cust_email)
+		->whereNotIn('id',[$request->id])
+		->first();
+		if($prospect){
+			return 'false';
+		}else{
+			return 'true';
+		}
+	}
+	public function isPhoneUniqueEdit(Request $request){
+		$prospect = Prospact::where('cust_phone',$request->cust_phone)->count();
+		if($prospect != 1){
+			return 'false';
+		}else{
+			return 'true';
+		}
+	}
+
+
 }
+
 
 ?>

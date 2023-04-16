@@ -123,7 +123,7 @@
             </tr>
               <tr>
                 <td colspan="6" class="text-right">
-                  <button onclick="addTr()" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                  <a onclick="addTr()" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </td>
               </tr>
             </tfoot>

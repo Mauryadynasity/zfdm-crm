@@ -37,6 +37,10 @@ use App\Http\Controllers\Admin;
     // -------Prospact Route---------------//
         Route::get('add-prospact', [Admin\ProspactController::class,'addProspact']);
         Route::post('save-prospact', [Admin\ProspactController::class,'saveProspact']);
+        Route::get('is-email-unique', [Admin\ProspactController::class,'isEmailUnique']);
+        Route::get('is-phone-unique', [Admin\ProspactController::class,'isPhoneUnique']);
+        Route::get('is-email-unique-edit', [Admin\ProspactController::class,'isEmailUniqueEdit']);
+        Route::get('is-phone-unique-edit', [Admin\ProspactController::class,'isPhoneUniqueEdit']);
         Route::get('edit-prospact/{id}', [Admin\ProspactController::class,'editProspact']);
         Route::post('update-prospact', [Admin\ProspactController::class,'updateProspact']);
         Route::get('delete-prospact/{id}', [Admin\ProspactController::class,'destroy']);
