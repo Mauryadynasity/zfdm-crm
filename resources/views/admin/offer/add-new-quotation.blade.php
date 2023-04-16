@@ -42,7 +42,7 @@
             {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}<br>
             {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
             {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
-            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
+            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}<br>
             {{__('messages.website_url')}}: {{$settingDetails ? $settingDetails->website_url:''}}
           </address>
         </div>
