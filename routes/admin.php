@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin;
     // -------Setting Route---------------//
     Route::get('setting', [Admin\SettingController::class,'index'])->middleware('admin');
     Route::post('save-setting', [Admin\SettingController::class,'saveSetting'])->middleware('admin');
+    Route::post('save-color-setting', [Admin\SettingController::class,'saveColorSetting'])->middleware('admin');
     Route::group(['middleware'=>['admin','setting']], function () {
         Route::get('user-list', [Admin\UserController::class,'index']);
         Route::post('save-user', [Admin\UserController::class,'store']);

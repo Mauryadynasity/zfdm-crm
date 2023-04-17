@@ -1,5 +1,6 @@
 <?php
 
+// use App\Models\StatusMaster;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(StatusMasterSeeder::class);
         $this->call(PermissionSeeder::class);
     }
 }
