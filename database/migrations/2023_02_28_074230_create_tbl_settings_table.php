@@ -37,6 +37,8 @@ class CreateTblSettingsTable extends Migration
             $table->string('branch_address', 99)->nullable();
             $table->string('tax_number', 99)->nullable();
             $table->string('tax_identification_no', 99)->nullable();
+            $table->string('quotation_start_no', 99)->nullable();
+            $table->string('quotation_current_no', 99)->nullable();
             $table->string('admin_id', 99)->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
 

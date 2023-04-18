@@ -364,16 +364,20 @@
       </div>
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_3">
+        <form id="quotation-setting" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
+        <input type="hidden" name="admin_user_id" value="{{Auth::guard('admin')->user()->id}}">
         <div class="panel panel-primary">
           <div class="panel-heading">Quotation Setting</div>
           <div class="panel-body">
               <div class="form-group">
                 <label for="">Quotation Starting Number</label>
-                <input type="text" class="form-control" style="max-width: 200px;">
+                <input type="text" class="form-control" name="quotation_start_no" value="{{ $setting ? $setting->quotation_start_no : '' }}" style="max-width: 200px;">
               </div>
               <div class="form-group">
                 <label for="">Quotation Current Number</label>
-                <input type="text" class="form-control" style="max-width: 200px;">
+                <input type="text" class="form-control" name="quotation_current_no" value="
+                {{ $setting ? $setting->quotation_current_no : '' }}" style="max-width: 200px;">
               </div>
           </div>
         </div>
@@ -385,6 +389,7 @@
           </div>
         </div>
         </div>
+        </form>
       </div>
         </div>
       </div>
@@ -438,6 +443,35 @@ $('#myForm').submit(function(e) {
       },
       type: 'POST',
       url: "{{ url('admin/save-color-setting') }}",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if(data.status){
+          Swal.fire({
+            position: 'top-middle',
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          // $('.error_application').text(data.message);
+        }
+      },
+    });
+  });
+
+  $('#quotation-setting').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      headers: {
+        'X-CSRF-Token': $('meta[name=_token]').attr('content')
+      },
+      type: 'POST',
+      url: "{{ url('admin/quotation-setting') }}",
       data: formData,
       cache: false,
       contentType: false,

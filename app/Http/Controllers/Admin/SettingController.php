@@ -95,6 +95,24 @@ class SettingController extends Controller {
 		return response()->json(['message' => 'Color has been saved', 'status' => true]);
 
 	}
+
+	public function quotationSetting(Request $request){
+		Setting::updateOrCreate(
+			[	
+				'admin_id' => $request->admin_user_id,
+			],[
+				'admin_id' => $request->admin_user_id,
+				'quotation_start_no' => $request->quotation_start_no,
+				'quotation_current_no' => $request->quotation_current_no,
+			]
+		);
+		// $quotationNo = new StatusMaster;
+		// $quotationNo->quotation_start_no = $request->quotation_start_no;
+		// $quotationNo->quotation_current_no = $request->quotation_current_no;
+		// $quotationNo->save();
+		return response()->json(['message' => 'Quotation number has been set', 'status' => true]);
+
+	}
 }
 
 ?>
