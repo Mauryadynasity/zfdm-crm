@@ -55,6 +55,7 @@ class Setting extends Model implements HasMedia
         'tax_identification_no',
         'quotation_start_no',
         'quotation_current_no',
+        'footer_text',
         'created_at',
         'updated_at',
         'deleted_at'

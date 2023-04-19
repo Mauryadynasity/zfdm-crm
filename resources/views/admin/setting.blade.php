@@ -45,6 +45,7 @@
         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Company Setting</a></li>
         <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Status Setting</a></li>
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Quotation Settings</a></li>
+        <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Quotation Footer Text Settings</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -372,12 +373,36 @@
           <div class="panel-body">
               <div class="form-group">
                 <label for="">Quotation Starting Number</label>
-                <input type="text" class="form-control" name="quotation_start_no" value="{{ $setting ? $setting->quotation_start_no : '' }}" style="max-width: 200px;">
+                <input type="text" class="form-control" name="quotation_start_no" value="{{ $setting ? $setting->quotation_start_no : '' }}" style="max-width: 200px;" required>
               </div>
               <div class="form-group">
                 <label for="">Quotation Current Number</label>
                 <input type="text" class="form-control" name="quotation_current_no" value="
-                {{ $setting ? $setting->quotation_current_no : '' }}" style="max-width: 200px;">
+                {{ $setting ? $setting->quotation_current_no : '' }}" style="max-width: 200px;" required>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label></label>
+            <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+          </div>
+        </div>
+        </div>
+        </form>
+      </div>
+
+      <div class="tab-pane" id="tab_4">
+        <form id="footer-text" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
+        <input type="hidden" name="admin_user_id" value="{{Auth::guard('admin')->user()->id}}">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Footer Text Setting</div>
+          <div class="panel-body">
+              <div class="form-group">
+                <label for="">Footer Text</label>
+                <textarea class="form-control" name="footer_text" value="{{ $setting ? $setting->footer_text : '' }}" style="max-width: 1000px;" required>{{ $setting ? $setting->footer_text : '' }}</textarea>
               </div>
           </div>
         </div>
@@ -405,6 +430,7 @@ $('.my-colorpicker2').colorpicker();
 
 $('#statusColorSetting').dataTable();
 $('#myForm').validate();
+$('#quotation-setting').validate();
 $('#myForm').submit(function(e) {
     e.preventDefault();
     var formData = new FormData(this);
@@ -472,6 +498,35 @@ $('#myForm').submit(function(e) {
       },
       type: 'POST',
       url: "{{ url('admin/quotation-setting') }}",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if(data.status){
+          Swal.fire({
+            position: 'top-middle',
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          // $('.error_application').text(data.message);
+        }
+      },
+    });
+  });
+
+  $('#footer-text').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      headers: {
+        'X-CSRF-Token': $('meta[name=_token]').attr('content')
+      },
+      type: 'POST',
+      url: "{{ url('admin/footer-text') }}",
       data: formData,
       cache: false,
       contentType: false,

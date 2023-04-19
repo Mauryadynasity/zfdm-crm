@@ -106,11 +106,20 @@ class SettingController extends Controller {
 				'quotation_current_no' => $request->quotation_current_no,
 			]
 		);
-		// $quotationNo = new StatusMaster;
-		// $quotationNo->quotation_start_no = $request->quotation_start_no;
-		// $quotationNo->quotation_current_no = $request->quotation_current_no;
-		// $quotationNo->save();
 		return response()->json(['message' => 'Quotation number has been set', 'status' => true]);
+
+	}
+
+	public function saveFooterText(Request $request){
+		Setting::updateOrCreate(
+			[	
+				'admin_id' => $request->admin_user_id,
+			],[
+				'admin_id' => $request->admin_user_id,
+				'footer_text' => $request->footer_text,
+			]
+		);
+		return response()->json(['message' => 'Footer Text has been Saved', 'status' => true]);
 
 	}
 }
