@@ -595,7 +595,9 @@ $allowed_columns = $permissions->pluck('column')->toArray();
               @endforeach
               <td>
                 <button title="Edit" class="btn btn-primary" onclick="editProspectForm($(this));"><i class="fa fa-edit"></i></button>
+                @if(Auth::guard('admin')->user()->role_id ==1)
                 <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                @endif
                 <button type="button" class="btn btn-danger mybutton" title="Add Quotation" onClick="addNewOffer($(this))">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </button>
