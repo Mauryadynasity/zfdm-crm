@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Models\StatusMaster;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -17,6 +18,7 @@ class SettingController extends Controller {
 		// $this->middleware('auth:admin');
 	}
 	public function index(Request $request) {
+		$data['status_master'] = StatusMaster::all();
     	$data['setting'] = Setting::where('admin_id',Auth::guard('admin')->user()->id)->orderBy('id','DESC')->first();
 		return view('admin.setting',$data);
 	}
@@ -80,6 +82,45 @@ class SettingController extends Controller {
         return response()->json(['message' => 'Configuration has been saved', 'status' => true]);
 		// return back()->with('message','Configuration Successfully.');
 		// return view('admin.setting');
+	}
+
+	public function saveColorSetting(Request $request){
+		$updateStatusColor  = [];
+		foreach($request->status as $index=>$row){
+				$updateStatusColor = array(
+				'color' => $request->color[$index],
+			);
+			StatusMaster::updateOrCreate(['status'=>$row],$updateStatusColor);
+			}
+		return response()->json(['message' => 'Color has been saved', 'status' => true]);
+
+	}
+
+	public function quotationSetting(Request $request){
+		Setting::updateOrCreate(
+			[	
+				'admin_id' => $request->admin_user_id,
+			],[
+				'admin_id' => $request->admin_user_id,
+				'quotation_start_no' => $request->quotation_start_no,
+				'quotation_current_no' => $request->quotation_current_no,
+			]
+		);
+		return response()->json(['message' => 'Quotation number has been set', 'status' => true]);
+
+	}
+
+	public function saveFooterText(Request $request){
+		Setting::updateOrCreate(
+			[	
+				'admin_id' => $request->admin_user_id,
+			],[
+				'admin_id' => $request->admin_user_id,
+				'footer_text' => $request->footer_text,
+			]
+		);
+		return response()->json(['message' => 'Footer Text has been Saved', 'status' => true]);
+
 	}
 }
 

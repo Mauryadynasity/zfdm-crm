@@ -53,6 +53,9 @@ class Setting extends Model implements HasMedia
         'place_name',
         'country',
         'tax_identification_no',
+        'quotation_start_no',
+        'quotation_current_no',
+        'footer_text',
         'created_at',
         'updated_at',
         'deleted_at'

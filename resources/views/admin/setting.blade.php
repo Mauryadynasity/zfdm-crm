@@ -45,6 +45,7 @@
         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Company Setting</a></li>
         <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Status Setting</a></li>
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Quotation Settings</a></li>
+        <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Quotation Footer Text Settings</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -318,11 +319,11 @@
     
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_2">
-          
         <div class="panel panel-primary">
           <div class="panel-heading">Status Color Setting</div>
           <div class="panel-body">
-          
+          <form id="save-color-setting" enctype="multipart/form-data">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
          <table class="table table-hover" id="statusColorSetting">
               <thead>
                 <tr>
@@ -332,41 +333,26 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach($status_master as $index => $status)
                 <tr>
-                  <td>1</td>
-                  <td>Active
-                    <input type="text" hidden class="statusColor" value="active">
+                  <td>{{$index+1}}</td>
+                  <td>{{$status->status}}
+                    <input type="hidden" class="status" name="status[]" value="{{$status->status}}">
                   </td>
                   <td>
                   <div class="input-group my-colorpicker2 colorpicker-element" style="max-width: 200px;">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="color[]" value="{{$status->color}}">
                     <div class="input-group-addon">
                       <i style="background-color: rgb(77, 40, 40);"></i>
                     </div>
                   </div>
                   </td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Pending
-                    <input type="text" hidden class="statusColor" value="active">
-                  </td>
-                  <td>
-                  <div class="input-group my-colorpicker2 colorpicker-element" style="max-width: 200px;">
-                    <input type="text" class="form-control">
-                    <div class="input-group-addon">
-                      <i style="background-color: rgb(77, 40, 40);"></i>
-                    </div>
-                  </div>
-                  </td>
-                </tr>
+                @endforeach
               </tbody>
          </table>
-
-
           </div>
         </div>
-
         <div class="row">
         <div class="col-md-3">
           <div class="form-group">
@@ -375,28 +361,27 @@
           </div>
         </div>
         </div>
-
+        </form>
       </div>
-
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_3">
-          
+        <form id="quotation-setting" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
+        <input type="hidden" name="admin_user_id" value="{{Auth::guard('admin')->user()->id}}">
         <div class="panel panel-primary">
           <div class="panel-heading">Quotation Setting</div>
           <div class="panel-body">
-          
               <div class="form-group">
                 <label for="">Quotation Starting Number</label>
-                <input type="text" class="form-control" style="max-width: 200px;">
+                <input type="text" class="form-control" name="quotation_start_no" value="{{ $setting ? $setting->quotation_start_no : '' }}" style="max-width: 200px;" required>
               </div>
               <div class="form-group">
                 <label for="">Quotation Current Number</label>
-                <input type="text" class="form-control" style="max-width: 200px;">
+                <input type="text" class="form-control" name="quotation_current_no" value="
+                {{ $setting ? $setting->quotation_current_no : '' }}" style="max-width: 200px;" required>
               </div>
-
           </div>
         </div>
-
         <div class="row">
         <div class="col-md-3">
           <div class="form-group">
@@ -405,17 +390,37 @@
           </div>
         </div>
         </div>
-
+        </form>
       </div>
 
+      <div class="tab-pane" id="tab_4">
+        <form id="footer-text" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
+        <input type="hidden" name="admin_user_id" value="{{Auth::guard('admin')->user()->id}}">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Footer Text Setting</div>
+          <div class="panel-body">
+              <div class="form-group">
+                <label for="">Footer Text</label>
+                <textarea class="form-control" name="footer_text" value="{{ $setting ? $setting->footer_text : '' }}" style="max-width: 1000px;" required>{{ $setting ? $setting->footer_text : '' }}</textarea>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label></label>
+            <button class="form-control btn btn-primary" style="margin-top: 4px;">{{__('messages.submit_button')}}</button>
+          </div>
+        </div>
+        </div>
+        </form>
+      </div>
         </div>
       </div>
       <!-- /.tab-content -->
     </div>
     <!-- Tab for Setting -->
-
-
-     
     </section>
 
 @section('scripts')
@@ -423,8 +428,9 @@
 <script>
 $('.my-colorpicker2').colorpicker();
 
-$('#userList').dataTable();
+$('#statusColorSetting').dataTable();
 $('#myForm').validate();
+$('#quotation-setting').validate();
 $('#myForm').submit(function(e) {
     e.preventDefault();
     var formData = new FormData(this);
@@ -434,6 +440,93 @@ $('#myForm').submit(function(e) {
       },
       type: 'POST',
       url: "{{ url('admin/save-setting') }}",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if(data.status){
+          Swal.fire({
+            position: 'top-middle',
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          // $('.error_application').text(data.message);
+        }
+      },
+    });
+  });
+
+  $('#save-color-setting').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      headers: {
+        'X-CSRF-Token': $('meta[name=_token]').attr('content')
+      },
+      type: 'POST',
+      url: "{{ url('admin/save-color-setting') }}",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if(data.status){
+          Swal.fire({
+            position: 'top-middle',
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          // $('.error_application').text(data.message);
+        }
+      },
+    });
+  });
+
+  $('#quotation-setting').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      headers: {
+        'X-CSRF-Token': $('meta[name=_token]').attr('content')
+      },
+      type: 'POST',
+      url: "{{ url('admin/quotation-setting') }}",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        if(data.status){
+          Swal.fire({
+            position: 'top-middle',
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          // $('.error_application').text(data.message);
+        }
+      },
+    });
+  });
+
+  $('#footer-text').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      headers: {
+        'X-CSRF-Token': $('meta[name=_token]').attr('content')
+      },
+      type: 'POST',
+      url: "{{ url('admin/footer-text') }}",
       data: formData,
       cache: false,
       contentType: false,

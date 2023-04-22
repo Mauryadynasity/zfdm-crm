@@ -31,6 +31,7 @@ class StatusMaster extends Model implements HasMedia
      public $table="tbl_prospect_status";
      protected $fillable = [
         'status',
+        'color',
         'created_at',
         'updated_at',
         'deleted_at'

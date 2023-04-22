@@ -16,6 +16,7 @@ class CreateTblProspectStatusTable extends Migration
         Schema::create('tbl_prospect_status', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('status', 99)->nullable();
+            $table->string('color', 99)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
