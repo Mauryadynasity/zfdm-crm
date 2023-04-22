@@ -34,7 +34,7 @@ class DashboardController extends Controller {
 		$quotations = Prospact::has('quotations')->get();
 		$permissions = Permission::where('module_name','prospect')
 		// ->where('status','yes')
-		->get();
+		->get();	
 		return view('admin.user-dashboard',compact('settingDetails','prospacts','permissions','StatusMaster','quotations'));
 	}	
 

@@ -72,7 +72,7 @@ class Prospact extends Model implements HasMedia
      }
 
     public function quotation(){
-        return $this->hasOne(Quotation::class);
+        return $this->hasOne(Quotation::class,'prospact_id');
     }
     public function statusMaster(){
         return $this->hasOne(statusMaster::class);

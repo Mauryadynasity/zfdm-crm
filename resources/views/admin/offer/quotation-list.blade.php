@@ -110,31 +110,31 @@
   $('#saveOffers').submit();
   }
 
-  function addNewOffer(){
-        var selectedTr = $('#myTable tbody tr.selected');
-        var prospact_id = selectedTr.find('.prospact_id').text();
-        $("#modal-default").modal('show');
-        $.ajax({
-        headers: {
-          'X-CSRF-Token': $('meta[name=_token]').attr('content')
-        },
-        type: 'GET',
-        url: "{{ url('admin/get-offer-details') }}",
-        data: {
-            'prospact_id' : prospact_id,
-        },
-        success: function(data) {
-          if(data){
-            $(".prospact_id").val(data.id);
-            $(".cus-name").append(data.cust_name);
-            $(".cus-phone").append(data.cust_phone);
-            $(".cus-email").append(data.cust_email);
-          }else{
-            // alert(data.message);
-          }
-        },
-      });
-  }
+  // function addNewOffer(){
+  //       var selectedTr = $('#myTable tbody tr.selected');
+  //       var prospact_id = selectedTr.find('.prospact_id').text();
+  //       $("#modal-default").modal('show');
+  //       $.ajax({
+  //       headers: {
+  //         'X-CSRF-Token': $('meta[name=_token]').attr('content')
+  //       },
+  //       type: 'GET',
+  //       url: "{{ url('admin/get-offer-details') }}",
+  //       data: {
+  //           'prospact_id' : prospact_id,
+  //       },
+  //       success: function(data) {
+  //         if(data){
+  //           $(".prospact_id").val(data.id);
+  //           $(".cus-name").append(data.cust_name);
+  //           $(".cus-phone").append(data.cust_phone);
+  //           $(".cus-email").append(data.cust_email);
+  //         }else{
+  //           // alert(data.message);
+  //         }
+  //       },
+  //     });
+  // }
 
     $('#saveOffers').submit(function(e) {
       e.preventDefault();
@@ -159,7 +159,7 @@
               timer: 3000
             });
           $('#saveOffers').trigger("reset");
-          $('#modal-default').modal('hide');
+          // $('#modal-default').modal('hide');
           // window.open("{{url('admin/view-quotation')}}");
           // $("#modal").modal('hide');
           }else{

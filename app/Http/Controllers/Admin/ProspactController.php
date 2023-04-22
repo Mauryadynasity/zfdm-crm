@@ -145,6 +145,13 @@ class ProspactController extends Controller {
 		}
 	}
 
+	public function prospactList(Request $request){
+		$toDate = date('Y-m-d', strtotime('+1 day', strtotime($request->toDate)));
+		$prospacts = Prospact::whereBetween('created_at', [$request->fromDate, $toDate])->orderBy('id','DESC')->get();
+		$permissions = Permission::where('module_name','prospect')->get();
+		$returnHTML = view('admin.prospect.prospect-list',compact('prospacts','permissions'))->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
+	}
 
 }
 

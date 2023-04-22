@@ -36,10 +36,10 @@ class QuotationController extends Controller {
 	public function saveQuotation(Request $request) {
 		// dd($request->quotation_number);
 		$validator = Validator::make($request->all(), [
-            'article_description' => 'required',
-            'number_of_article' => 'required',
-            'prise_per_article' => 'required',
-            'price' => 'required',
+            'article_description.*' => 'required',
+            'number_of_article.*' => 'required',
+            'prise_per_article.*' => 'required',
+            'price.*' => 'required',
             'quotation_number' => 'required',
             'comments' => 'required',
             'prospact_id' => 'required',
@@ -94,21 +94,20 @@ class QuotationController extends Controller {
 		$prospact = Prospact::where('id',$quotationId)->first();
 		$settingDetails = Setting::first();
 		if($request->generate_pdf){
-            $htmlfile = view('admin.offer.invoice',compact('prospact'))->render();
-			// dd($htmlfile);
+            $htmlfile = view('admin.quotation.view-quotation',compact('prospact','settingDetails'))->render();
             $pdf = app()->make('dompdf.wrapper');
             $pdf->loadHTML($htmlfile,'UTF-8')
 			->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif'])
 			->setWarnings(false);
-			// ->setPaper($request->paper_size, 'landscape');
             return $pdf->download('TR Report.pdf');
 		}
-		return view('admin.offer.view-quotation',compact('prospact','settingDetails'));
+		return view('admin.quotation.view-quotation',compact('prospact','settingDetails'));
 	}
 	public function editQuotation($quotationId){
 		$prospact = Prospact::where('id',$quotationId)->first();
 		$settingDetails = Setting::first();
-		return view('admin.offer.edit-quotation',compact('prospact','settingDetails'));
+		$returnHTML = view('admin.quotation.edit-quotation-content',compact('prospact','settingDetails'))->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
 
 	public function updateQuotation(Request $request) {
