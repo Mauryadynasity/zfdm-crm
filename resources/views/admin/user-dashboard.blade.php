@@ -63,7 +63,8 @@ $allowed_columns = $permissions->pluck('column')->toArray();
       @include('admin.quotation.edit-quotation')
       @include('admin.quotation.quotation-search')
       @include('admin.quotation.quotation-list')
-
+           
+     
       </div>
         <!-- Quotation related codes -->
 
