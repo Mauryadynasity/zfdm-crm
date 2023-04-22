@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements HasMedia
 {
-    use HasMediaTrait,HasApiTokens, HasFactory, Notifiable;
+    use HasMediaTrait,Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,12 +55,13 @@ class User extends Authenticatable implements HasMedia
         if ($this->getMedia('photo')->isEmpty()) {
             return false;
         }else{
-            return $this->getMedia('photo')->first()->getFullUrl();
-        }
+    return $this->getMedia('photo')->first()->getFullUrl();
+}
     }
     public function registerMediaCollections()
     {
         $this->addMediaCollection('photo')
             ->singleFile();
      }
+
 }

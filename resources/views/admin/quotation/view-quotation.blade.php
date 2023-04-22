@@ -105,9 +105,7 @@
               </div>
               <div class="text-center footer-content">
               <hr>
-              Managing Director - Sirsendu Roy<br/>
-              Bank details : Finom Bank IBAN : DE58 1101 0101 5896 8640 92 BIC:SOBKDEB2XXX<br/>
-              Ust.-IdentNr:Follows register number: HRB99116 local court:Hanau<br/>
+              {!!Auth::guard('admin')->user()->settings()->footer_text !!}
                 <br/>
               </div>
             </div>

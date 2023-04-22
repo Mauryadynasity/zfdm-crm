@@ -81,5 +81,10 @@ class Prospact extends Model implements HasMedia
         return $this->hasMany(Quotation::class);
     }
 
+    public function getStatus(){
+        return $this->hasOne(StatusMaster::class,'status','status');
+    }
+
+
 
 }

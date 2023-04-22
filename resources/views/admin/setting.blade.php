@@ -373,12 +373,11 @@
           <div class="panel-body">
               <div class="form-group">
                 <label for="">Quotation Starting Number</label>
-                <input type="text" class="form-control" name="quotation_start_no" value="{{ $setting ? $setting->quotation_start_no : '' }}" style="max-width: 200px;" required>
+                <input type="text" class="form-control" name="quotation_start_no" id="quotation_start_no" onchange="$('#quotation_current_no').val($('#quotation_start_no').val());" value="{{($setting)?$setting->quotation_start_no:''}}" style="max-width: 200px;" required @if($setting->quotation_start_no>0) readonly @endif>
               </div>
               <div class="form-group">
                 <label for="">Quotation Current Number</label>
-                <input type="text" class="form-control" name="quotation_current_no" value="
-                {{ $setting ? $setting->quotation_current_no : '' }}" style="max-width: 200px;" required>
+                <input type="text" class="form-control" name="quotation_current_no" id="quotation_current_no" value="{{($setting)?$setting->quotation_current_no:''}}" style="max-width: 200px;" required readonly>
               </div>
           </div>
         </div>
@@ -402,7 +401,7 @@
           <div class="panel-body">
               <div class="form-group">
                 <label for="">Footer Text</label>
-                <textarea class="form-control" name="footer_text" value="{{ $setting ? $setting->footer_text : '' }}" style="max-width: 1000px;" required>{{ $setting ? $setting->footer_text : '' }}</textarea>
+                <textarea class="form-control" name="footer_text" id="footer_text" value="{{($setting)?$setting->footer_text:''}}" style="max-width: 1000px;" required>{{($setting)?$setting->footer_text:''}}</textarea>
               </div>
           </div>
         </div>
@@ -425,7 +424,11 @@
 
 @section('scripts')
 <script src="{{asset('bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')}}"></script>
+<script src="{{asset('bower_components/ckeditor/ckeditor.js')}}"></script>
 <script>
+CKEDITOR.replace('footer_text')
+    //bootstrap WYSIHTML5 - text editor
+
 $('.my-colorpicker2').colorpicker();
 
 $('#statusColorSetting').dataTable();

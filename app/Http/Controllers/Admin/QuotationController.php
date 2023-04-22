@@ -67,7 +67,7 @@ class QuotationController extends Controller {
 				  'number_of_article' => $request->number_of_article[$index],
 				  'prise_per_article' => $request->prise_per_article[$index],
 				  'price' => $request->price[$index],
-				  'quotation_number' => $request->quotation_number,
+				  'quotation_number' => Setting::getQuotationNo(),
 				  'quotation_date' => $request->quotation_date,
 				  'sub_total' => $request->sub_total,
 				  'ust_number' => $request->ust_number,
@@ -77,6 +77,7 @@ class QuotationController extends Controller {
 			}
 		}
 		Quotation::insert($saveQuotation);
+		Setting::updateQuotationNo();
     	return response()->json(['message' => 'Quotation has been created', 'status' => true]);
 	}
 

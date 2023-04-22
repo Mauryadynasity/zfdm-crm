@@ -65,6 +65,16 @@ class Setting extends Model implements HasMedia
         'upload_file',
     ];
 
+    static function getQuotationNo(){
+        return Setting::first()->quotation_current_no;
+    }
+    static function updateQuotationNo(){
+        $new_quotation_no = ((int)Setting::first()->quotation_current_no + 1);
+        $setting = Setting::first();
+        $setting->quotation_current_no = $new_quotation_no;
+        $setting->save();
+    }
+
      public function getUploadFileAttribute(){
         if ($this->getMedia('upload_file')->isEmpty()) {
             return false;

@@ -103,7 +103,7 @@ class SettingController extends Controller {
 			],[
 				'admin_id' => $request->admin_user_id,
 				'quotation_start_no' => $request->quotation_start_no,
-				'quotation_current_no' => $request->quotation_current_no,
+				'quotation_current_no' => $request->quotation_start_no,
 			]
 		);
 		return response()->json(['message' => 'Quotation number has been set', 'status' => true]);

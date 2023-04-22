@@ -132,34 +132,47 @@ $('#myForm').submit(function(e) {
         return false;
   }
 
-  var formData = new FormData(this);
-  $.ajax({
-    headers: {
-      'X-CSRF-Token': $('meta[name=_token]').attr('content')
-    },
-    type: 'POST',
-    url: "{{ url('admin/save-prospact') }}",
-    data: formData,
-    cache: false,
-    contentType: false,
-    processData: false,
-    success: function(data) {
-      if(data.status == true){
-        search_prospect();
-        Swal.fire({
-          position: 'top-middle',
-          icon: 'success',
-          title: data.message,
-          html: 'Ok',
-          showConfirmButton: false,
-          timer: 3000
-        });
-      $('#editForm').trigger("reset");
-      $('#editForm').trigger("reset");
-      $('.edit-prospect-data').hide();
-      $('.add-prospect-data').hide();
-      }
-    },
+  Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    denyButtonText: `Don't save`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      var formData = new FormData(this);
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'POST',
+        url: "{{ url('admin/save-prospact') }}",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if(data.status == true){
+            search_prospect();
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'success',
+              title: data.message,
+              html: 'Ok',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          $('#editForm').trigger("reset");
+          $('#editForm').trigger("reset");
+          $('.edit-prospect-data').hide();
+          $('.add-prospect-data').hide();
+          }
+        },
+      });
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
   });
 });
 

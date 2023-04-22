@@ -3,6 +3,7 @@
 namespace App;
 use App\Helpers\ConstantHelper;
 use App\Models\Role;
+use App\Models\Setting;
 use Illuminate\Notifications\Notifiable;
 // use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -80,6 +81,9 @@ class Admin extends Authenticatable
             ->singleFile();
     }
 
+    public function settings(){
+        return \App\Models\Setting::first();
+     }
   
 
 }

@@ -1,7 +1,20 @@
 <div class="panel panel-primary">
           <div class="panel-heading">Prospects</div>
-          <div class="panel-body">
-            
+          <div class="panel-body table-responsive">
+          <div class="row">
+          <div class="col-md-9 form-group text-right">
+          </div>
+          <div class="col-md-3 form-group text-right">
+          <select class="form-control" onchange="setProspectColumn($(this))">
+            @foreach($permissions as $permission)
+            @if($permission->status=='no')
+            @php $allowed_column = $permission->column; @endphp
+            <option value="{{$allowed_column}}">{{$allowed_column}}</option>
+            @endif
+            @endforeach
+          </select>
+          </div>
+          </div>
           <table class="table table-bordered border-success table-responsive" id="prospect-table">
           <thead>
               <tr>
@@ -14,7 +27,7 @@
             </thead>
             <tbody>
               @foreach($prospacts as $prospact)
-              <tr data-pid="{{$prospact->id}}">
+              <tr data-pid="{{$prospact->id}}" style="color:<?=($prospact->getStatus)?$prospact->getStatus->color:''?>">
                 <td class="prospact_id">{{$prospact->id}}</td>
                 @foreach($permissions as $permission)
                 @php $allowed_column = $permission->column; @endphp
