@@ -62,8 +62,9 @@ $allowed_columns = $permissions->pluck('column')->toArray();
 
       @include('admin.quotation.edit-quotation')
       @include('admin.quotation.quotation-search')
+      <div id="quotation-container-box">
       @include('admin.quotation.quotation-list')
-           
+      </div>
      
       </div>
         <!-- Quotation related codes -->
@@ -309,6 +310,33 @@ $('#editForm').validate({
       });
  }
 
+//  Quotation List
+function search_quotation(){
+  var fromDate = $('#fromDate').val();
+  var toDate = $('#toDate').val();
+  if(fromDate=='' || toDate==''){
+    return false;
+  }
+  $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'GET',
+        url: "{{ url('admin/search-quotation') }}",
+        data: {
+            'fromDate' : fromDate,
+            'toDate' : toDate,
+        },
+        success: function(data) {
+          if(data.success==true){
+            $('#quotation-container-box').html(data.html);
+          }else{
+            alert('Some Error Occurred.');
+          }
+        },
+      });
+ }
+
  // edit prospect code
  // all prospect related codes done
  
@@ -409,7 +437,45 @@ function editQuotationFunc($this){
   $('#saveOffers').validate();
   $('#updateQuatation').submit(function(e) {
     e.preventDefault();
-    alert();
+      if($(this).valid()==false) {
+            return false;
+      }
+      var formData = new FormData(this);
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'POST',
+        url: "{{ url('admin/edit-quotation') }}",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if(data.status){
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'success',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 3000
+            });
+          $('#saveOffers').trigger("reset");
+          $('#modal-default').modal('hide');
+          // window.open("{{url('admin/view-quotation')}}");
+          // $("#modal").modal('hide');
+          }else{
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'error',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 3000
+            });
+          }
+        },
+      });
+    
   });
   $('#saveOffers').submit(function(e) {
       e.preventDefault();
@@ -494,7 +560,9 @@ $('#saveOffers').validate({
   function saveOffersFunction(){
   $('#saveOffers').submit();
   }
-
+  function editQuotationFunction(){
+  $('#updateQuatation').submit();
+  }
   function calculateTotalPrice($this){
     var currentTr = $this.closest('tr');
     var prise_per_article = currentTr.find('.prise_per_article').val();

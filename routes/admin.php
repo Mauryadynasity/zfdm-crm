@@ -54,9 +54,10 @@ use App\Http\Controllers\Admin;
         Route::get('get-prospact-details', [Admin\QuotationController::class,'getOfferDetail']);
         Route::post('save-quotation', [Admin\QuotationController::class,'saveQuotation']);
         Route::get('quotation-list', [Admin\QuotationController::class,'quotationList']);
+        Route::get('search-quotation', [Admin\QuotationController::class,'searchQuotation']);
         Route::get('view-quotation/{id}', [Admin\QuotationController::class,'viewQuotation']);
         Route::get('edit-quotation/{id}', [Admin\QuotationController::class,'editQuotation']);
-        Route::post('edit-quotation/{id}', [Admin\QuotationController::class,'updateQuotation']);
+        Route::post('edit-quotation', [Admin\QuotationController::class,'updateQuotation']);
         Route::get('delete-quotation/{id}', [Admin\QuotationController::class,'destroy']);
         Route::get('invoice/{id}', [Admin\QuotationController::class,'invoice']);
 

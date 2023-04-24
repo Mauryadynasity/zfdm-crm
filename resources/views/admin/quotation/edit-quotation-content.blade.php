@@ -1,5 +1,5 @@
 
-    <form name="updateQuatation" id="updateQuatation" method="post" action="" enctype="multipart/form-data">
+<form name="updateQuatation" id="updateQuatation" enctype="multipart/form-data">
       <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
       <input type="hidden" name="prospact_id" value="{{$prospact->id}}">
      
@@ -168,10 +168,7 @@
       <div class="row no-print">
         <div class="col-xs-12">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{__('messages.Close')}}</button>
-          
-          <button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;">
-            <i class="fa fa-save"></i> {{__('messages.submit_button')}}
-          </button>
+          <button type="button" onclick="editQuotationFunction()" class="btn btn-primary pull-right">{{__('messages.submit_button')}}</button>
         </div>
       </div>
     </section>

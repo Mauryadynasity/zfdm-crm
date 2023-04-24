@@ -56,7 +56,8 @@
             <span class="post_code"></span><br>
             <span class="place_name"></span><br>
             <strong>{{__('messages.Quotation Number')}}:</strong> <span class="quotation_number">00000</span><textarea hidden name="quotation_number" class="quotation_number">00000</textarea><br>
-            <strong>{{__('messages.Quotation Date')}}:</strong> <span class="quotation_date"><?php echo date("d-m-Y"); ?><textarea name="quotation_date" hidden class="quotation_date"><?php echo date("Y-m-d"); ?></textarea></span><br>
+            <!-- <strong>{{__('messages.Quotation Date')}}:</strong> <span class="quotation_date"><?php echo date("d-m-Y"); ?><textarea name="quotation_date" hidden class="quotation_date"><?php echo date("Y-m-d"); ?></textarea></span><br> -->
+            <strong>{{__('messages.Quotation Date')}}:</strong> <span class="quotation_date"><input type="date" name="quotation_date"><br></span><br>
           <!--   <strong>Phone:</strong> <span class="cus-phone"></span><br>
             <strong>Email:</strong> <span class="cus-email"></span><br> -->
           </address>
