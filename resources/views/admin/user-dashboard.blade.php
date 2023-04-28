@@ -7,11 +7,16 @@ $allowed_columns = $permissions->pluck('column')->toArray();
 
 @section('styles')
 <style>
+  #quotations-table,
   #prospect-table{
     width: 100% !important;
   }
   .trRow{
     display: none;
+  }
+  .action_class{
+    width: 150px !important;
+    display: block;
   }
 </style>
 @endsection
@@ -62,7 +67,9 @@ $allowed_columns = $permissions->pluck('column')->toArray();
 
       @include('admin.quotation.edit-quotation')
       @include('admin.quotation.quotation-search')
+      <div id="quotation-container-box">
       @include('admin.quotation.quotation-list')
+      </div>
            
      
       </div>
@@ -126,6 +133,18 @@ function checkEmailorPhone(){
     $('#add_cust_email').prop('required',false);
   }
 }
+checkEditEmailorPhone();
+function checkEditEmailorPhone(){
+  var edit_cust_email = $('#edit_cust_email').val();
+  var edit_cust_phone = $('#edit_cust_phone').val();
+  $('#edit_cust_email, #edit_cust_phone').prop('required',true);
+  if(edit_cust_email!=''){
+    $('#edit_cust_phone').prop('required',false);
+  }
+  if(edit_cust_phone!=''){
+    $('#edit_cust_email').prop('required',false);
+  }
+}
 
 $('#myForm').submit(function(e) {
   e.preventDefault();
@@ -155,7 +174,6 @@ $('#myForm').submit(function(e) {
         processData: false,
         success: function(data) {
           if(data.status == true){
-            search_prospect();
             Swal.fire({
               position: 'top-middle',
               icon: 'success',
@@ -164,10 +182,10 @@ $('#myForm').submit(function(e) {
               showConfirmButton: false,
               timer: 3000
             });
-          $('#editForm').trigger("reset");
-          $('#editForm').trigger("reset");
-          $('.edit-prospect-data').hide();
-          $('.add-prospect-data').hide();
+          $('#myForm').trigger("reset");
+          showProspect(0);
+          search_quotation();
+          search_prospect();
           }
         },
       });
@@ -211,6 +229,13 @@ $('#editForm').validate({
       if($(this).valid()==false) {
             return false;
       }
+  Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    denyButtonText: `Don't save`,
+    }).then((result) => {
       var formData = new FormData(this);
       $.ajax({
         headers: {
@@ -228,23 +253,21 @@ $('#editForm').validate({
               position: 'top-middle',
               icon: 'success',
               title: data.message,
-              html: '<a class="btn btn-primary" href="{{url("admin/user-dashboard")}}">Ok</a> ',
+              html: 'Ok',
               showConfirmButton: false,
-              // timer: 3000
             });
           $('#editForm').trigger("reset");
-          $('.edit-prospect-data').hide();
-          $('.add-prospect-data').hide();
+          showProspect(0);
+          search_prospect();
           }else{
             // alert(data.message);
           }
         },
       });
+      });
     });
 
  function editProspectForm($this){
-   $('.edit-prospect-data').show();
-   $('.add-prospect-data').hide();
   var current_tr = $this.closest('tr');
   var prospect_id = current_tr.find('.prospact_id').text();
   $('.prospact_id').val(prospect_id);
@@ -313,21 +336,6 @@ $('#editForm').validate({
  // all prospect related codes done
  
  // all quotation related codes
- $('#quotations-table').DataTable({
-  lengthMenu: [
-      [10, 25, 50, -1],
-      [10, 25, 50, 'All'],
-  ],
-  dom: 'Bfrtip',
-  buttons: [
-      {
-          text: 'Search Quotation',
-          action: function ( e, dt, node, config ) {
-            showQuotation(3);
-          }
-      }
-  ]
-});
 
 showQuotation(0);
 
@@ -407,10 +415,6 @@ function editQuotationFunc($this){
   }
 
   $('#saveOffers').validate();
-  $('#updateQuatation').submit(function(e) {
-    e.preventDefault();
-    alert();
-  });
   $('#saveOffers').submit(function(e) {
       e.preventDefault();
       if($(this).valid()==false) {
@@ -436,10 +440,10 @@ function editQuotationFunc($this){
               showConfirmButton: false,
               timer: 3000
             });
-          $('#saveOffers').trigger("reset");
-          $('#modal-default').modal('hide');
-          // window.open("{{url('admin/view-quotation')}}");
-          // $("#modal").modal('hide');
+            $('#saveOffers').trigger("reset");
+            $('#modal-default').modal('hide');
+            search_quotation();
+            search_prospect();
           }else{
             Swal.fire({
               position: 'top-middle',
@@ -524,6 +528,34 @@ $('#saveOffers').validate({
       $('.grandTotal_val').val((grandTotal+gstNumber));
     }
   }
+
+
+  function search_quotation(){
+  var fromDate = $('#fromDateQuotation').val();
+  var toDate = $('#toDateQuotation').val();
+  if(fromDate=='' || toDate==''){
+    return false;
+  }
+  $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'GET',
+        url: "{{ url('admin/quotation-list') }}",
+        data: {
+            'fromDate' : fromDate,
+            'toDate' : toDate,
+        },
+        success: function(data) {
+          if(data.success==true){
+            $('#quotation-container-box').html(data.html);
+          }else{
+            alert('Some Error Occurred.');
+          }
+        },
+      });
+ }
+
 
   function addTr($this){
     var position_count = $this.closest('table').find('.article_description').length;

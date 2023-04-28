@@ -272,6 +272,9 @@
   .page-header{
     display: none;
   }
+  body {
+  -webkit-print-color-adjust: exact !important;
+}
 }
     </style>
   </div>

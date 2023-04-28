@@ -36,11 +36,11 @@
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
         <address>
-            <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
+            <h3><strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong></h3>
             {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}<br>
             {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
             {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
-            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
+            {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}<br>
             {{__('messages.website_url')}}: {{$settingDetails ? $settingDetails->website_url:''}}
           </address>
         </div>
@@ -50,12 +50,12 @@
         <!-- /.col -->
         <div class="col-sm-4 invoice-col text-right">
           <address>
-            <span class="company-name"></span><br>
-            <strong class="cus-name"></strong><br>
+          <h3><strong class="company-name"></strong></h3>
+            <span class="cus-name"></span><br>
             <span class="street_name"></span><br>
             <span class="post_code"></span><br>
             <span class="place_name"></span><br>
-            <strong>{{__('messages.Quotation Number')}}:</strong> <span class="quotation_number">00000</span><textarea hidden name="quotation_number" class="quotation_number">00000</textarea><br>
+            <strong>{{__('messages.Quotation Number')}}:</strong> <span class="">#{{\App\Models\Setting::getQuotationNo()}}</span><textarea hidden name="quotation_number" class="quotation_number">00000</textarea><br>
             <strong>{{__('messages.Quotation Date')}}:</strong> <span class="quotation_date"><?php echo date("d-m-Y"); ?><textarea name="quotation_date" hidden class="quotation_date"><?php echo date("Y-m-d"); ?></textarea></span><br>
           <!--   <strong>Phone:</strong> <span class="cus-phone"></span><br>
             <strong>Email:</strong> <span class="cus-email"></span><br> -->

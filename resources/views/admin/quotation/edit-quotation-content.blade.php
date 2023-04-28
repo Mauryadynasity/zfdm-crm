@@ -41,7 +41,7 @@
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
         <address>
-            <strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong><br>
+            <h3><strong>{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</strong></h3>
             {{ucfirst($settingDetails ? $settingDetails->streat_name_1:'')}}, {{ucfirst($settingDetails ?$settingDetails->streat_name_2:'')}}, {{ucfirst($settingDetails ? $settingDetails->streat_name_3:'')}}, {{$settingDetails ? $settingDetails->place_code:''}}, {{ucfirst($settingDetails ? $settingDetails->place_name:'')}}, {{ucfirst($settingDetails ? $settingDetails->country:'')}}<br>
             {{__('messages.phone')}}: {{$settingDetails ? $settingDetails->phone:''}}<br>
             {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}
@@ -59,12 +59,12 @@
         <!-- /.col -->
         <div class="col-sm-4 invoice-col text-right">
           <address>
-            <span> {{$prospact->cust_name}}</span><br>
+            <h3><strong>{{$prospact->cust_name}}</strong></h3>
             <span> {{$prospact->company_name}}</span><br>
             <span> {{$prospact->street_name}}</span><br>
             <span> {{$prospact->post_code}}</span><br>
             <span> {{$prospact->place_name}}</span><br>
-            <strong>{{__('messages.Quotation Number')}}:</strong><span> {{$prospact->quotation->quotation_number}}</span><input type="hidden" name="quotation_number" value="{{$prospact->quotation->quotation_number}}"><br>
+            <strong>{{__('messages.Quotation Number')}}:</strong><span> #{{\App\Models\Setting::getQuotationNo()}}</span><input type="hidden" name="quotation_number" value="{{\App\Models\Setting::getQuotationNo()}}"><br>
             <!-- <strong>{{__('messages.Quotation Date')}}:</strong><span> {{date('d-m-Y', strtotime($prospact->quotation->quotation_date))}}</span><input type="hidden" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br> -->
             <strong>{{__('messages.Quotation Date')}}:</strong><input type="date" name="quotation_date" value="{{$prospact->quotation->quotation_date}}"><br>
           </address>
@@ -180,3 +180,10 @@
   </div>
      </form>
 
+
+<script>
+    $('#updateQuatation').submit(function(e) {
+    e.preventDefault();
+  });
+
+</script>

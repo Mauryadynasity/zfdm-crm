@@ -66,7 +66,8 @@ class Setting extends Model implements HasMedia
     ];
 
     static function getQuotationNo(){
-        return Setting::first()->quotation_current_no;
+        $quotation_current_no = Setting::first()->quotation_current_no;
+        return sprintf('%06d', $quotation_current_no);
     }
     static function updateQuotationNo(){
         $new_quotation_no = ((int)Setting::first()->quotation_current_no + 1);

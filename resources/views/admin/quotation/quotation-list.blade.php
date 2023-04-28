@@ -5,7 +5,8 @@
           <table class="table table-bordered" id="quotations-table">
           <thead>
             <tr>
-            <th>{{__('messages.sr_no')}}</th>
+              <th>{{__('messages.sr_no')}}</th>
+              <th hidden>{{__('messages.sr_no')}}</th>
               <th>{{__('messages.Company Name')}}</th>
               <th>{{__('messages.Customer name')}}</th>
               <th>{{__('messages.Quotation Number')}}</th>
@@ -14,17 +15,25 @@
               </tr>
           </thead>
           <tbody>
-            @foreach($quotations as $quotation)
+            @foreach($quotations as $index=>$quotation)
             <tr data-pid="{{$quotation->id}}">
-              <td class="prospact_id">{{$quotation->id}}</td>
+              <td>{{++$index}}</td>
+              <td hidden class="prospact_id">{{$quotation->id}}</td>
               <td class="company_name">{{$quotation->company_name}}</td>
               <td>{{$quotation->cust_name}}</td>
+              @if($quotation->quotation)
               <td>{{$quotation->quotation->quotation_number}}</td>
-              <td>{{$quotation->quotation->quotation_date}}</td>
+              <td>{{date('d-m-Y',strtotime($quotation->quotation->quotation_date))}}</td>
+              @else
+              <td>-</td>
+              <td>-</td>
+              @endif
               <td>
+                <div class="action_class">
                 <a href="{{url('admin/view-quotation')}}/{{$quotation->id}}" title="View" class="btn btn-info" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                 <button title="Edit" class="btn btn-primary" onclick="editQuotationFunc($(this))"><i class="fa fa-edit"></i></button>
                 <a href="{{url('admin/delete-quotation')}}/{{$quotation->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
               </td>
             </tr>
             @endforeach
@@ -34,3 +43,21 @@
 
           </div>
         </div>
+
+<script>
+$('#quotations-table').DataTable({
+  lengthMenu: [
+      [10, 25, 50, -1],
+      [10, 25, 50, 'All'],
+  ],
+  dom: 'Bfrtip',
+  buttons: [
+      {
+          text: 'Search Quotation',
+          action: function ( e, dt, node, config ) {
+            showQuotation(3);
+          }
+      }
+  ]
+});
+</script>

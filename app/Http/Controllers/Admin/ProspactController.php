@@ -105,8 +105,13 @@ class ProspactController extends Controller {
 	}
 
 	public function destroy($id){
-		Prospact::where(['id'=>$id])->delete();
-		 return back()->with('fail','Deleted Successfully.');
+		$prospact = Prospact::find($id);
+		if(!$prospact){
+			return back()->with('fail','Invalid Id.');
+		}
+		$prospact->quotations()->forceDelete();
+		$prospact->forceDelete();
+		return back()->with('fail','Deleted Successfully.');
 
 	}
 

@@ -27,10 +27,21 @@ class QuotationController extends Controller {
 		return $pdf->download('itsolutionstuff.pdf');
 	}
 
-	public function quotationList(){
-		$quotations = Prospact::has('quotations')->get();
+	public function quotationList(Request $request){
+		$fromDate = $request->fromDate;
+		$toDate = date('Y-m-d', strtotime('+1 day', strtotime($request->toDate)));
+		$quotations = Prospact::has('quotations')
+		->whereBetween('created_at', [$request->fromDate, $toDate])
+		->orderBy('id','DESC')
+		->get();
+		// $quotations = Prospact::has('quotations')
+		// ->join('tbl_quotations','tbl_quotations.prospact_id','tbl_prospects.id')
+		// ->whereBetween('tbl_quotations.quotation_date', [$fromDate, $toDate])
+		// ->select('tbl_prospects.*')
+		// ->get();
 		$settingDetails = Setting::first();
-		return view('admin.offer.quotation-list',compact('quotations','settingDetails'));
+		$returnHTML = view('admin.quotation.quotation-list',compact('quotations','settingDetails'))->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
 
 	public function saveQuotation(Request $request) {
@@ -153,7 +164,7 @@ class QuotationController extends Controller {
 	}
 
 	public function destroy($id){
-		Quotation::where('prospact_id',$id)->delete();
+		Quotation::where('prospact_id',$id)->forceDelete();
 		return back()->with('fail','Deleted Successfully.');
 
 	}
