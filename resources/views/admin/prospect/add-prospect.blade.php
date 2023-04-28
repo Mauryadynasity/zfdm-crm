@@ -117,7 +117,7 @@
             </div>
             @endif
             @if(in_array('no_employee',$allowed_columns))
-            <div class="col-md-2">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Number of Employees</label>
                 <input type="text" name="no_employee" class="form-control" style="width: 100%;" maxlength="500" required>
@@ -129,7 +129,7 @@
             @endif
             <div class="clearfix"></div>
             @if(in_array('no_device',$allowed_columns))
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Number of Devices</label>
                 <input type="text" name="no_device" class="form-control" style="width: 100%;" maxlength="500" required>
@@ -140,7 +140,7 @@
             </div>
             @endif
             @if(in_array('device_type',$allowed_columns))
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Device Type</label>
                 <select name="device_type" class="form-control" required>
@@ -155,7 +155,7 @@
             </div>
             @endif
             @if(in_array('callback',$allowed_columns))
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Choose Callback</label>
                 <select name="callback" class="form-control" required>
@@ -170,11 +170,10 @@
             </div>
             @endif
             @if(in_array('status',$allowed_columns))
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Status</label>
                 <select name="status" class="form-control" required>
-                <option value="">----- Select -----</option>
                   @foreach($StatusMaster as $status)
                   <option value="{{$status->status}}">{{$status->status}}</option>
                   @endforeach

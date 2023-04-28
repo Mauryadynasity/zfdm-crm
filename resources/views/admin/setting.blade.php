@@ -43,7 +43,7 @@
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Company Setting</a></li>
-        <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Status Setting</a></li>
+        <!-- <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Status Setting</a></li> -->
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Quotation Settings</a></li>
         <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Quotation Footer Text Settings</a></li>
       </ul>
@@ -319,7 +319,7 @@
     
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_2">
-        <div class="panel panel-primary">
+        <!-- <div class="panel panel-primary">
           <div class="panel-heading">Status Color Setting</div>
           <div class="panel-body">
           <form id="save-color-setting" enctype="multipart/form-data">
@@ -352,7 +352,7 @@
               </tbody>
          </table>
           </div>
-        </div>
+        </div> -->
         <div class="row">
         <div class="col-md-3">
           <div class="form-group">

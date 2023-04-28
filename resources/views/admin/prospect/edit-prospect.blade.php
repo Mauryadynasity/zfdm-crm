@@ -101,7 +101,7 @@
             </div>
             
             
-            <div class="col-md-2">
+            <!-- <div class="col-md-2">
               <div class="form-group">
                 <label>wants offer</label>
                 <select name="wants_offer" class="form-control wants_offer" required>
@@ -113,10 +113,10 @@
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('wants_offer') }}</span>
                   @endif
               </div>
-            </div>
+            </div> -->
             
             
-            <div class="col-md-2">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Number of Employees</label>
                 <input type="text" name="no_employee" class="form-control no_employee" style="width: 100%;" maxlength="500" required>
@@ -128,7 +128,7 @@
             
             
             <div class="clearfix"></div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Number of Devices</label>
                 <input type="text" name="no_device" class="form-control no_device" style="width: 100%;" maxlength="500" required>
@@ -139,7 +139,7 @@
             </div>
             
             
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
               <label>Device Type</label>
                 <select name="device_type" class="form-control device_type" required>
@@ -154,7 +154,7 @@
             </div>
             
             
-            <div class="col-md-3">
+            <!-- <div class="col-md-3">
               <div class="form-group">
                 <label>Choose Callback</label>
                 <select name="callback" class="form-control callback" required>
@@ -166,10 +166,10 @@
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('callback') }}</span>
                   @endif
               </div>
-            </div>
+            </div> -->
             
             
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Status</label>
                 <select name="status" class="form-control status" required>

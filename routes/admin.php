@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin;
     // -------Setting Route---------------//
     Route::get('setting', [Admin\SettingController::class,'index'])->middleware('admin');
     Route::post('save-setting', [Admin\SettingController::class,'saveSetting'])->middleware('admin');
+    Route::get('status-master', [Admin\MasterController::class,'index'])->middleware('admin');
+    Route::post('status-master', [Admin\MasterController::class,'saveStatus'])->middleware('admin');
     Route::post('save-color-setting', [Admin\SettingController::class,'saveColorSetting'])->middleware('admin');
     Route::post('quotation-setting', [Admin\SettingController::class,'quotationSetting'])->middleware('admin');
     Route::post('footer-text', [Admin\SettingController::class,'saveFooterText'])->middleware('admin');
