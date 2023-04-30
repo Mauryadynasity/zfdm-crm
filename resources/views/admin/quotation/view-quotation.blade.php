@@ -18,18 +18,22 @@
         </div>
       </div>
       <div class="container px-0">
-        <div class="row mt-4">
+        <div class="">
           <div class="col-12 col-lg-12">
             <div class="row">
-              <div class="col-12">
-                <div class="text-center text-150">
+              <div class="">
+                <div class="text-left text-150">
                 <img src="{{asset('images/logo.png')}}" alt="">
                 </div>
               </div>
             </div>
-            <hr class="row brc-default-l1 mx-n1 mb-4">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-md-12" style="padding: 0px;">
+                <hr>
+              </div>
+              </div>
+            <div class="row">
+              <div class="col-sm-6 themeBg">
                 <div>
                 <span class="text-600 text-110 text-blue align-middle">{{ucfirst($settingDetails ? $settingDetails->company_name:'')}}</span>
                 </div>
@@ -43,7 +47,7 @@
                   <div class="my-1"> {{__('messages.email')}}: {{$settingDetails ? $settingDetails->email:''}}</div>
                 </div>
               </div>
-              <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+              <div class="themeBg text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                 <hr class="d-sm-none">
                 <div class="text-grey-m2">
                 <div>
@@ -80,8 +84,14 @@
                 @endforeach
               </div>
               <div class="row border-b-2 brc-default-l2"></div>
+              <div class="row">
+              <div class="col-md-12" style="padding: 0px;">
+                <hr style="margin-top: 0px;">
+              </div>
+              </div>
+              
               <div class="row mt-3">
-                <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0"> {{$prospact->quotation->comments}}</div>
+                <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0 themeBg"> {{$prospact->quotation->comments}}</div>
                 <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
                   <div class="row my-2">
                     <div class="col-7 text-right"> {{__('messages.Subtotal')}}</div>
@@ -96,15 +106,19 @@
                     </div>
                   </div>
                   <div class="row my-2 align-items-center bgc-primary-l3 p-2">
-                    <div class="col-7 text-right"> {{__('messages.Grand Total')}}</div>
+                    <div class="col-7 text-right"> <b>{{__('messages.Grand Total')}}</b></div>
                     <div class="col-5">
-                      <span class="text-150 text-success-d3 opacity-2">${{$quotation->grand_total}}</span>
+                      <span class="text-150 text-success-d3 opacity-2"><b>${{$quotation->grand_total}}</b></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="text-center footer-content">
-              <hr>
+              <div class="row">
+              <div class="col-md-12" style="padding: 0px;">
+                <hr>
+              </div>
+              </div>
               {!!Auth::guard('admin')->user()->settings()->footer_text !!}
                 <br/>
               </div>
@@ -118,9 +132,11 @@
         margin-top: 20px;
         color: #484b51;
       }
-
+      .themeBg{
+        background-color: #f3f8fa;
+      }
       .text-secondary-d1 {
-        color: #728299 !important;
+        /* color: #728299 !important; */
       }
 
       .page-header {
@@ -166,15 +182,15 @@
         margin-top: 1rem;
         margin-bottom: 1rem;
         border: 0;
-        border-top: 1px solid rgba(0, 0, 0, .1);
+        border-top: 1px solid #84b0ca;
       }
 
       .text-grey-m2 {
-        color: #888a8d !important;
+        /* color: #888a8d !important; */
       }
 
       .text-success-m2 {
-        color: #86bd68 !important;
+        /* color: #86bd68 !important; */
       }
 
       .font-bolder,
@@ -265,7 +281,7 @@
     min-width: 97% !important;
   }
   .footer-content {
-    width: 92%;
+    width: 88%;
     position: fixed;
     bottom: 0;
   }

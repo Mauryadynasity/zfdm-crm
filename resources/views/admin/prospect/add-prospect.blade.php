@@ -102,9 +102,9 @@
             </div>
             @endif
             @if(in_array('wants_offer',$allowed_columns))
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="form-group">
-                <label>wants offer</label>
+                <label>Wants Offer</label>
                 <select name="wants_offer" class="form-control" required>
                   <option value="">----- Select -----</option>
                   <option value="yes">Yes</option>

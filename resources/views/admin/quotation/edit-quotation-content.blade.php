@@ -1,7 +1,7 @@
 
     <form name="updateQuatation" id="updateQuatation" method="post" action="" enctype="multipart/form-data">
       <input type="hidden" name="_token" value="{{ csrf_token() }}" class="form-control">
-      <input type="hidden" name="prospact_id" value="{{$prospact->id}}">
+      <input type="hidden" name="prospact_id" id="prospact_id" value="{{$prospact->id}}">
      
     <div class="content-wrapper-old" style="margin-left:0px">
     <div class="box box-default">
@@ -182,8 +182,45 @@
 
 
 <script>
-    $('#updateQuatation').submit(function(e) {
-    e.preventDefault();
-  });
-
+ 
+ $('#updateQuatation').validate();
+  $('#updateQuatation').submit(function(e) {
+      e.preventDefault();
+      if($(this).valid()==false) {
+            return false;
+      }
+      var formData = new FormData(this);
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'POST',
+        url: "{{ url('admin/edit-quotation') }}/"+$('#prospact_id').val(),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if(data.status){
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'success',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 3000
+            });
+            $('#edit-modal-default').modal('hide');
+            $('#edit-modal-default .modal-body').html('');
+          }else{
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'error',
+              title: data.message,
+              showConfirmButton: false,
+              timer: 3000
+            });
+          }
+        },
+      });
+    });
 </script>

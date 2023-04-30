@@ -47,7 +47,7 @@
               <div class="form-group">
                 <label>{{__('messages.phone')}}<span style="color:red">*</span></label>
                 <input type="phone" name="cust_phone" id="edit_cust_phone" class="form-control cust_phone numbersOnly" style="width: 100%;" maxlength="10" onchange="checkEditEmailorPhone()">
-            <div class="text-danger error_application"></div>
+                <div class="text-danger error_application"></div>
                 @if($errors->has('phone'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('phone') }}</span>
                   @endif
