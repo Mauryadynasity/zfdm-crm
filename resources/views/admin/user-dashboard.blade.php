@@ -201,14 +201,12 @@ $('#myForm').submit(function(e) {
 $('#editForm').validate({
     rules : {
       cust_email : { 
-        required : true,
         remote: {
           url: "{{ url('admin/is-email-unique-edit') }}", // the URL of the PHP script that validates the email
           type: 'GET'
         }
        },
        cust_phone : {
-        required : true,
         remote: {
           url: "{{ url('admin/is-phone-unique-edit') }}", // the URL of the PHP script that validates the email
           type: 'GET'
@@ -226,6 +224,7 @@ $('#editForm').validate({
 });
    $('#editForm').submit(function(e) {
     e.preventDefault();
+    checkEditEmailorPhone();
       if($(this).valid()==false) {
             return false;
       }

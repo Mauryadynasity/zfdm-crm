@@ -3,6 +3,11 @@
 
 @section('styles')
 <link rel="stylesheet" href="{{asset('bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}">
+<style>
+  .status_style{
+  border: none;
+}
+</style>
 @endsection
 
 
@@ -66,8 +71,9 @@
                 @foreach($status_master as $index => $status)
                 <tr>
                   <td>{{$index+1}}</td>
-                  <td>{{$status->status}}
-                    <input type="hidden" class="status" name="status[]" value="{{$status->status}}">
+                  <td>
+                    <input type="hidden" name="status_id[]" value="{{$status->id}}">
+                    <input type="text" class="status status_style form-control" name="status[]" value="{{$status->status}}">
                   </td>
                   <td>
                   <div class="input-group my-colorpicker2 colorpicker-element" style="max-width: 200px;">

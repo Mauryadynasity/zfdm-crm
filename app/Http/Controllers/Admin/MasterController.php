@@ -36,11 +36,12 @@ class MasterController extends Controller {
 
 	public function saveColorSetting(Request $request){
 		$updateStatusColor  = [];
-		foreach($request->status as $index=>$row){
+		foreach($request->status_id as $index=>$status_id){
 				$updateStatusColor = array(
 				'color' => $request->color[$index],
+				'status' => $request->status[$index],
 			);
-			StatusMaster::updateOrCreate(['status'=>$row],$updateStatusColor);
+			StatusMaster::where('id',$status_id)->update($updateStatusColor);
 			}
 		return response()->json(['message' => 'Color has been saved', 'status' => true]);
 

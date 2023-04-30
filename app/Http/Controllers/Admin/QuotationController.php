@@ -124,13 +124,13 @@ class QuotationController extends Controller {
 
 	public function updateQuotation(Request $request) {
 		$validator = Validator::make($request->all(), [
-            // 'number_of_position' => 'required',
-            'article_description' => 'required',
-            'number_of_article' => 'required',
-            'prise_per_article' => 'required',
-            'price' => 'required',
-            // 'quotation_number' => 'required',
+            'article_description.*' => 'required',
+            'number_of_article.*' => 'required',
+            'prise_per_article.*' => 'required',
+            'price.*' => 'required',
+            'quotation_number' => 'required',
             'comments' => 'required',
+            'prospact_id' => 'required',
         ]);
 		// dd($request->all());
 		if ($validator->fails()) {
@@ -160,7 +160,7 @@ class QuotationController extends Controller {
 			Quotation::updateOrCreate(['number_of_position'=>$position],$updateQuotation);
 			}
 		}
-		return back()->with('message','Quotation Updated Successfully.');
+    	return response()->json(['message' => 'Quotation has been created', 'status' => true]);
 	}
 
 	public function destroy($id){

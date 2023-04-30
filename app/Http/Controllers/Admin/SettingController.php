@@ -84,17 +84,17 @@ class SettingController extends Controller {
 		// return view('admin.setting');
 	}
 
-	public function saveColorSetting(Request $request){
-		$updateStatusColor  = [];
-		foreach($request->status as $index=>$row){
-				$updateStatusColor = array(
-				'color' => $request->color[$index],
-			);
-			StatusMaster::updateOrCreate(['status'=>$row],$updateStatusColor);
-			}
-		return response()->json(['message' => 'Color has been saved', 'status' => true]);
+	// public function saveColorSetting(Request $request){
+	// 	$updateStatusColor  = [];
+	// 	foreach($request->status as $index=>$row){
+	// 			$updateStatusColor = array(
+	// 			'color' => $request->color[$index],
+	// 		);
+	// 		StatusMaster::updateOrCreate(['status'=>$row],$updateStatusColor);
+	// 		}
+	// 	return response()->json(['message' => 'Color has been saved', 'status' => true]);
 
-	}
+	// }
 
 	public function quotationSetting(Request $request){
 		Setting::updateOrCreate(
