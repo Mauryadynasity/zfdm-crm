@@ -585,14 +585,17 @@ function setProspectColumn($this){
   $('.'+column_name+'_class').toggle();
 
 }
-
-
-// add quotation
-
- // all quotation related codes done
-
-
-
+// Add supply address column in prospect
+$(document).ready(function() {
+  $('.supply_address').hide();
+    $('#exampleCheckbox').change(function() {
+      if ($(this).prop('checked')) {
+            $('.supply_address').hide();
+        } else {
+          $('.supply_address').show();
+        }
+    });
+});
 </script>
 @endsection
 

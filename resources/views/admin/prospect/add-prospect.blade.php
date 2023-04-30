@@ -209,6 +209,41 @@
               </div>
             </div>
             @endif
+            @if(in_array('status',$allowed_columns))
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Invoice Address</label>
+                <input type="text" name="invoice_address" class="form-control" style="width: 100%;" maxlength="500" required>
+                @if($errors->has('status'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
+                  @endif
+              </div>
+            </div>
+            @endif
+            @if(in_array('status',$allowed_columns))
+            <div class="col-md-4">
+            <div class="form-check">
+            <label class="form-check-label" for="exampleCheckbox">
+              Uncheck if you want to provide defferent suppy address
+              </label>
+              <input class="form-check-input" type="checkbox" id="exampleCheckbox" name="supply_address_checked" checked value="1">
+            </div>
+                @if($errors->has('supply_add_check'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
+                  @endif
+            </div>
+            @endif
+            @if(in_array('status',$allowed_columns))
+            <div class="col-md-4 supply_address">
+              <div class="form-group">
+                <label>Supply Address</label>
+                <input type="text" name="supply_address" class="form-control" style="width: 100%;" maxlength="500" required>
+                @if($errors->has('status'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
+                  @endif
+              </div>
+            </div>
+            @endif
             <div class="clearfix"></div>
             <div class="col-md-2">
               <div class="form-group">

@@ -14,7 +14,8 @@ class AlterColorStatusTable extends Migration
     public function up()
     {
         Schema::table('tbl_prospect_status', function (Blueprint $table) {
-			$table->string('color',255)->nullable();
+			// $table->string('color',255)->nullable();
+            
         });
     }
 
