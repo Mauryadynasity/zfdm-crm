@@ -17,4 +17,7 @@ INSERT INTO `tbl_permissions` (`id`, `module_name`,`column`,`column_name`,`statu
 (16, 'prospect','protocol','Protocols','no', '2023-03-30 12:04:46', NULL, NULL),
 (17, 'prospect','news','news','no', '2023-03-30 12:04:46', NULL, NULL),
 (18, 'prospect','no_device','No Device','no', '2023-03-30 12:04:46', NULL, NULL),
-(19, 'prospect','status','Status','no', '2023-03-30 12:04:46', NULL, NULL);
+(19, 'prospect','invoice_address','Invoice Address','no', '2023-03-30 12:04:46', NULL, NULL),
+(20, 'prospect','supply_address','Supply Address','no', '2023-03-30 12:04:46', NULL, NULL),
+(21, 'prospect','supply_address_checked','Supply Address Checked','no', '2023-03-30 12:04:46', NULL, NULL),
+(22, 'prospect','status','Status','no', '2023-03-30 12:04:46', NULL, NULL);
