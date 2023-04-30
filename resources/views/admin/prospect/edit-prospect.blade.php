@@ -230,7 +230,7 @@
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
                   @endif
             </div>
-            
+
             <div class="col-md-4 supply_address">
               <div class="form-group">
                 <label>Supply Address<br><br></label>

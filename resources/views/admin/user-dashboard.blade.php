@@ -178,7 +178,7 @@ $('#myForm').submit(function(e) {
               position: 'top-middle',
               icon: 'success',
               title: data.message,
-              html: 'Ok',
+              // html: 'Ok',
               showConfirmButton: false,
               timer: 3000
             });
@@ -252,8 +252,9 @@ $('#editForm').validate({
               position: 'top-middle',
               icon: 'success',
               title: data.message,
-              html: 'Ok',
+              // html: 'Ok',
               showConfirmButton: false,
+              timer: 3000
             });
           $('#editForm').trigger("reset");
           showProspect(0);
