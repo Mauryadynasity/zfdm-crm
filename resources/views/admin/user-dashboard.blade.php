@@ -303,6 +303,18 @@ $('#editForm').validate({
   $('.news').val(news);
   var protocol = current_tr.find('.protocol_class').text();
   $('.protocol').val(protocol);
+  var invoice_address = current_tr.find('.invoice_address_class').text();
+  $('.invoice_address').val(invoice_address);
+  var supply_address_checked_class = current_tr.find('.supply_address_checked_class').text();
+  if(parseInt(supply_address_checked_class)==1){
+    $('.supply_address_checked').prop('checked', true);
+    $('.supply_address').hide();
+  }else{
+    $('.supply_address_checked').prop('checked', false);
+    $('.supply_address').show();
+  }
+  var supply_add = current_tr.find('.supply_address_class').text();
+  $('.supply_add').val(supply_add);
   showProspect(2);
  }
 
@@ -588,10 +600,11 @@ function setProspectColumn($this){
 // Add supply address column in prospect
 $(document).ready(function() {
   $('.supply_address').hide();
-    $('#exampleCheckbox').change(function() {
+    $('.exampleCheckbox').change(function() {
       if ($(this).prop('checked')) {
             $('.supply_address').hide();
         } else {
+          $('.supply_address_remove').val('');
           $('.supply_address').show();
         }
     });

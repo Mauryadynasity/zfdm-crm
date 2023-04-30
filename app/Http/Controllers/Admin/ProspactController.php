@@ -52,6 +52,10 @@ class ProspactController extends Controller {
 					'news' => $request->news,
 					'protocol' => $request->protocol,
 					'cust_source' => $request->cust_source,
+					'invoice_address' => $request->invoice_address,
+					'supply_address' => $request->supply_address,
+					'supply_address_checked' => $request->supply_address_checked,
+				
 				]
 			);
 				if($request->cust_source == 'user'){
@@ -94,6 +98,9 @@ class ProspactController extends Controller {
 					'status' => $request->status,
 					'news' => $request->news,
 					'protocol' => $request->protocol,
+					'invoice_address' => $request->invoice_address,
+					'supply_address' => $request->supply_address,
+					'supply_address_checked' => $request->supply_address_checked,
 				]
 			);
 			return response()->json(['message' => 'Prospect Updated Successfully!', 'status' => true]);

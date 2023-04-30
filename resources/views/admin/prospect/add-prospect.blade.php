@@ -205,14 +205,15 @@
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('protocol') }}</span>
                   @endif
                   <input type="hidden" name="cust_source" value="user" class="cust_source_class">
-
               </div>
             </div>
+            <div class="clearfix"></div>
+            <hr>
             @endif
             @if(in_array('status',$allowed_columns))
             <div class="col-md-4">
               <div class="form-group">
-                <label>Invoice Address</label>
+                <label>Invoice Address<br><br></label>
                 <input type="text" name="invoice_address" class="form-control" style="width: 100%;" maxlength="500" required>
                 @if($errors->has('status'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
@@ -223,10 +224,10 @@
             @if(in_array('status',$allowed_columns))
             <div class="col-md-4">
             <div class="form-check">
-            <label class="form-check-label" for="exampleCheckbox">
+              <label class="form-check-label" for="exampleCheckbox" style="display: block;">
               Uncheck if you want to provide defferent suppy address
               </label>
-              <input class="form-check-input" type="checkbox" id="exampleCheckbox" name="supply_address_checked" checked value="1">
+              <input class="form-check-input exampleCheckbox" type="checkbox" id="exampleCheckbox" name="supply_address_checked" checked value="1">
             </div>
                 @if($errors->has('supply_add_check'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
@@ -236,8 +237,8 @@
             @if(in_array('status',$allowed_columns))
             <div class="col-md-4 supply_address">
               <div class="form-group">
-                <label>Supply Address</label>
-                <input type="text" name="supply_address" class="form-control" style="width: 100%;" maxlength="500" required>
+                <label>Supply Address<br><br></label>
+                <input type="text" name="supply_address" class="form-control supply_address_remove" style="width: 100%;" maxlength="500" required>
                 @if($errors->has('status'))
                     <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
                   @endif

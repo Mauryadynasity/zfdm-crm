@@ -14,9 +14,9 @@ class AddColumnToTblProspectsTable extends Migration
     public function up()
     {
         Schema::table('tbl_prospects', function (Blueprint $table) {
-            $table->string('invoice_addres')->after('admin_id')->nullable();
-            $table->string('supply_addres')->after('invoice_addres')->nullable();
-            $table->string('supply_addres_checked')->after('supply_addres')->nullable();
+            $table->string('invoice_address')->after('admin_id')->nullable();
+            $table->string('supply_address')->after('invoice_address')->nullable();
+            $table->string('supply_address_checked')->after('supply_address')->nullable();
         });
     }
 

@@ -207,6 +207,40 @@
               </div>
             </div>
             <div class="clearfix"></div>
+            <hr>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Invoice Address<br><br></label>
+                <input type="text" name="invoice_address" class="form-control invoice_address" style="width: 100%;" maxlength="500" required>
+                @if($errors->has('status'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
+                  @endif
+              </div>
+            </div>
+
+            <div class="col-md-4">
+            <div class="form-check">
+              <label class="form-check-label" for="exampleCheckbox" style="display: block;">
+              Uncheck if you want to provide defferent suppy address
+              </label>
+              <input class="form-check-input exampleCheckbox supply_address_checked" type="checkbox" id="exampleCheckbox" name="supply_address_checked" checked value="1">
+            </div>
+                @if($errors->has('supply_add_check'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
+                  @endif
+            </div>
+            
+            <div class="col-md-4 supply_address">
+              <div class="form-group">
+                <label>Supply Address<br><br></label>
+                <input type="text" name="supply_address" class="form-control supply_address_remove supply_add" style="width: 100%;" maxlength="500" required>
+                @if($errors->has('status'))
+                    <span style="font-size: initial;font-weight: 600;" class="text-danger">{{ $errors->first('status') }}</span>
+                  @endif
+              </div>
+            </div>
+            <div class="clearfix"></div>
             <div class="col-md-3">
               <div class="form-group">
                 <label></label>
