@@ -1,6 +1,6 @@
  <!-- Add prospect form Start -->
  <div class="panel panel-info  action_prospect_panel_2" style="display: none;">
-          <div class="panel-heading">Edit Prospect</div>
+          <div class="panel-heading"><strong>Edit Prospect</strong></div>
           <div class="panel-body">
             
           
@@ -65,8 +65,11 @@
                   @endif
               </div>
             </div>
-            
-            <div class="col-md-4">
+            <div class="clearfix"></div>
+            <hr>
+            <h4><strong>Customer Address</strong></h4>
+            <hr>
+            <div class="col-md-3">
               <div class="form-group">
                 <label>Company Address</label>
                 <input type="text" name="invoice_address" class="form-control company_address" style="width: 100%;" maxlength="500" required>
@@ -75,7 +78,7 @@
                   @endif
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="form-group">
                 <label>Company Street</label>
                 <input type="text" name="street_name" class="form-control street_name" style="width: 100%;" maxlength="500" required>
@@ -85,7 +88,7 @@
               </div>
             </div>
                         
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="form-group">
                 <label>Company Place Code</label>
                 <input type="text" name="post_code" class="form-control post_code numbersOnly" style="width: 100%;" minlength="6" maxlength="6" required>
@@ -95,7 +98,7 @@
               </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="form-group">
                 <label>Company Place</label>
                 <input type="text" name="place_name" class="form-control place_name" style="width: 100%;" maxlength="500" required>
@@ -104,8 +107,9 @@
                   @endif
               </div>
             </div>
-
-            <div class="col-md-4">
+            <div class="clearfix"></div>
+            <hr>
+            <div class="col-md-3">
             <div class="form-check">
               <label class="form-check-label" for="exampleCheckbox" style="display: block;">
               Uncheck if you want to provide defferent supply address
@@ -117,7 +121,7 @@
                   @endif
             </div>
 
-            <div class="col-md-4 supply_address">
+            <div class="col-md-3 supply_address">
               <div class="form-group">
                 <label>Supply Address</label>
                 <input type="text" name="supply_address" class="form-control supply_add_data supply_address_remove" style="width: 100%;" maxlength="500" required>
@@ -126,7 +130,7 @@
                   @endif
               </div>
             </div>
-            <div class="col-md-4 supply_address">
+            <div class="col-md-2 supply_address">
               <div class="form-group">
                 <label>Supply Street</label>
                 <input type="text" name="supply_street" class="form-control supply_street_data supply_address_remove" style="width: 100%;" maxlength="500" required>
@@ -135,7 +139,7 @@
                   @endif
               </div>
             </div>
-            <div class="col-md-4 supply_address">
+            <div class="col-md-2 supply_address">
               <div class="form-group">
                 <label>Supply Place Code</label>
                 <input type="text" name="supply_post_code" class="form-control supply_place_code supply_address_remove numbersOnly" style="width: 100%;" minlength="6" maxlength="6" required>
@@ -144,7 +148,7 @@
                   @endif
               </div>
             </div>
-            <div class="col-md-4 supply_address">
+            <div class="col-md-2 supply_address">
               <div class="form-group">
                 <label>Supply Place</label>
                 <input type="text" name="supply_place" class="form-control supply_place_data supply_address_remove" style="width: 100%;" maxlength="500" required>
@@ -153,7 +157,8 @@
                   @endif
               </div>
             </div>
-            
+            <div class="clearfix"></div>
+            <hr>
             <div class="col-md-4">
               <div class="form-group">
                 <label>Number of Employees</label>
