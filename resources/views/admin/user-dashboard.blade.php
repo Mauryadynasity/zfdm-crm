@@ -287,6 +287,16 @@ $('#editForm').validate({
   $('.post_code').val(post_code);
   var place_name = current_tr.find('.place_name_class').text();
   $('.place_name').val(place_name);
+  var company_address = current_tr.find('.invoice_address_class').text();
+  $('.company_address').val(company_address);
+  var supply_address = current_tr.find('.supply_address_class').text();
+  $('.supply_add_data').val(supply_address);
+  var supply_street = current_tr.find('.supply_street_class').text();
+  $('.supply_street_data').val(supply_street);
+  var supply_post_code = current_tr.find('.supply_post_code_class').text();
+  $('.supply_place_code').val(supply_post_code);
+  var supply_place_data = current_tr.find('.supply_place_class').text();
+  $('.supply_place_data').val(supply_place_data);
   var wants_offer = current_tr.find('.wants_offer_class').text();
   $('.wants_offer').val(wants_offer);
   var no_employee = current_tr.find('.no_employee_class').text();

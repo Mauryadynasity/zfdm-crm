@@ -20,4 +20,7 @@ INSERT INTO `tbl_permissions` (`id`, `module_name`,`column`,`column_name`,`statu
 (19, 'prospect','invoice_address','Invoice Address','no', '2023-03-30 12:04:46', NULL, NULL),
 (20, 'prospect','supply_address','Supply Address','no', '2023-03-30 12:04:46', NULL, NULL),
 (21, 'prospect','supply_address_checked','Supply Address Checked','no', '2023-03-30 12:04:46', NULL, NULL),
-(22, 'prospect','status','Status','no', '2023-03-30 12:04:46', NULL, NULL);
+(22, 'prospect','status','Status','no', '2023-03-30 12:04:46', NULL, NULL),
+(23, 'prospect','supply_street','Supply Street','no', '2023-03-30 12:04:46', NULL, NULL),
+(24, 'prospect','supply_post_code','Supply Post Code','no', '2023-03-30 12:04:46', NULL, NULL),
+(25, 'prospect','supply_place','Supply Place','no', '2023-03-30 12:04:46', NULL, NULL);

@@ -45,6 +45,9 @@ class ProspactController extends Controller {
 					'street_name' => $request->street_name,
 					'post_code' => $request->post_code,
 					'place_name' => $request->place_name,
+					'supply_street' => $request->supply_street,
+					'supply_post_code' => $request->supply_post_code,
+					'supply_place' => $request->supply_place,
 					'no_employee' => $request->no_employee,
 					'no_device' => $request->no_device,
 					'device_type' => $request->device_type,
@@ -58,11 +61,7 @@ class ProspactController extends Controller {
 				
 				]
 			);
-				if($request->cust_source == 'user'){
 					return response()->json(['message' => 'Prospect Added Successfully!', 'status' => true]);
-				}else{
-					return redirect('admin/user-dashboard')->with('message','Prospact Added Successfully.');
-				}
 	}
 
 	public function editProspact($id) {
@@ -92,6 +91,9 @@ class ProspactController extends Controller {
 					'street_name' => $request->street_name,
 					'post_code' => $request->post_code,
 					'place_name' => $request->place_name,
+					'supply_street' => $request->supply_street,
+					'supply_post_code' => $request->supply_post_code,
+					'supply_place' => $request->supply_place,
 					'no_employee' => $request->no_employee,
 					'no_device' => $request->no_device,
 					'device_type' => $request->device_type,
