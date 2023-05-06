@@ -147,8 +147,10 @@ class ProspactController extends Controller {
 		}
 	}
 	public function isPhoneUniqueEdit(Request $request){
-		$prospect = Prospact::where('cust_phone',$request->cust_phone)->count();
-		if($prospect != 1){
+		$prospect = Prospact::where('cust_phone',$request->cust_phone)
+		->whereNotIn('id',[$request->id])
+		->first();
+		if($prospect){
 			return 'false';
 		}else{
 			return 'true';
@@ -160,6 +162,10 @@ class ProspactController extends Controller {
 		$prospacts = Prospact::whereBetween('created_at', [$request->fromDate, $toDate])->orderBy('id','DESC')->get();
 		$permissions = Permission::where('module_name','prospect')->get();
 		$returnHTML = view('admin.prospect.prospect-list',compact('prospacts','permissions'))->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
+	}
+	public function getProtocals(Request $request){
+		$returnHTML = view('admin.prospect.prospect-protocal')->render();
 		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
 
