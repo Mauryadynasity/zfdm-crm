@@ -145,8 +145,10 @@ class ProspactController extends Controller {
 		}
 	}
 	public function isPhoneUniqueEdit(Request $request){
-		$prospect = Prospact::where('cust_phone',$request->cust_phone)->count();
-		if($prospect != 1){
+		$prospect = Prospact::where('cust_phone',$request->cust_phone)
+		->whereNotIn('id',[$request->id])
+		->first();
+		if($prospect){
 			return 'false';
 		}else{
 			return 'true';

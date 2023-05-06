@@ -43,6 +43,9 @@
                   <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </button>
                   <a href="{{url('admin/delete-prospact')}}/{{$prospact->id}}" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  <button type="button" class="btn btn-info mybutton" title="Show Protocals" onClick="getProtocals('{{$prospact->id}}')">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                  </button>
                   </div>
                 </td>
               </tr>

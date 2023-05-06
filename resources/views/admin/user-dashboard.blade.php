@@ -15,7 +15,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
     display: none;
   }
   .action_class{
-    width: 150px !important;
+    width: 200px !important;
     display: block;
   }
 </style>
@@ -52,6 +52,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
       <div class="tab-pane active" id="tab_1">
 
         @include('admin.prospect.prospect-search')
+        @include('admin.prospect.prospect-protocal')
         @include('admin.prospect.add-prospect')
         @include('admin.prospect.edit-prospect')
         <div id="prospect-container-box">
@@ -86,7 +87,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
 showProspect(0);
 
 function showProspect(type){
-  $('.action_prospect_panel_1, .action_prospect_panel_2, .action_prospect_panel_3').hide();
+  $('.action_prospect_panel_1, .action_prospect_panel_2, .action_prospect_panel_3, .action_prospect_panel_4').hide();
   if(type>0){
     $('.action_prospect_panel_'+type).show();
     $('html, body').animate({
@@ -95,6 +96,9 @@ function showProspect(type){
   }
 }
 
+function getProtocals(pid){
+  showProspect(4);
+}
 // add prospect code
 $('#myForm').validate({
     rules : {
