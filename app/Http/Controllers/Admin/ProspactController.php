@@ -162,6 +162,10 @@ class ProspactController extends Controller {
 		$returnHTML = view('admin.prospect.prospect-list',compact('prospacts','permissions'))->render();
 		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
+	public function getProtocals(Request $request){
+		$returnHTML = view('admin.prospect.prospect-protocal')->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
+	}
 
 }
 

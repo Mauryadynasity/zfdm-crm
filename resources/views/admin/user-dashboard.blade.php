@@ -52,7 +52,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
       <div class="tab-pane active" id="tab_1">
 
         @include('admin.prospect.prospect-search')
-        @include('admin.prospect.prospect-protocal')
+        <div id="prospect-protocal-box" class="action_prospect_panel_4"></div>
         @include('admin.prospect.add-prospect')
         @include('admin.prospect.edit-prospect')
         <div id="prospect-container-box">
@@ -84,7 +84,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
 <script>
 // all prospect related codes
 
-showProspect(0);
+showProspect(4);
 
 function showProspect(type){
   $('.action_prospect_panel_1, .action_prospect_panel_2, .action_prospect_panel_3, .action_prospect_panel_4').hide();
@@ -96,9 +96,36 @@ function showProspect(type){
   }
 }
 
+// protocal start code
 function getProtocals(pid){
   showProspect(4);
+  $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'GET',
+        url: "{{ url('admin/get-protocals') }}",
+        data: {
+          prospect_id : pid,
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          $('#prospect-protocal-box').html(data.html);
+        },
+      });
 }
+// $('#editForm').submit(function(e) {
+//     e.preventDefault();
+//     checkEditEmailorPhone();
+//     if($(this).valid()==false) {
+//       return false;
+//     }
+// });
+    // protocal end code
+
+
 // add prospect code
 $('#myForm').validate({
     rules : {

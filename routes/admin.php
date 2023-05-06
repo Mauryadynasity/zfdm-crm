@@ -51,6 +51,8 @@ use App\Http\Controllers\Admin;
         Route::post('update-prospact', [Admin\ProspactController::class,'updateProspact']);
         Route::get('delete-prospact/{id}', [Admin\ProspactController::class,'destroy']);
         Route::get('internet-prospect', [Admin\ProspactController::class,'internetProspectForm']);
+        // protocal routes
+        Route::get('get-protocals', [Admin\ProspactController::class,'getProtocals']);
 
         // -------Quotation Route---------------//
         Route::get('get-prospact-details', [Admin\QuotationController::class,'getOfferDetail']);
