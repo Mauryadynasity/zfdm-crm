@@ -19,6 +19,7 @@ class CreateTblProtocolsTable extends Migration
             $table->string('admin_id', 99)->nullable();
             $table->string('messages', 99)->nullable();
             $table->date('date')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
