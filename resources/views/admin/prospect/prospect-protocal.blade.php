@@ -1,14 +1,18 @@
 <div class="panel panel-info">
   <div class="panel-heading">Protocal List</div>
     <div class="panel-body">
-      <div class="row">
-        <div class="col-md-6 form-group">
+          <div class="row">
+        <div class="col-md-4 form-group">
           <label for="">Enter Protocal Message</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control messages">
         </div>
-        <div class="col-md-6 form-group">
+        <div class="col-md-4 form-group">
+                <label>Date</label>
+                <input type="date" name="" class="form-control protocol_date" style="width: 100%;" required="">
+        </div>
+        <div class="col-md-4 form-group">
           <label style="display: block;">&nbsp;</label>
-          <button class="btn btn-info">Add Protocal</button>
+          <button onclick="saveProtocolFunction()" class="btn btn-info">Add Protocal</button>
         </div>
       </div>
     <table class="table table-hover table-responsive" id="protocal_table">
@@ -20,26 +24,13 @@
         </tr>
       </thead>
       <tbody>
+        @foreach($protocols as $protocol)
         <tr>
-          <td>1</td>
-          <td>new message</td>
-          <td>02-02-2023</td>
+          <td>{{$protocol->id}}</td>
+          <td>{{$protocol->messages}}</td>
+          <td>{{$protocol->date}}</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>new message</td>
-          <td>02-02-2023</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>new message</td>
-          <td>02-02-2023</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>new message</td>
-          <td>02-02-2023</td>
-        </tr>
+        @endforeach
       </tbody>
     </table>
 

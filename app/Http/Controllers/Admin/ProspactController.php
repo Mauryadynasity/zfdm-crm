@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prospact;
+use App\Models\Protocol;
 use App\Models\Permission;
 use App\Models\StatusMaster;
 use Illuminate\Http\Request;
@@ -165,8 +166,22 @@ class ProspactController extends Controller {
 		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
 	public function getProtocals(Request $request){
-		$returnHTML = view('admin.prospect.prospect-protocal')->render();
+		$protocols = Protocol::get();
+		$returnHTML = view('admin.prospect.prospect-protocal',compact('protocols'))->render();
 		return response()->json(array('success' => true, 'html'=>$returnHTML));
+	}
+	
+	public function saveProtocol(Request $request) {
+		dd(Auth::gaurd('admin')->user()->id);
+		Protocol::Create(
+			[	
+				'prospect_id' => 44,
+				'admin_id' => Auth::gaurd('admin')->user()->id,
+				'messages' => $request->messages,
+				'messages' => $request->messages,
+			
+			]);
+				return response()->json(['message' => 'Prospect Added Successfully!', 'status' => true]);
 	}
 
 }
