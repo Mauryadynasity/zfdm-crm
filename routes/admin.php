@@ -53,7 +53,7 @@ use App\Http\Controllers\Admin;
         Route::get('internet-prospect', [Admin\ProspactController::class,'internetProspectForm']);
         // protocal routes
         Route::get('get-protocals', [Admin\ProspactController::class,'getProtocals']);
-        Route::post('save-protocol', [Admin\ProspactController::class,'saveProtocol']);
+        Route::get('save-protocol', [Admin\ProspactController::class,'saveProtocol']);
 
         // -------Quotation Route---------------//
         Route::get('get-prospact-details', [Admin\QuotationController::class,'getOfferDetail']);

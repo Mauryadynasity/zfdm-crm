@@ -6,6 +6,7 @@ $allowed_columns = $permissions->pluck('column')->toArray();
 @endphp
 
 @section('styles')
+
 <style>
   #quotations-table,
   #prospect-table{
@@ -652,53 +653,7 @@ $(document).ready(function() {
 });
 
 
-function saveProtocolFunction(){
-  Swal.fire({
-    title: 'Do you want to save the changes?',
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonText: 'Save',
-    denyButtonText: `Don't save`,
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      var message = $('.messages').val();
-      var protocol_date = $('.protocol_date').val();
-      $.ajax({
-        headers: {
-          'X-CSRF-Token': $('meta[name=_token]').attr('content')
-        },
-        type: 'POST',
-        url: "{{ url('admin/save-protocol') }}",
-        data: {
-            'message' : message,
-            'protocol_date' : protocol_date,
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-          if(data.status == true){
-            Swal.fire({
-              position: 'top-middle',
-              icon: 'success',
-              title: data.message,
-              // html: 'Ok',
-              showConfirmButton: false,
-              timer: 3000
-            });
-          $('#myForm').trigger("reset");
-          showProspect(0);
-          search_quotation();
-          search_prospect();
-          }
-        },
-      });
-    } else if (result.isDenied) {
-      Swal.fire('Changes are not saved', '', 'info')
-    }
-  });
-}
+
 </script>
 @endsection
 

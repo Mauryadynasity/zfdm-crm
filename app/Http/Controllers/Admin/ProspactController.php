@@ -172,11 +172,11 @@ class ProspactController extends Controller {
 	}
 	
 	public function saveProtocol(Request $request) {
-		dd(Auth::gaurd('admin')->user()->id);
+		// dd(Auth::gaurd('admin')->user());
 		Protocol::Create(
 			[	
 				'prospect_id' => 44,
-				'admin_id' => Auth::gaurd('admin')->user()->id,
+				'admin_id' => 1,
 				'messages' => $request->messages,
 				'messages' => $request->messages,
 			

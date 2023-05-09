@@ -4,7 +4,7 @@
           <div class="row">
         <div class="col-md-4 form-group">
           <label for="">Enter Protocal Message</label>
-          <input type="text" class="form-control messages">
+          <input type="text" class="form-control protocal_messages">
         </div>
         <div class="col-md-4 form-group">
                 <label>Date</label>
@@ -38,5 +38,50 @@
   </div>
 
   <script>
-    $('#protocal_table').DataTable();
+$('#protocal_table').DataTable();
+function saveProtocolFunction(){
+  Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    denyButtonText: `Don't save`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      var message = $('.protocal_messages').val();
+      console.log(message);
+      var protocol_date = $('.protocol_date').val();
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        },
+        type: 'GET',
+        url: "{{ url('admin/save-protocol') }}",
+        data: {
+          message : message,
+          protocol_date : protocol_date,
+        },
+        success: function(data) {
+          if(data.status == true){
+            Swal.fire({
+              position: 'top-middle',
+              icon: 'success',
+              title: data.message,
+              // html: 'Ok',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          $('#myForm').trigger("reset");
+          showProspect(0);
+          search_quotation();
+          search_prospect();
+          }
+        },
+      });
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
+  });
+}
   </script>
