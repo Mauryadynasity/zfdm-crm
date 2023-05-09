@@ -177,11 +177,10 @@ class ProspactController extends Controller {
 			[	
 				'prospect_id' => 44,
 				'admin_id' => 1,
-				'messages' => $request->messages,
-				'messages' => $request->messages,
+				'messages' => $request->message,
 			
 			]);
-				return response()->json(['message' => 'Prospect Added Successfully!', 'status' => true]);
+				return response()->json(['message' => 'Protocol Added Successfully!', 'status' => true]);
 	}
 
 }
