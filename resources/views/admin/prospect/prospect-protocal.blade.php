@@ -5,6 +5,7 @@
         <div class="col-md-4 form-group">
           <label for="">Enter Protocal Message</label>
           <input type="text" class="form-control protocal_messages" required>
+          <input type="hidden" name="prospect_id" class="protocol_prospect_id" value="{{$prospect_id}}">        
         </div>
         <div class="col-md-4 form-group">
           <label style="display: block;">&nbsp;</label>
@@ -35,6 +36,7 @@
 $('#protocal_table').DataTable();
 function saveProtocolFunction(){
   var message = $('.protocal_messages').val();
+  var prospect_id = $('.protocol_prospect_id').val();
   if(message ==''){
     Swal.fire('please type protocol message', '', 'warning')
     return false;
@@ -56,6 +58,7 @@ function saveProtocolFunction(){
         url: "{{ url('admin/save-protocol') }}",
         data: {
           message : message,
+          prospect_id : prospect_id,
         },
         success: function(data) {
           if(data.status == true){

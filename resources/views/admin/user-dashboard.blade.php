@@ -101,17 +101,11 @@ function showProspect(type){
 function getProtocals(pid){
   showProspect(4);
   $.ajax({
-        headers: {
-          'X-CSRF-Token': $('meta[name=_token]').attr('content')
-        },
         type: 'GET',
         url: "{{ url('admin/get-protocals') }}",
         data: {
           prospect_id : pid,
         },
-        cache: false,
-        contentType: false,
-        processData: false,
         success: function(data) {
           $('#prospect-protocal-box').html(data.html);
         },

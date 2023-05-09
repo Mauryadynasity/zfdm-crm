@@ -166,17 +166,17 @@ class ProspactController extends Controller {
 		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
 	public function getProtocals(Request $request){
+		$prospect_id = $request->prospect_id;
 		$protocols = Protocol::get();
-		$returnHTML = view('admin.prospect.prospect-protocal',compact('protocols'))->render();
+		$returnHTML = view('admin.prospect.prospect-protocal',compact('protocols','prospect_id'))->render();
 		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
 	
 	public function saveProtocol(Request $request) {
-		// dd(Auth::gaurd('admin')->user());
 		Protocol::Create(
 			[	
-				'prospect_id' => 44,
-				'admin_id' => 1,
+				'prospect_id' => $request->prospect_id,
+				'admin_id' => Auth::guard('admin')->user()->id,
 				'messages' => $request->message,
 			
 			]);
